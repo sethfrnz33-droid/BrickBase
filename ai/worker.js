@@ -3,7 +3,7 @@ import {selectTopics} from "./knowledge.js";
 /* Shared Cloudflare Workers/Pages handler for Brick ECU site assistant.
  * Nothing is sent to the ECU, and no visitor inputs are stored in this app.
  */
-const MODEL="@cf/meta/llama-3.1-8b-instruct";
+const MODEL="@cf/meta/llama-3.1-8b-instruct-fast";
 function asJson(payload,status=200,extra={}){
  return new Response(JSON.stringify(payload),{status,headers:{"content-type":"application/json; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff",...extra}});
 }
