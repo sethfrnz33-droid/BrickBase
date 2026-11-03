@@ -133,7 +133,7 @@
          if(x.refs?.length){
            const refs=elm("p","ef-layer-refs");
            x.refs.slice(0,5).forEach((u,i)=>{if(!/^https:\/\//.test(u))return;
-             const a=elm("a",null,"Reference "+(i+1));a.href=u;a.target="_blank";a.rel="noopener noreferrer";
+             let domain="source";try{domain=new URL(u).hostname.replace(/^www\./,"");}catch(_){} const a=elm("a",null,"Source "+(i+1)+" · "+domain);a.href=u;a.target="_blank";a.rel="noopener noreferrer";
              refs.append(a);});
            part.append(refs);
          }
