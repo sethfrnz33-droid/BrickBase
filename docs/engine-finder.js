@@ -33,7 +33,7 @@
   function matchesSearch(e){
     const q=search.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
     if(!q.length)return true;
-    const str=[e.make,e.family,e.model,e.crank,e.cam,e.notes,e.fuel,e.research?.crankWheel,e.research?.camWheel,e.research?.electrical,e.research?.decoderCorrelation].filter(Boolean).join(" ").toLowerCase();
+    const str=[e.make,e.family,e.model,e.crank,e.cam,e.notes,e.fuel,e.research?.crankWheel,e.research?.camWheel,e.research?.electrical,e.research?.decoderCorrelation,e.integration?.sensors,e.integration?.ignition,e.integration?.actuators].filter(Boolean).join(" ").toLowerCase();
     return q.every(word=>str.includes(word));
   }
   function filtered(){
@@ -135,7 +135,41 @@
       link.href=url;link.target="_blank";link.rel="noopener noreferrer";
       refs.append(document.createTextNode("  ·  "),link);
     });
-    details.append(top,scores,scoreDisclaimer,grid,researchSection(e),note,scoreExplanation(e),warning,refs);
+    const integration=elm("section","ef-research");
+    integration.append(elm("h4",null,"Engine management and wiring research"));
+    const int=e.integration||{},d=elm("dl","ef-specs");
+    d.append(field("Crank/cam sensors and electrical requirements",int.sensors),
+      field("Ignition coils / power stages",int.ignition),
+      field("Injectors / fueling interface",int.injectors),
+      field("VVT, throttle and auxiliary actuators",int.actuators),
+      field("OEM connector and terminal mappings",int.vehicleWiring),
+      field("Required testing before installation",int.validation));
+    integration.append(d);
+    if(int.referenceScope)integration.append(elm("p","ef-research-note",int.referenceScope));
+    const conflicts=elm("section","ef-research");
+    conflicts.append(elm("h4",null,"Conflicting information and limitations"));
+    const issues=e.conflicts||[];
+    if(!issues.length)conflicts.append(elm("p","ef-research-note","No specific published conflict logged for this variant; this does not establish that its electrical information is verified."));
+    else for(const c of issues){
+      const p=elm("p","ef-research-note",c.issue);
+      const urls=[...new Set(c.refs||[])];
+      for(const url of urls){const a=elm("a",null,"Conflict reference");a.href=url;a.target="_blank";a.rel="noopener noreferrer";p.append(document.createTextNode(" · "),a);}
+      conflicts.append(p);
+    }
+    const audit=elm("section","ef-research");
+    audit.append(elm("h4",null,"Evidence and original sources"));
+    const ar=e.audit||{};
+    audit.append(elm("p","ef-research-note", "Original harness pinout verified: "+(ar.pinoutVerified?"Yes":"No")+" · Brick ECU installation tested: "+(ar.brickTested?"Yes":"No")+" · Evidence type: "+(ar.researchStatus||"unclassified")));
+    const ul=elm("ul");
+    for(const x of e.references||[]){
+      const li=elm("li");const a=elm("a",null,x.label||"Technical source");
+      a.href=x.url;a.target="_blank";a.rel="noopener noreferrer";li.append(a);
+      if(x.scope)li.append(document.createTextNode(" — "+x.scope));
+      ul.append(li);
+    }
+    if(ul.childElementCount) audit.append(ul);
+    else audit.append(elm("p",null,"No engine-specific external source verified; firmware reference links follow."));
+    details.append(top,scores,scoreDisclaimer,grid,researchSection(e),integration,conflicts,audit,note,scoreExplanation(e),warning,refs);
   }
   function renderList(){
     const found=filtered();list.replaceChildren();
