@@ -88,3 +88,19 @@ Cloudflare Workers is connected to this GitHub repository; changes to the config
 - **GM Gen II LT1/LT4 Optispark:** the distributor is driven at cam speed and contains **360 high-resolution optical slots per distributor revolution** (equivalent to **180 slots per crankshaft revolution**) plus a separate **8-slot, varying-width low-resolution track**. Do not incorrectly classify it as >300 teeth *per crank revolution* based on the 360-slot number.
 - Current rusEFI offers the exact trigger option **`GM LT1 Optispark (8-slot only)`**. This uses the low-resolution 8-slot track and *does not* read the 360-slot track. An aftermarket crank trigger wheel is **not inherently required** if the 8-slot decoding and installation are suitable, but is a reasonable separately validated option when higher-resolution triggering is desired.
 - As with all engine guides, require actual sync logs and verified ignition timing stability before advertising confirmed support. References: https://github.com/rusefi/rusefi/blob/master/firmware/integration/rusefi_config.txt and https://www.msextra.com/doc/pdf/MS3XV357_Hardware-1.4.pdf .
+
+## Engine finder confidence methodology
+
+The 166-entry `docs/engine-finder-data.js` catalog contains separate per-entry `confidence.big` and `confidence.mini` **non-statistical engineering screening percentages** plus `confidence.basis[]` explanations. These are not verified success probabilities, test results, installation recommendations or guaranteed engine compatibility. No engine in this list is asserted to have run on a Brick ECU.
+
+**Rubric v1** (applied to native factory trigger and original factory fuel system):
+- Trigger evidence: named rusEFI decoder +42; source-identified generic wheel candidate +30; unknown exact crank/cam configuration +14; broken or stock-unsupported = 0.
+- Phase evidence: known cam/VVT mode adds up to 12; less certain information adds 3–7.
+- Hardware: Big Brick up to 8 cylinders +26; 9–12 cylinders +16 and penalty for mandatory batch fuel. Mini Brick 1–4 cylinders +24; 5–6 cylinders +11 with added wasted-spark/injector-allocation penalty; >6 cylinders = 0.
+- Additional caps/penalties for non-native actuator control such as BMW Valvetronic, passive ignition-coil drivers, quad-cam VVT, S54 complexities, decoder issues and unverified Honda K timing wander.
+- Original factory GDI, unsupported Nissan factory 360-slot optical CAS, broken decoders, and unverified rotary fuel/ignition scheduling = 0% in the *native-stock-system assessment*. Aftermarket trigger replacements, port-injection conversions, or external GDI controller experiments are not evaluated by this score.
+- Maximum permitted untested score is 80%; confirmation would require correct OEM variant, sensor waveforms/voltage, firmware mode, sync logs, fixed-timing verification, safe coil/injector drivers, and an actual installation validation record.
+
+**2026-11 review corrections:** the Ford Coyote Gen I pattern is documented as 36-1 by Haltech, while Gen III is described as 60-2 in third-party tuning documentation (the Gen IV wheel remains unverified); the rusEFI wiki explicitly does not support Nissan's factory high-resolution optical CAS; 4B11 and 4G69 are listed examples of 36-2-1. Exact engine variants and all wiring are still unvalidated. Selected individual entries include technical-source links.
+
+Source references: [latest rusEFI trigger menu](https://github.com/rusefi/rusefi/blob/master/firmware/integration/rusefi_config.txt), [supported trigger wiki](https://wiki.rusefi.com/All-Supported-Triggers/), [rusEFI wiring and injection limits](https://wiki.rusefi.com/FAQ-Basic-Wiring-and-Connections/), [Ford Coyote trigger reference](https://support.haltech.com/portal/en/kb/articles/coyote-engine).
