@@ -1,10 +1,12 @@
 import {API_ENDPOINT} from "./config.js";
 
-/* Small, intentionally unobtrusive site assistant.
- * The launcher is only shown after a working AI backend responds to /health.
+/* Site-wide Brick documentation assistant: always available.
+ * Cloudflare AI is used only after the configured free-tier Worker responds.
+ * When the Worker is unavailable, clearly labelled local FAQ guidance still works.
  * No transcript is written to browser storage.
  */
 const ENDPOINT=API_ENDPOINT;
+let aiReady=false, statusLabel=null;
 const validSource=url=>typeof url==="string"&&/^\/(?!\/)(?:docs|products)\/[a-z0-9/._-]+(?:#[a-z0-9_-]+)?$/i.test(url)||url==="/terms.html";
 function el(tag,cls,text){
  const node=document.createElement(tag);
@@ -25,6 +27,35 @@ function linkList(sources){
  }
  return wrap;
 }
+function localAnswer(question){
+ const q=String(question||"").toLowerCase();
+ if(/injector|impedance|peak.and.hold|saturated/.test(q)){
+   return {answer:"Standard high-impedance (>8 Ω) port injectors are natively supported on Brick ECU. Low-impedance injectors need suitable current limiting. For the injector count and output assignments, check the ECU specification and the Engine Finder.",sources:[{title:"Engine Finder",url:"/docs/compatibility.html"},{title:"Big Brick technical specs",url:"/docs/big-brick.html"}]};
+ }
+ if(/pinout|connector|harness|cavity|wiring|wire|can bus|ground|vr sensor|hall sensor/.test(q)){
+   return {answer:"The Big Brick 94-pin lookup identifies the documented connector assignments. Verify connector orientation, exact ECU hardware revision, OEM sensor wiring and electrical loads before installation. I can't confirm a wiring connection from a chat question alone.",sources:[{title:"Big Brick pinout",url:"/docs/big-brick-pinout.html"},{title:"Mini Brick documentation",url:"/docs/mini-brick.html"},{title:"Installation planning",url:"/docs/planning.html"}]};
+ }
+ if(/tuner|tuning|afr|fuel map|ve table|spark|ignition map|dwell|wideband|auto.?tune|fuel trim|idle|dbw/.test(q)){
+   return {answer:"Brick ECUs work with TunerStudio; the registered edition provides additional tuning tools. Big Brick has an onboard LSU 4.9 wideband, while Mini Brick uses an external wideband. For safe calibration, use the relevant manuals and qualified tuning help rather than guessed fuel or ignition values.",sources:[{title:"Tuning and Wi-Fi",url:"/docs/software.html"},{title:"Downloads",url:"/docs/downloads.html"}]};
+ }
+ if(/warranty|return|refund|shipping|ship|purchase|buy|cost|price|delivery|order|contact|support/.test(q)){
+   return {answer:"Mini Brick is CAD $600 and Big Brick is CAD $1,200, including the mating connector kits and advertised shipping. Units are made in small batches; allow up to four weeks before dispatch. A one-year limited defect warranty applies, with email support. Read the full ordering and safety terms before buying.",sources:[{title:"Ordering, warranty and safety",url:"/terms.html"}]};
+ }
+ if(/mini|little brick|f407/.test(q)&&!/big/.test(q)){
+   return {answer:"Mini Brick is intended for four-cylinder engines and selected six-cylinder wasted-spark builds. It has four dedicated injector outputs, four ignition signals, native Wi-Fi, CAN and one DBW H-bridge. Mini does not include a wideband controller or native GDI support.",sources:[{title:"Mini Brick hardware",url:"/products/mini-brick.html"},{title:"Mini Brick technical specs",url:"/docs/mini-brick.html"}]};
+ }
+ if(/big|proteus|v8|eight.cylinder|twelve.cylinder/.test(q)&&!/mini/.test(q)){
+   return {answer:"Big Brick provides up to eight-cylinder sequential fuel and spark, 16 low-side outputs (including six IGBT-capable ignition channels), 12 separate 5 V smart-coil outputs, integrated LSU 4.9 wideband, knock sensing and Wi-Fi. Check output allocation against your engine's actual hardware.",sources:[{title:"Big Brick hardware",url:"/products/big-brick.html"},{title:"Big Brick pinout",url:"/docs/big-brick-pinout.html"}]};
+ }
+ if(/vq35|gen.iv|\bls\d|engine|trigger|crank|cam|compatib|supported/.test(q)){
+   return {answer:"The developer reports running VQ35DE and a Gen IV LS engine successfully on Big Brick. The exact LS engine code wasn't recorded, and a family-level example isn't proof of every variant. Use the Engine Finder for engine-specific trigger and sensor references.",sources:[{title:"Engine Finder",url:"/docs/compatibility.html"}]};
+ }
+ if(/mini|compare|difference|which one/.test(q)){
+   return {answer:"Mini Brick is the compact CAD $600 option for typical four-cylinder or selected wasted-spark builds; Big Brick is the CAD $1,200 model with more I/O, onboard wideband, knock sensing and broader cylinder support. Both include Wi-Fi tuning and mating connector kits.",sources:[{title:"Mini Brick",url:"/products/mini-brick.html"},{title:"Big Brick",url:"/products/big-brick.html"}]};
+ }
+ return {answer:"I can help find Brick ECU hardware specifications, engine references, tuning documentation, warranty details and wiring diagrams. The AI service is currently offline, so this answer uses the built-in reference guide rather than generated AI. Try asking about an ECU model, injector type or technical manual.",sources:[{title:"Documentation",url:"/docs/index.html"},{title:"Engine Finder",url:"/docs/compatibility.html"}]};
+}
+
 function initialize(){
  if(document.getElementById("brick-help-toggle"))return;
  const launcher=el("button","brick-help-toggle","Ask Brick");
@@ -40,7 +71,8 @@ function initialize(){
  panel.setAttribute("aria-label","Brick ECU documentation assistant");
  const header=el("div","brick-help-header");
  const heading=el("div","brick-help-heading");
- heading.append(el("strong",null,"Ask Brick"),el("span",null,"Hardware, wiring & tuning help"));
+ statusLabel=el("span",null,"Documentation help · Checking AI");
+ heading.append(el("strong",null,"Ask Brick"),statusLabel);
  const close=el("button","brick-help-close","×");
  close.type="button";close.setAttribute("aria-label","Close assistant");
  header.append(heading,close);
@@ -88,6 +120,13 @@ function initialize(){
    addMessage(question,"user");
    input.value="";
    const pending=addMessage("Looking through Brick ECU references…","assistant");
+   if(!aiReady){
+     pending.remove();
+     const local=localAnswer(question);
+     addMessage(local.answer,"assistant",local.sources);
+     busy=false;send.disabled=false;input.disabled=false;input.focus();
+     return;
+   }
    try{
      const response=await fetch(ENDPOINT,{
        method:"POST",headers:{"content-type":"application/json","accept":"application/json"},
@@ -96,7 +135,10 @@ function initialize(){
      const data=await response.json();
      pending.remove();
      if(!response.ok||!data.answer){
-       addMessage(data.error||"The assistant is unavailable. Use the linked docs instead.","assistant",data.sources);
+       aiReady=false;
+       if(statusLabel)statusLabel.textContent="Documentation help · AI offline";
+       const local=localAnswer(question);
+       addMessage(local.answer,"assistant",local.sources);
        return;
      }
      addMessage(data.answer,"assistant",data.sources);
@@ -104,10 +146,10 @@ function initialize(){
      if(history.length>6)history.splice(0,history.length-6);
    }catch(_){
      pending.remove();
-     addMessage("The AI service isn't reachable right now. Try the Engine Finder or hardware documentation.","assistant",[
-       {title:"Engine Finder",url:"/docs/compatibility.html"},
-       {title:"Documentation",url:"/docs/index.html"}
-     ]);
+     aiReady=false;
+     if(statusLabel)statusLabel.textContent="Documentation help · AI offline";
+     const local=localAnswer(question);
+     addMessage(local.answer,"assistant",local.sources);
    }finally{busy=false;send.disabled=false;input.disabled=false;input.focus()}
  }
  for(const prompt of prompts){
@@ -119,16 +161,21 @@ function initialize(){
  form.addEventListener("submit",event=>{event.preventDefault();ask(input.value)});
 }
 async function probe(){
+ initialize(); // Never hide the widget just because Cloudflare AI is unavailable.
  try{
    const controller=new AbortController();
    const timer=setTimeout(()=>controller.abort(),5000);
    let response;
    try{response=await fetch(ENDPOINT,{method:"GET",headers:{"accept":"application/json"},signal:controller.signal});}
    finally{clearTimeout(timer)}
-   if(!response.ok)return;
+   if(!response.ok)throw new Error("Assistant endpoint unavailable");
    const data=await response.json();
-   if(data?.service==="Brick ECU help"&&data.configured===true)initialize();
- }catch(_){/* No public launcher until a functioning AI backend is deployed. */}
+   aiReady=(data?.service==="Brick ECU help"&&data.configured===true);
+   if(statusLabel)statusLabel.textContent=aiReady?"Free Cloudflare AI · Documentation":"Documentation help · AI offline";
+ }catch(_){
+   aiReady=false;
+   if(statusLabel)statusLabel.textContent="Documentation help · AI offline";
+ }
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",probe,{once:true});
 else probe();
