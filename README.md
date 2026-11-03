@@ -27,4 +27,4 @@ The site is entirely static. Cloudflare should point its deployment to the repos
 
 ## Photos and checkout
 
-Product photography from the owner has been provided in conversation but **has not yet been uploaded to GitHub**; labeled image placeholders remain on the site. Checkout links are also not connected. See [PHOTO_GUIDE.md](PHOTO_GUIDE.md).
+The storefront now references six prepared product/vehicle/software photos under `assets/`, including `big-brick.webp`, `mini-brick.webp`, and `vehicle.webp`. The images must be uploaded to the repository's `assets/` directory for them to display; placeholders remain as a fallback until that happens. Checkout links are also not connected. See [PHOTO_GUIDE.md](PHOTO_GUIDE.md).
