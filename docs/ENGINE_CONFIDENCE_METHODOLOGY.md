@@ -59,7 +59,7 @@ A real source conflict or model variance is recorded, not averaged away:
 
 The new v2 subsystem profiles are **not OEM certified**; exact source-specific rules exist for a subset of engines. Others intentionally display `unknown` for unverified factory coil type, coil layout, MAP/MAF, VVT or source signal. The derived generic requirements (one port injector per cylinder, COP demand if applicable) are explicitly conditional estimates.
 
-Important original source data and warnings remain in `engine-finder-data.js`, `engine-finder-expansion.js`, and [the unfinished research audit](ENGINE_RESEARCH_AUDIT.md). These are **not** finished installation guides. Until engine-year pin views, waveform logs, sensor electrical data, and a Brick-running test are independently verified, **no entry is marked finished**.
+Important original source data and warnings remain in `engine-finder-data.js`, `engine-finder-expansion.js`, and [the unfinished research audit](ENGINE_RESEARCH_AUDIT.md). These are **not** finished installation guides. The Brick ECU developer reports **VQ35DE** and a **Gen IV LS** running successfully on Big Brick; their full setup details have not yet been published. Entries remain research-stage until the exact OEM pin views, waveforms and sensor configurations are recorded.
 
 ## Work required before actual compatibility approval
 
