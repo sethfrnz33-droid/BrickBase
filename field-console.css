@@ -387,3 +387,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #b6
  .ef-result:hover{transform:none}
  .audit-stat,.audit-progress{padding:12px}
 }
+
+/* Result cards are compact index entries; complete trigger details remain in the open record. */
+.ef-result-trigger{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;line-height:1.45}
+.ef-result-name{line-height:1.36}
+.ef-result-family{line-height:1.36}
