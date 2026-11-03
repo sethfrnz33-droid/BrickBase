@@ -82,10 +82,10 @@
        unknown:"Unknown: coil and driver require source verification"
      })[dat.coilType]||"Unknown"),
      field("Stock load sensor",({
-       map:"Manifold MAP",both:"MAP and MAF",maf:"MAF, no confirmed manifold MAP",
+       map:"Manifold MAP",both:"MAP and MAF",maf:"MAF, no confirmed manifold MAP",\n       "limited-map":"Stock MAP present, but limited calibration / vacuum range",
        mixed:"Model-year/market dependent MAP or MAF",unknown:"Unknown; no assumed factory MAP"
      })[dat.factoryLoadSensor]||"Unknown"),
-     field("Ignition firing topology",dat.ignitionLayout||"unknown"),
+     field("Ignition firing topology",(dat.ignitionLayout==="twin-distributor"?"Two coils via two distributors":dat.ignitionLayout)||"unknown"),
      field("Cam/VVT complexity",dat.vvtClass||"unknown"));
     const engineNotes=(dat.notes||[]);
     if(engineNotes.length){
