@@ -17,6 +17,14 @@ This provides short answers to basic Brick ECU product, wiring-reference and tun
 
 BrickBase currently has static HTML/CSS/JS with **no Worker entry script or Wrangler asset configuration in this repository**. GitHub auto-deployment of the storefront alone will *not* activate an API route or AI binding. Do **not** add secret keys to the public website. Workers AI uses a server-side Cloudflare `AI` binding.
 
+### Easiest setup — Cloudflare dashboard + existing GitHub repository
+
+You can use Cloudflare's built-in **GitHub Worker deployment** without setting up a local build tool. In Workers & Pages → **Create application → GitHub**, select the **same BrickBase repository** again to create a **separate** Worker. For this new Worker, set the **root directory to `ai`** (which contains `wrangler.jsonc`); use the Worker name **`brick-ecu-help`**, matching that config. Cloudflare's default deploy command is `npx wrangler deploy`. Confirm the `AI` binding appears in the new Worker's settings and inspect the deployed Worker URL. This is a separate app and does not replace the existing storefront.
+
+Then follow steps 3–5 in Option A below to allow the store's exact origin and set `ai/config.js` to the new Worker's real URL. **An account owner must configure the Cloudflare Worker and billing/security settings; this code commit cannot turn on the live service by itself.**
+
+References: [Cloudflare Git integration](https://developers.cloudflare.com/workers/ci-cd/builds/) and [monorepo root directories](https://developers.cloudflare.com/workers/ci-cd/builds/advanced-setups/).
+
 ### Option A — separate backend Worker (does not affect store deployment)
 
 1. In your local clone of BrickBase, open a terminal in `ai/`. Log in to the appropriate Cloudflare account with `npx wrangler login`.
