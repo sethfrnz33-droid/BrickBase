@@ -50,6 +50,7 @@ function calc(e,m,ecu){
    const status=e.level==="named"?"Named decoder":e.level==="pattern"?"Physical-wheel candidate":"Not established";
    let v=e.level==="named"?77:e.level==="pattern"?62:29;
    if((e.research?.status||"")==="decoder-only")v=Math.min(v,42);
+   if((e.research?.status||"")==="generic-correlation-pending"||(e.research?.status||"")==="oem-wheel-sourced")v=Math.min(v,46);
    if(/family-wheel-sourced/.test(e.research?.status||""))v=Math.min(v,65);
    if(m.gdi&&e.level==="blocked")v=35;
    if(/timing wander/i.test(e.notes||""))v=Math.min(v,45); // GDI blocks fueling, not automatically trigger geometry.
