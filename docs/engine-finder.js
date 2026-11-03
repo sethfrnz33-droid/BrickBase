@@ -155,6 +155,13 @@
     wrap.append(elm("p","ef-layer-disclaimer",v.disclaimer));
     return wrap;
   }
+  function fold(label,content,expanded=false){
+    const panel=elm("details","ef-subsection");
+    const heading=elm("summary",null,label);
+    panel.append(heading,content);
+    if(expanded)panel.open=true;
+    return panel;
+  }
   function researchSection(e){
     const r=e.research,wrap=elm("section","ef-research");
     wrap.append(elm("h4",null,"OEM trigger-wheel research"));
@@ -197,7 +204,7 @@
     details.replaceChildren();
     if(!selected||!byId.has(selected)){
       const empty=elm("div","ef-placeholder");
-      empty.append(elm("h3",null,"Select an engine to view its trigger reference"),elm("p",null,"Choose a make, family and model above, or search for an engine code and select a matching result."));
+      empty.append(elm("h3",null,"Select an engine to explore its reference"),elm("p",null,"Choose an engine from the list or search by engine code."));
       details.append(empty);return;
     }
     const e=byId.get(selected),top=elm("div","ef-detail-top");
@@ -207,7 +214,7 @@
     top.append(kicker,title,flag);
     const scores=elm("div","ef-scores");
     scores.append(scoreCard("Big Brick",e.confidenceV2?.big?.score??e.confidence?.big??0),scoreCard("Mini Brick",e.confidenceV2?.mini?.score??e.confidence?.mini??0));
-    const scoreDisclaimer=elm("p","ef-score-disclaimer","Seven weighted engineering evidence layers for stock engine systems, NOT measured probabilities, tests or validated installations. A zero total means a native stock-system blocker, not that a redesigned engine can never work.");
+    const scoreDisclaimer=elm("p","ef-score-disclaimer","Research screening only—not a tested installation or success probability. Known stock-system blockers score zero.");
     const grid=elm("dl","ef-specs");
     grid.append(field("Engine",e.make+" / "+e.family+" / "+e.model),field("Cylinders / rotors",e.cyl===0?"2 rotors (rotary)":String(e.cyl)),field("Fuel system",e.fuel),field("rusEFI crank / trigger selection",e.crank),field("rusEFI cam / VVT selection",e.cam),field("ECU channel suitability",ecuFit(e)));
     const note=elm("div","ef-detail-note");
@@ -261,7 +268,16 @@
     }
     if(ul.childElementCount) audit.append(ul);
     else audit.append(elm("p",null,"No engine-specific external source verified; firmware reference links follow."));
-    details.append(top,scores,scoreDisclaimer,confidenceLayerSection(e),grid,researchSection(e),integration,conflicts,audit,note,warning,refs);
+    audit.append(refs);
+    const panels=[
+      fold("Engine and trigger reference",grid,true),
+      fold("Factory crank and cam research",researchSection(e)),
+      fold("Sensors, injectors and wiring",integration),
+      ...(issues.length?[fold("Conflicting sources and limitations ("+issues.length+")",conflicts)]:[]),
+      fold("Variant notes and cautions",note),
+      fold("Technical reference library ("+(e.references?.length||0)+")",audit)
+    ];
+    details.append(top,scores,scoreDisclaimer,warning,confidenceLayerSection(e),...panels);
   }
   function renderList(){
     const found=filtered();list.replaceChildren();
