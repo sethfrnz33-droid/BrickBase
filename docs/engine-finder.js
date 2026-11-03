@@ -79,10 +79,16 @@
       "family-wheel-sourced":"Family documented; exact variant wheel remains to confirm",
       "oem-wheel-sourced":"OEM wheel documented; rusEFI correlation unresolved",
       "partial-wheel-sourced":"Partial OEM wheel research; more evidence required",
-      "hardware-constraint":"OEM hardware limitation identified"
+      "hardware-constraint":"OEM hardware limitation identified",
+      "generic-correlation-pending":"OEM shape documented; generic rusEFI cam/crank pairing needs validation"
     }[r.status]||"Research in progress"));
     const dl=elm("dl","ef-specs");
     dl.append(field("OEM crank wheel",r.crankWheel),field("OEM cam/phase wheel",r.camWheel),field("OEM sensor hardware",r.electrical),field("rusEFI decoder correlation",r.decoderCorrelation),field("Still to verify",r.remaining));
+    if(r.genericWheel){
+      const g=r.genericWheel;
+      dl.append(field("Custom wheel candidate",g.menu+": "+g.total+" nominal positions / "+g.missing+" missing / "+g.operation));
+      if(g.caution)dl.append(field("Custom wheel caveat",g.caution));
+    }
     wrap.append(badge,dl);
     if(r.notes)wrap.append(elm("p","ef-research-note",r.notes));
     return wrap;
