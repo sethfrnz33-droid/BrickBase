@@ -3,8 +3,8 @@
  "use strict";
  const data=Array.isArray(window.BRICK_ENGINE_PRESETS)?window.BRICK_ENGINE_PRESETS:[];
  const q=id=>document.getElementById(id);
- const make=q("audit-make"), stage=q("audit-stage"),search=q("audit-search"),completion=q("audit-completion"),rows=q("audit-rows");
- if(!make||!stage||!search||!completion||!rows)return;
+ const make=q("audit-make"), stage=q("audit-stage"),gap=q("audit-gap"),search=q("audit-search"),completion=q("audit-completion"),rows=q("audit-rows");
+ if(!make||!stage||!gap||!search||!completion||!rows)return;
  const descriptions={
   "wheel-sourced":"Specific trigger-wheel geometry sourced",
   "family-wheel-sourced":"Engine-family wheel data sourced",
@@ -38,11 +38,12 @@
    const terms=search.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
    const filtered=data.filter(e=>(!make.value||e.make===make.value)&&(!stage.value||stage.value===(e.research?.status||"unknown"))&&
       (!completion.value||(completion.value==="complete"&&isComplete(e))||(completion.value==="incomplete"&&!isComplete(e)))&&
+      (!gap.value||(e.confidenceV2?.coverage?.checks||[]).some(c=>c.id===gap.value&&!c.done))&&
       terms.every(term=>[e.make,e.family,e.model,e.research?.crankWheel,e.research?.remaining,e.integration?.validation].filter(Boolean).join(" ").toLowerCase().includes(term)))
      .sort((a,b)=>sort(a.make+" "+a.family+" "+a.model,b.make+" "+b.family+" "+b.model));
    rows.replaceChildren();
    q("audit-result").textContent=filtered.length+" / "+data.length+" engines shown";
-   if(!filtered.length){const tr=document.createElement("tr");const td=cell(tr,"No matching engine records.");td.colSpan=7;rows.append(tr);return;}
+   if(!filtered.length){const tr=document.createElement("tr");const td=cell(tr,"No matching engine records.");td.colSpan=8;rows.append(tr);return;}
    const fragment=document.createDocumentFragment();
    for(const e of filtered){
      const tr=document.createElement("tr");
@@ -50,6 +51,7 @@
      cell(tr,isComplete(e)?"Finished / verified":"Unfinished / untested").className="audit-unknown";
      cell(tr,(e.confidenceV2?.big?.score??"—")+"/100").className="audit-category";
      cell(tr,(e.confidenceV2?.mini?.score??"—")+"/100").className="audit-category";
+     cell(tr,e.confidenceV2?.coverage?(e.confidenceV2.coverage.known+"/"+e.confidenceV2.coverage.total+" sourced"):"No audit").className="audit-category";
      cell(tr,descriptions[e.research?.status]||e.research?.status||"Unknown").className="audit-category";
      const missing=cell(tr,e.research?.remaining||e.integration?.validation||"Exact OEM wiring, trigger/cam decoding, input conditioning, sensor calibration and live Brick validation still needed.");
      if(e.conflicts?.length){const conflicting=document.createElement("p");conflicting.className="audit-conflict";conflicting.textContent=e.conflicts.length+" known conflict(s) or special warnings recorded";missing.append(conflicting);}
@@ -64,7 +66,7 @@
    }
    rows.append(fragment);
  }
- for(const ctrl of [make,stage,completion])ctrl.addEventListener("change",render);
+ for(const ctrl of [make,stage,gap,completion])ctrl.addEventListener("change",render);
  search.addEventListener("input",render);
  render();
 })();
