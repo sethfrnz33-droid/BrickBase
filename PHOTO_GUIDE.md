@@ -4,8 +4,10 @@ The storefront now uses the supplied Mini Brick and Big Brick board images. The 
 
 ## Present in the repository
 
-- `assets/mini-brick.webp` — Mini Brick PCB render
-- `assets/big-brick.webp` — Big Brick PCB render
+- `assets/mini-brick-transparent.png` — Mini Brick PCB render with transparent background (current storefront image)
+- `assets/mini-brick.webp` — older Mini Brick PCB render (retained as an unused legacy asset)
+- `assets/big-brick-transparent.png` — Big Brick PCB render with transparent background (current storefront image)
+- `assets/big-brick.webp` — older Big Brick PCB render (retained as an unused legacy asset)
 - `assets/vehicle.webp` — automotive action photograph
 - Additional tuning images in `assets/` may be used in future documentation.
 
