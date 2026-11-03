@@ -6,8 +6,8 @@ Official static Brick ECU storefront. Built as plain HTML/CSS/JavaScript with no
 
 - `index.html` — product pages, comparison, FAQ, full Big Brick connector section.
 - `glass.css` — translucent, Pikmin-inspired blue-green design (original styling, no Nintendo assets).
-- `pinout.js` — searchable/copyable **94-position** Big Brick ECU connector reference.
-- `PHOTO_GUIDE.md` — image capture instructions and launch checklist.
+- `pinout.js` — searchable/copyable **94-position** Big Brick ECU connector reference. All IGN1–IGN12 outputs are 5 V logic; HS1–HS4 are separate VBAT high-side outputs.
+- `commerce.css` — product-centric layout, comparison and ordering sections.\n- `PHOTO_GUIDE.md` — image capture instructions and launch checklist.
 
 ## Current advertised products
 
@@ -19,7 +19,7 @@ Both products include mating harness connectors and pins.
 
 ## Pinout caution
 
-The Big Brick connector reference is transcribed from the supplied hardware drawing and corrections, **not an independently validated vehicle harness schematic**. A17 is sensor ground (SGND), and A19 is AV8, per the latest corrections. The source labels C31–C34 as 12 V ignition logic; this also requires checking against the final hardware and coil interface. Do not wire based on unresolved labels.
+The Big Brick connector reference is transcribed from the supplied hardware drawing and corrections, **not an independently validated vehicle harness schematic**. A17 is sensor ground (SGND), and A19 is AV8, per the latest corrections. The source previously mislabeled C31–C34; the user confirmed all 12 smart ignition outputs are 5 V logic. Do not wire based on unresolved labels.
 
 ## Deployment
 
