@@ -9,7 +9,8 @@ Official static Brick ECU storefront. Built as plain HTML/CSS/JavaScript with no
 - `pinout.js` — searchable/copyable **94-position** Big Brick ECU connector reference. All IGN1–IGN12 outputs are 5 V logic; HS1–HS4 are separate VBAT high-side outputs.
 - `commerce.css` — product-centric layout, comparison and ordering sections.
 - `hud.css` — radar-style glowing glass panels, navigation capsules, scanning and floating decorative elements.
-- `hud.js` — scroll progress, animated reveals and pointer parallax with reduced-motion accommodations.\n- `PHOTO_GUIDE.md` — image capture instructions and launch checklist.
+- `hud.js` — scroll progress, animated reveals and pointer parallax with reduced-motion accommodations.
+- `pikmin-menu.css` — retro blue beveled encyclopedia-menu treatment inspired by the supplied visual reference, with original assets and styling.\n- `PHOTO_GUIDE.md` — image capture instructions and launch checklist.
 
 ## Current advertised products
 
