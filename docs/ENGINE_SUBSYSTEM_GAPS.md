@@ -1,6 +1,6 @@
 # Brick ECU — engine field-by-field evidence ledger
 
-**Generated from the current 237-record live catalog on 2026-11-03.** This is a **research queue**, not a compatibility endorsement, wiring plan or tested ECU installation. Source-backed data may refer to a specific donor year only. A nominal 0–79/100 engineering score is not a probability. None of the records has been fully validated on an operating Brick ECU.
+**Generated from the current 237-record live catalog on 2026-11-03.** This is a **research queue**, not a compatibility endorsement, wiring plan or tested ECU installation. Source-backed data may refer to a specific donor year only. A nominal 0–79/100 engineering score is not a probability. Developer-reported successful Big Brick engine tests exist for VQ35DE and a Gen IV LS family engine, but full pinout and calibration records are not yet published.
 
 ## Verified research fields versus still open
 
@@ -10,7 +10,7 @@
 | Factory load-sensor type (MAP/MAF) | 102 | 135 |
 | Original port injector count (not driver compatibility) | 71 | 166 |
 | Injector impedance class | 6 | 231 |
-| Fully validated Brick installation | 0 | 237 |
+| Complete published installation guide | 0 | 237 |
 
 The layered engine finder also has an **eight-check source-coverage score** separate from Big/Mini hardware compatibility. An entry is never considered finished without source-verified original connector/sensor information, stable synchronized firmware setup, electrical driver compliance and actual Brick operation. Source-backed is not the same as installed/tested. Direct engine-specific links are in the [engine finder](compatibility.html) under the individual layers.
 
