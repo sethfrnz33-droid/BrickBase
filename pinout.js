@@ -18,13 +18,30 @@ C:[
 ["C1","LS16","Output","Low-side / IGBT igniter, 5 A max"],["C2","LS15","Output","Low-side / IGBT igniter, 5 A max"],["C3","LS14","Output","Low-side / IGBT igniter, 5 A max"],["C4","LS13","Output","Low-side / IGBT igniter, 5 A max"],["C5","LS12","Output","Low-side / IGBT igniter, 5 A max"],["C6","LS11","Output","Low-side / IGBT igniter, 5 A max"],["C7","LS10","Output","Low-side, 2 A max"],["C8","LS9","Output","Low-side, 2 A max"],["C9","PRTL","Control","Reset saved Wi-Fi SSID/password if credentials are forgotten"],["C10","LS8","Output","Low-side, 2 A max"],["C11","LS7","Output","Low-side, 2 A max"],["C12","LS6","Output","Low-side, 2 A max"],["C13","LS5","Output","Low-side, 2 A max"],["C14","LS4","Output","Low-side, 2 A max"],["C15","LS3","Output","Low-side, 2 A max"],["C16","LS2","Output","Low-side, 2 A max"],["C17","LS1","Output","Low-side, 2 A max"],
 ["C18","IGN8","Output","5 V smart ignition logic (confirmed)"],["C19","IGN7","Output","5 V smart ignition logic (confirmed)"],["C20","IGN6","Output","5 V smart ignition logic (confirmed)"],["C21","IGN5","Output","5 V smart ignition logic (confirmed)"],["C22","IGN4","Output","5 V smart ignition logic (confirmed)"],["C23","IGN3","Output","5 V smart ignition logic (confirmed)"],["C24","IGN2","Output","5 V smart ignition logic (confirmed)"],["C25","IGN1","Output","5 V smart ignition logic (confirmed)"],["C26","PGND","Ground","Engine-block power ground"],["C27","PGND","Ground","Engine-block power ground"],["C28","PGND","Ground","Engine-block power ground"],["C29","PGND","Ground","Engine-block power ground"],["C30","PGND","Ground","Engine-block power ground"],["C31","IGN12","Output","5 V smart ignition logic (confirmed)"],["C32","IGN11","Output","5 V smart ignition logic (confirmed)"],["C33","IGN10","Output","5 V smart ignition logic (confirmed)"],["C34","IGN9","Output","5 V smart ignition logic (confirmed)"]
 ]};
+
+/* Function colors match Mini Brick; pin assignments remain unchanged. */
+const pinTone=signal=>{
+ if(signal.startsWith("LS")&&Number.isInteger(Number(signal.slice(2))))return "low";
+ if(signal.startsWith("IGN")&&Number.isInteger(Number(signal.slice(3))))return "ign";
+ if(signal.startsWith("HS")&&Number.isInteger(Number(signal.slice(2))))return "high";
+ if(["SGND","PGND"].includes(signal))return "ground";
+ if(signal==="S5V")return "sensor";
+ if(signal.startsWith("CAN-"))return "comms";
+ if(signal.startsWith("ETB")&&signal!=="ETB12V")return "bridge";
+ if(["ETB12V","KEY/VIN","WB12V+"].includes(signal))return "power";
+ if(signal.startsWith("AV")||signal.length===2&&signal[0]==="D")return "analog";
+ if(signal.startsWith("AT")||signal.startsWith("VR"))return "temperature";
+ if(signal.startsWith("KNOCK")||["HEAT+","HEAT−","APE/IP","IPN/VM","RT/IA","UN/RE"].includes(signal))return "aux";
+ if(signal==="PRTL")return "control";
+ return "neutral";
+};
 const root=document.getElementById("pinout-root");
 if(root){
 const connector=document.getElementById("pin-connector"),search=document.getElementById("pin-search"),count=document.getElementById("pin-count"),copy=document.getElementById("pin-copy");
 const render=()=>{
 let all=[...groups[connector.value]??[],...(connector.value==="all"?[...groups.A,...groups.B,...groups.C]:[])];
 const q=search.value.toLowerCase().trim();all=all.filter(r=>r.join(" ").toLowerCase().includes(q));
-root.replaceChildren();all.forEach(r=>{const tr=document.createElement("tr");[r[0],r[1],r[2],r[3]].forEach((v,i)=>{const td=document.createElement("td");if(i===2){const s=document.createElement("span");s.className="pin-type";s.textContent=v;td.append(s)}else td.textContent=v;tr.append(td)});root.append(tr)});count.textContent=all.length+" / 94 pins shown";
+root.replaceChildren();all.forEach(r=>{const tr=document.createElement("tr");[r[0],r[1],r[2],r[3]].forEach((v,i)=>{const td=document.createElement("td");if(i===1){const swatch=document.createElement("span");swatch.className="big-pin-dot big-pin-dot-"+pinTone(v);swatch.setAttribute("aria-hidden","true");td.append(swatch,document.createTextNode(v));}else if(i===2){const badge=document.createElement("span");badge.className="pin-type";badge.textContent=v;td.append(badge)}else td.textContent=v;tr.append(td)});root.append(tr)});count.textContent=all.length+" / 94 pins shown";
 };
 connector.addEventListener("change",render);search.addEventListener("input",render);
 copy.addEventListener("click",async()=>{const rows=[...root.rows].map(r=>[...r.cells].map(c=>c.textContent).join("\t"));const data="Pin\tID\tType\tDescription\n"+rows.join("\n");try{await navigator.clipboard.writeText(data);copy.textContent="Copied";setTimeout(()=>copy.textContent="Copy visible pins",1800)}catch(e){copy.textContent="Copy unavailable"}});
