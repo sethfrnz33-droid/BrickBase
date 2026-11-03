@@ -42,12 +42,14 @@
      .sort((a,b)=>sort(a.make+" "+a.family+" "+a.model,b.make+" "+b.family+" "+b.model));
    rows.replaceChildren();
    q("audit-result").textContent=filtered.length+" / "+data.length+" engines shown";
-   if(!filtered.length){const tr=document.createElement("tr");const td=cell(tr,"No matching engine records.");td.colSpan=5;rows.append(tr);return;}
+   if(!filtered.length){const tr=document.createElement("tr");const td=cell(tr,"No matching engine records.");td.colSpan=7;rows.append(tr);return;}
    const fragment=document.createDocumentFragment();
    for(const e of filtered){
      const tr=document.createElement("tr");
      const name=cell(tr);name.append(link("compatibility.html#engine="+encodeURIComponent(e.id),e.model));const where=document.createElement("small");where.textContent=e.make+" / "+e.family;name.append(where);
      cell(tr,isComplete(e)?"Finished / verified":"Unfinished / untested").className="audit-unknown";
+     cell(tr,(e.confidenceV2?.big?.score??"—")+"/100").className="audit-category";
+     cell(tr,(e.confidenceV2?.mini?.score??"—")+"/100").className="audit-category";
      cell(tr,descriptions[e.research?.status]||e.research?.status||"Unknown").className="audit-category";
      const missing=cell(tr,e.research?.remaining||e.integration?.validation||"Exact OEM wiring, trigger/cam decoding, input conditioning, sensor calibration and live Brick validation still needed.");
      if(e.conflicts?.length){const conflicting=document.createElement("p");conflicting.className="audit-conflict";conflicting.textContent=e.conflicts.length+" known conflict(s) or special warnings recorded";missing.append(conflicting);}
