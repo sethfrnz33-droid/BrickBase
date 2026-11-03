@@ -80,7 +80,8 @@
       "oem-wheel-sourced":"OEM wheel documented; rusEFI correlation unresolved",
       "partial-wheel-sourced":"Partial OEM wheel research; more evidence required",
       "hardware-constraint":"OEM hardware limitation identified",
-      "generic-correlation-pending":"OEM shape documented; generic rusEFI cam/crank pairing needs validation"
+      "generic-correlation-pending":"OEM shape documented; generic rusEFI cam/crank pairing needs validation",
+      "decoder-only":"Decoder or catalogue reference checked; OEM variant-wheel evidence still missing"
     }[r.status]||"Research in progress"));
     const dl=elm("dl","ef-specs");
     dl.append(field("OEM crank wheel",r.crankWheel),field("OEM cam/phase wheel",r.camWheel),field("OEM sensor hardware",r.electrical),field("rusEFI decoder correlation",r.decoderCorrelation),field("Still to verify",r.remaining));
