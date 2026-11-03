@@ -1,5 +1,4 @@
-/* Change this only if the AI Worker is on a separate workers.dev URL.
- * The default works with a same-origin /api/brick-help Pages Function or route.
- * The UI stays hidden until the endpoint confirms that AI is configured.
+/* Live Brick ECU assistant Worker; server-side Cloudflare AI binding stays private. 
+ * The widget only appears after this endpoint reports configured: true.
  */
-export const API_ENDPOINT="/api/brick-help";
+export const API_ENDPOINT="https://brick-ecu-help.sethfrnz33.workers.dev/";
