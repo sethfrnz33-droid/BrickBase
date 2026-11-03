@@ -20,6 +20,10 @@ The storefront and the technical manuals are separate static pages. No framework
 | `/docs/planning.html` | Documentation and verification planning |
 | `/docs/software.html` | Wi-Fi, TunerStudio, logging and firmware features |
 
+### Documentation navigation
+
+The `/docs/index.html` landing page is organized by user task (engine lookup, 94-pin connector lookup, Big/Mini specifications, tuning, installation planning and original connector posters), with a seven-guide keyword search and `/` keyboard focus shortcut. Documentation detail pages use `/docs/docs.css` for a lighter content hierarchy and grouped sticky/sidebar navigation; `/docs/docs-ui.js` generates on-page section jump links. On narrow screens the navigation is horizontally scrollable. The large connector posters remain unchanged, but appear *after* the searchable pin table on the pinout page.
+
 ### Shared files
 
 - `site.css` — original retro blue / beveled encyclopedia-style design with responsive pages.
