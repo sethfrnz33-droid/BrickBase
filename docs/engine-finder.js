@@ -49,13 +49,13 @@
   function elm(tag,cls,txt){
     const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e;
   }
-  function scoreCard(name,pct){
-    const card=elm("div","ef-score-card"+(pct===0?" ef-score-zero":""));
+  function scoreCard(name,pct,verified=false){
+    const card=elm("div","ef-score-card"+(pct===0&&!verified?" ef-score-zero":""));
     const header=elm("div","ef-score-header");
-    header.append(elm("span","ef-score-name",name),elm("strong","ef-score-number",pct+"/100"));
+    header.append(elm("span","ef-score-name",name),elm("strong","ef-score-number",verified?"RUNNING":pct+"/100"));
     const meter=elm("progress","ef-score-meter");
     meter.max=100;meter.value=pct;meter.setAttribute("aria-label",name+" engineering screening score: "+pct+" out of 100; not a measured probability");
-    card.append(header,meter);
+    card.append(header);if(!verified)card.append(meter);
     return card;
   }
   function scoreExplanation(e){
@@ -67,92 +67,42 @@
     return wrap;
   }
   function confidenceLayerSection(e){
-    const v=e.confidenceV2,wrap=elm("section","ef-layered");
+    const v=e.confidenceV2,wrap=elm("section","ef-layered ef-fit-view");
     if(!v)return wrap;
-    const h=elm("h4",null,"Compatibility confidence by engineering layer");
-    const intro=elm("p","ef-layer-intro","Seven independent checks compare Big vs Mini, with the evidence source and outstanding verification visible in each row. Scores describe a preliminary hardware/firmware screening, NOT real-world success probability.");
-    const weights=elm("p","ef-layer-weights","Weights: crank decoder 25 · injector I/O 15 · ignition count 14 · ignition power stage 14 · cam/VVT 14 · load sensor 8 · injection technology 10. Untested total capped at 79; a stock-system blocker overrides the combined total to 0.");
-    wrap.append(h,intro,weights);
-    if(v.coverage){
-      const c=v.coverage,coverage=elm("div","ef-layer-coverage");
-      coverage.append(elm("strong",null,"Source coverage: "+c.known+"/"+c.total+" evidence checks"));
-      coverage.append(elm("p",null,"Independent from the compatibility score. Source-backed means a reference exists; actual Brick wiring/driver verification remains outstanding."));
-      const d=elm("details","ef-layer-coverage-details");
-      d.append(elm("summary",null,"Show verified references and remaining research"));
-      const ul=elm("ul");
-      for(const ch of c.checks){
-        const li=elm("li",null,(ch.done?"Referenced: ":"Outstanding: ")+ch.label+" ");
-        if(ch.source&&/^https:\/\//.test(ch.source)){
-          const a=elm("a",null,"Reference");a.href=ch.source;a.target="_blank";a.rel="noopener noreferrer";li.append(a);
-        }
-        ul.append(li);
-      }
-      d.append(ul);coverage.append(d);wrap.append(coverage);
-    }
-    const profile=elm("div","ef-layer-profile");
-    const dat=v.model||{};
-    profile.append(field("Factory coil type",({
-       smart:"Smart coils / built-in igniter",dumb:"Passive coils / external power stage required",
-       "external-multi":"Coils via multi-channel external igniter",
-       "external-single":"Single coil via OEM igniter / distributor",
-       varies:"Different coils/igniters by engine generation; exact donor required",
-       unknown:"Unknown: coil and driver require source verification"
-     })[dat.coilType]||"Unknown"),
-     field("Stock load sensor",({
-       map:"Manifold MAP",both:"MAP and MAF",maf:"MAF, no confirmed manifold MAP",
-       "limited-map":"Stock MAP present, but limited calibration / vacuum range",
-       mixed:"Model-year/market dependent MAP or MAF",unknown:"Unknown; no assumed factory MAP"
-     })[dat.factoryLoadSensor]||"Unknown"),
-     field("Ignition firing topology",(dat.ignitionLayout==="twin-distributor"?"Two coils via two distributors":dat.ignitionLayout)||"unknown"),
-     field("Port injector count",dat.injectorCount===null?"Not source confirmed; one per cylinder modeled":(dat.injectorCount+" physical injectors, source-referenced"+(dat.injectorMode&&dat.injectorMode!=="unknown"?" · "+dat.injectorMode:""))),
-     field("Stock injector electrical class",dat.injectorZ==="low"?"Low impedance"+(dat.injectorOhms!==null?" · "+dat.injectorOhms+" ohms":"")+"; current-limited driver required":dat.injectorZ==="high"?"High impedance (source-referenced)":"Unknown; output count alone does not prove driver compatibility"),
-     field("Factory injector resistor/current limiting",dat.factoryResistorPack===true?"OEM series resistor pack documented; Brick electrical check outstanding":dat.factoryResistorPack===false?"No factory resistor indicated for sourced high-Z configuration":"Unverified"),
-     field("Cam/VVT complexity",dat.vvtClass||"unknown"));
-    const engineNotes=(dat.notes||[]);
-    if(engineNotes.length){
-      const note=elm("p","ef-layer-source-note",engineNotes.join(" "));
-      profile.append(note);
-    }
-    wrap.append(profile);
-    const list=elm("div","ef-layer-list");
-    const miniMap=new Map((v.mini?.layers||[]).map(x=>[x.id,x]));
+    wrap.append(elm("h4",null,"Hardware fit"));
+    wrap.append(elm("p","ef-layer-intro","Compare Big and Mini at a glance. Open a category for engine-specific details and references."));
+    const d=v.model||{};
+    const quick=elm("dl","ef-fit-facts");
+    quick.append(
+      field("Injectors",d.stockGDI?"Factory direct injection — specialist hardware needed":d.injectorZ==="low"?"Factory low-impedance — check resistor/current limiting":"Standard high-impedance port injectors — natively supported"),
+      field("Ignition",({smart:"Smart coils",dumb:"Passive coils — Big has six IGBT outputs","external-multi":"External ignition module","external-single":"Single coil / distributor with igniter",varies:"Varies by model year",unknown:"Factory coil details not yet listed"})[d.coilType]||"Check factory coil type"),
+      field("Load signal",({map:"Factory MAP",both:"Factory MAP and MAF",maf:"Factory MAF (MAP can be added)","limited-map":"Factory boost MAP; verify range",mixed:"Varies by model year",unknown:"Factory MAP/MAF not yet listed"})[d.factoryLoadSensor]||""),
+      field("VVT",d.vvtClass==="unknown"?"Details not yet listed":d.vvtClass)
+    );
+    wrap.append(quick);
+    const list=elm("div","ef-layer-list"),mini=new Map((v.mini?.layers||[]).map(x=>[x.id,x]));
     for(const b of v.big?.layers||[]){
-      const m=miniMap.get(b.id)||b;
-      const item=elm("details","ef-layer-item");
-      const sum=elm("summary","ef-layer-summary");
-      const name=elm("span","ef-layer-name",b.label);
-      const cb=elm("span","ef-layer-chip","Big "+b.score+"/100");
-      const cm=elm("span","ef-layer-chip","Mini "+m.score+"/100");
-      sum.append(name,cb,cm);item.append(sum);
+      const m=mini.get(b.id)||b,panel=elm("details","ef-layer-item"),summary=elm("summary","ef-layer-summary");
+      summary.append(elm("span","ef-layer-name",b.label),elm("span","ef-layer-chip","Big "+b.score),elm("span","ef-layer-chip","Mini "+m.score));
+      panel.append(summary);
       const body=elm("div","ef-layer-body");
-      for(const [title,x] of [["Big Brick",b],["Mini Brick",m]]){
-         const part=elm("div","ef-layer-evidence");
-         part.append(elm("strong",null,title+" · "+x.state+" · "+x.score+"/100"));
-         part.append(elm("p",null,x.detail));
-         part.append(elm("p","ef-layer-required","Next verification: "+x.required));
-         if(x.refs?.length){
-           const refs=elm("p","ef-layer-refs");
-           x.refs.slice(0,5).forEach((u,i)=>{if(!/^https:\/\//.test(u))return;
-             let domain="source";try{domain=new URL(u).hostname.replace(/^www\./,"");}catch(_){} const a=elm("a",null,"Source "+(i+1)+" · "+domain);a.href=u;a.target="_blank";a.rel="noopener noreferrer";
-             refs.append(a);});
-           part.append(refs);
-         }
-         body.append(part);
+      const brief=(txt)=>String(txt||"").replace(/\b(NOT|SHARED|FOUR|TWO|ONE)\b/g,x=>x.toLowerCase());
+      for(const [name,x] of [["Big Brick",b],["Mini Brick",m]]){
+        const part=elm("div","ef-layer-evidence");
+        part.append(elm("strong",null,name+" · "+x.state),elm("p",null,brief(x.detail)));
+        if(x.refs?.length){
+          const refs=elm("p","ef-layer-refs"),seen=new Set();
+          for(const url of x.refs){if(seen.has(url)||!/^https:\/\//.test(url))continue;seen.add(url);
+            let host="Technical source";try{host=new URL(url).hostname.replace(/^www\./,"");}catch(_){}
+            const a=elm("a",null,host);a.href=url;a.target="_blank";a.rel="noopener noreferrer";refs.append(a);
+          }
+          part.append(refs);
+        }
+        body.append(part);
       }
-      item.append(body);list.append(item);
+      panel.append(body);list.append(panel);
     }
     wrap.append(list);
-    if(v.big?.hardBlocks?.length||v.mini?.hardBlocks?.length){
-      const caution=elm("div","ef-layer-blockers");
-      caution.append(elm("h4",null,"Compatibility limits and required modifications"));
-      for(const [title,c] of [["Big Brick",v.big],["Mini Brick",v.mini]]){
-         if(!c?.hardBlocks?.length)continue;
-         const p=elm("p",null,title+": "+c.hardBlocks.join(" "));
-         caution.append(p);
-      }
-      wrap.append(caution);
-    }
-    wrap.append(elm("p","ef-layer-disclaimer",v.disclaimer));
     return wrap;
   }
   function fold(label,content,expanded=false){
@@ -213,14 +163,14 @@
     const flag=elm("span","ef-level ef-level-"+e.level,statusText[e.level]);
     top.append(kicker,title,flag);
     const scores=elm("div","ef-scores");
-    scores.append(scoreCard("Big Brick",e.confidenceV2?.big?.score??e.confidence?.big??0),scoreCard("Mini Brick",e.confidenceV2?.mini?.score??e.confidence?.mini??0));
-    const scoreDisclaimer=elm("p","ef-score-disclaimer","Research screening only—not a tested installation or success probability. Known stock-system blockers score zero.");
+    scores.append(scoreCard("Big Brick",e.confidenceV2?.big?.score??e.confidence?.big??0,Boolean(e.runningEvidence?.brickBig)),scoreCard("Mini Brick",e.confidenceV2?.mini?.score??e.confidence?.mini??0));
+    const scoreDisclaimer=elm("p","ef-score-disclaimer","Hardware-fit scores are a guide, not a reliability percentage. High-impedance port injectors are natively supported.");
     const grid=elm("dl","ef-specs");
-    grid.append(field("Engine",e.make+" / "+e.family+" / "+e.model),field("Cylinders / rotors",e.cyl===0?"2 rotors (rotary)":String(e.cyl)),field("Fuel system",e.fuel),field("rusEFI crank / trigger selection",e.crank),field("rusEFI cam / VVT selection",e.cam),field("ECU channel suitability",ecuFit(e)));
+    grid.append(field("Cylinders / rotors",e.cyl===0?"2 rotors":String(e.cyl)),field("Fuel system",e.fuel),field("Crank trigger",e.crank),field("Cam / VVT reference",e.cam));
     const note=elm("div","ef-detail-note");
     note.append(elm("strong",null,"Variant notes and cautions"),elm("p",null,e.notes));
     const warning=elm("div","notice warning");
-    warning.textContent="Research entry only — no Brick ECU harness, tune, synchronization or ignition timing has been tested for this variant. A decoder name is not a guarantee of compatibility.";
+    warning.hidden=e.level!=="blocked";warning.textContent="";
     if(e.level==="blocked"){
       const mod=e.confidenceV2?.model||{};
       warning.textContent=mod.stockGDI?"WARNING: Factory GDI/high-pressure injector control is not natively validated on Brick ECU. Big external integration is experimental; Mini does not support GDI.":mod.rotary?"WARNING: Rotary fuel and leading/trailing ignition scheduling are not Brick ECU validated.":mod.stockOpticalCAS?"WARNING: Stock high-resolution Nissan optical CAS is not natively verified; an alternative trigger would need independent validation.":"WARNING: rusEFI marks this stock trigger decoder as unsupported/problematic. Do not claim validated compatibility.";
@@ -237,14 +187,9 @@
     const integration=elm("section","ef-research");
     integration.append(elm("h4",null,"Engine management and wiring research"));
     const int=e.integration||{},d=elm("dl","ef-specs");
-    d.append(field("Crank/cam sensors and electrical requirements",int.sensors),
-      field("Ignition coils / power stages",int.ignition),
-      field("Injectors / fueling interface",int.injectors),
-      field("VVT, throttle and auxiliary actuators",int.actuators),
-      field("OEM connector and terminal mappings",int.vehicleWiring),
-      field("Required testing before installation",int.validation));
+    d.append(field("Crank/cam sensors",int.sensors),field("Ignition system",int.ignition),field("Fuel system",int.injectors),field("VVT / throttle / auxiliaries",int.actuators),field("OEM wiring references",int.vehicleWiring));
     integration.append(d);
-    if(int.referenceScope)integration.append(elm("p","ef-research-note",int.referenceScope));
+    
     const conflicts=elm("section","ef-research");
     conflicts.append(elm("h4",null,"Conflicting information and limitations"));
     const issues=e.conflicts||[];
@@ -258,7 +203,7 @@
     const audit=elm("section","ef-research");
     audit.append(elm("h4",null,"Evidence and original sources"));
     const ar=e.audit||{};
-    audit.append(elm("p","ef-research-note", "Original harness pinout verified: "+(ar.pinoutVerified?"Yes":"No")+" · Brick ECU installation tested: "+(ar.brickTested?"Yes":"No")+" · Evidence type: "+(ar.researchStatus||"unclassified")));
+    
     const ul=elm("ul");
     for(const x of e.references||[]){
       const li=elm("li");const a=elm("a",null,x.label||"Technical source");
@@ -268,14 +213,14 @@
     }
     if(ul.childElementCount) audit.append(ul);
     else audit.append(elm("p",null,"No engine-specific external source verified; firmware reference links follow."));
-    audit.append(refs);
+    
     const panels=[
       fold("Engine and trigger reference",grid,true),
-      fold("Factory crank and cam research",researchSection(e)),
-      fold("Sensors, injectors and wiring",integration),
+      fold("Crank / cam research",researchSection(e)),
+      fold("Wiring and sensor details",integration),
       ...(issues.length?[fold("Conflicting sources and limitations ("+issues.length+")",conflicts)]:[]),
-      fold("Variant notes and cautions",note),
-      fold("Technical reference library ("+(e.references?.length||0)+")",audit)
+      fold("Variant notes",note),
+      fold("References ("+(e.references?.length||0)+")",audit)
     ];
     details.append(top,scores,scoreDisclaimer,warning,confidenceLayerSection(e),...panels);
   }
