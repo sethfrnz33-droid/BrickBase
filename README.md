@@ -15,7 +15,7 @@ The storefront and the technical manuals are separate static pages. No framework
 | `/docs/big-brick.html` | Big Brick hardware specifications |
 | `/docs/mini-brick.html` | Mini Brick hardware specifications |
 | `/docs/big-brick-pinout.html` | Interactive 94-position A/B/C pinout |
-| `/docs/compatibility.html` | Cascading text-only engine finder with 170 named/pattern/research entries across 22 manufacturers |
+| `/docs/compatibility.html` | Cascading text-only engine finder with 237 named/pattern/research entries across 22 manufacturers |
 | `/docs/visual-library.html` | Original full-size Big Brick connector A/B/C posters only |
 | `/docs/planning.html` | Documentation and verification planning |
 | `/docs/software.html` | Wi-Fi, TunerStudio, logging and firmware features |
@@ -31,7 +31,7 @@ The `/docs/index.html` landing page is organized by user task (engine lookup, 94
 - `site.js` — navigation and reveal animations.
 - `pinout.js` — developer-provided Big Brick pin data; filters and copy function.
 - `docs/assets/full-pinout-connector-{a,b,c}.svg` — illustrated full-page connector/pin tables sourced from `pinout.js`.
-- `docs/engine-finder-data.js` — text-only research catalog (170 make/family/engine entries; current rusEFI named decoders and pattern candidates kept distinct).
+- `docs/engine-finder-data.js` — text-only research catalog (237 make/family/engine entries; current rusEFI named decoders and pattern candidates kept distinct).
 - `docs/engine-finder.js` — cascading manufacturer/family/engine selection, code search, live results, detailed text card and shareable engine deep links.
 - The five obsolete engine SVG sheets and five obsolete engine HTML pages were deliberately removed and replaced by the finder. Physical connector posters were retained.
 - `assets/` — original supplied PCB and vehicle photographs.
@@ -147,3 +147,13 @@ The homepage now exposes Engine Finder, Big Brick pinouts, Downloads and Documen
 - Honda D/B/H OEM distributor variants: 24 CKP teeth on a CAM-speed distributor produce 12 events per crank revolution. rusEFI's Honda OBD1 profile explicitly uses `TT_12_TOOTH_CRANK` with `VVT_SINGLE_TOOTH` for CYP; this is not equivalent to arbitrary generic 12/0 tooth settings. Early 16-tooth distributors and some late H22A oil-pump mounted CKF variations require separate identification. Sources: https://github.com/rusefi/rusefi/blob/master/firmware/config/engines/honda_obd1.cpp ; https://rusefi.com/forum/viewtopic.php?t=2013 ; https://support.haltech.com/portal/en/kb/articles/b-series .
 - BMW M54: official M54 MS43 training documents Hall-effect crank and two Hall-effect cam sensors; 60-2 crank reference is supported by aftermarket M54 engine data. Cam impulse-wheel phase shapes and full double VANOS remain untested with Brick. Sources: https://bmwtuning.co/wp-content/uploads/2023/08/BMW-M54-Training-Doc.pdf ; https://www.vems.hu/wiki/index.php?page=MembersPage%2FJosephBmw .
 - Subaru early 6/7: **six crank teeth and seven cam teeth**, both VR for specifically documented EJ20G/EJ20K. Use the named `SUBARU_7_6` decoder, NOT a generic even 6/0. EJ22/EJ25 entries remain variant-dependent until OEM year/sensor evidence is available. Sources: https://support.haltech.com/portal/en/kb/articles/ej20-engine ; https://wiki.rusefi.com/All-Supported-Triggers/ .
+
+
+## 2026-11-02 engine-library research extension
+
+- **67 new engine research candidates** added in `docs/engine-finder-expansion.js` across VW/Audi VR6/2.7T/EA113/EA888, Toyota 4AG/3S/GR/AR, Volvo Redblock/Whiteblock, BMW M20/M42/M44/S50/S52/M60/M62, GM 3800/Ecotec, Honda J/L/R, Mercedes M-series, Ford Zetec/Lima/ST, Nissan KA/CA/RB, Mazda rotary and Subaru EJ207/FA/FA24. **237 total records**.
+- The expansion is loaded after the original 170 and before `engine-finder.js`; it adds practical integration questions and explicit external-source annotations to *all* entries. Sensor, coil, injector, actuator, vehicle harness and validation sections appear per engine.
+- Reference URLs, even when well-identified, have **not all been independently checked for accessibility or applicability**; verify each exact model/year from OEM service literature before publishing electrical specs. Family-level evidence and competitor ECU pinouts are not engine harness verification.
+- All per-engine entries remain research candidates, **not verified engine compatibility**, with no Brick ECU install test or verified engine-side pin map. Default unknowns intentionally remain unassigned. New source conflicts are tracked separately and shown in the finder.
+- Special engineering cautions: 4A-G and 3S generation-specific trigger variations; VR6 and EA888 engine-code variations; factory GDI outside validated software; Nissan factory optical CAS not natively validated; rotary synchronization and trailing ignition not Brick-validated; third VR sensor conditioning for certain VVT engines.
+- **Research not finished:** all 237 still require exact donor VIN/engine code, matching OEM wiring schematic, connector terminal views, waveforms, sensor transfer functions, injection specifications, timing-light verification and physical Brick ECU validation to claim confirmed support. The legacy 16 decoder-only entries remain unresolved.
