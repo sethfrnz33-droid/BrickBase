@@ -22,10 +22,10 @@ function model(e){
  }
  if(m.cam==="unknown"){
    const s=(e.model+" "+e.family+" "+(e.notes||"")).toLowerCase();
-   if(/quad.cam|ti.vct|coyote/.test(s))m.cam="quad";
+   if(/non.vvt|non.vct|fixed cam|no vvt|without vvt/.test(s))m.cam="fixed";
+   else if(/quad.cam|ti.vct|coyote/.test(s))m.cam="quad";
    else if(/dual vvt|double vanos|double vvt|dual avcs|dual cam vvt/.test(s))m.cam="dual";
    else if(/vvt|vanos|mivec|avcs|vct|variable intake cam|cam phas/i.test(s))m.cam="single";
-   else if(/non.vvt|non.vct|fixed cam/.test(s))m.cam="fixed";
    if(m.cam!=="unknown"){m.sourceLevel.cam="textual lead only, not verified";m.notes.push("Cam/VVT classification also uses existing notes; actual cam wheel, control mode and sensor count must be verified.");}
  }
  // Do NOT infer a factory MAP sensor from 'boost', generic 5 V inputs, or a charge-pressure sensor.
