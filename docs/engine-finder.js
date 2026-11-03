@@ -211,8 +211,10 @@
     });
     const integration=elm("section","ef-research");
     integration.append(elm("h4",null,"Engine management and wiring research"));
-    const int=e.integration||{},d=elm("dl","ef-specs");
-    d.append(field("Crank/cam sensors",int.sensors),field("Ignition system",int.ignition),field("Fuel system",int.injectors),field("VVT / throttle / auxiliaries",int.actuators),field("OEM wiring references",int.vehicleWiring));
+    const int=e.integration||{},d=elm("dl","ef-specs"),hw=e.confidenceV2?.model||{};
+    const inj=hw.stockGDI?"Factory direct injection uses specialist high-pressure control. Big Brick external GDI integration is experimental; Mini does not have GDI software.":hw.injectorZ==="low"?"Original low-impedance injectors require appropriate current limiting"+(hw.factoryResistorPack===true?" (factory resistor pack is documented).":"; confirm the original resistor arrangement."):"Standard high-impedance (>8 Ω) port injectors work directly with Brick saturated injector outputs. No peak-and-hold controller is required.";
+    const coil=hw.coilType==="smart"?"Factory smart coils have built-in power stages.":hw.coilType==="dumb"?"Factory passive coils need high-current ignition stages (six native IGBT-capable outputs on Big Brick).":hw.coilType==="external-multi"?"Factory coils use an external ignition module.":hw.coilType==="external-single"?"Distributor/single coil uses an external or integral igniter.":int.ignition;
+    d.append(field("Crank / cam sensors",int.sensors),field("Ignition",coil),field("Injectors",inj),field("VVT / throttle / auxiliaries",int.actuators));
     integration.append(d);
     
     const conflicts=elm("section","ef-research");
