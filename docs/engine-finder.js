@@ -9,7 +9,7 @@
   if(!make||!family||!variant||!search||!list||!details)return;
   const source="https://wiki.rusefi.com/All-Supported-Triggers/";
   const firmware="https://github.com/rusefi/rusefi/blob/master/firmware/integration/rusefi_config.txt";
-  const statusText={named:"Named decoder in rusEFI",pattern:"Wheel-pattern candidate",research:"Needs trigger verification",blocked:"Stock trigger unsupported / warned"};
+  const statusText={named:"Named decoder in rusEFI",pattern:"Wheel-pattern candidate",research:"Needs trigger verification",blocked:"Factory-system limitation"};
   let selected=null,shown=40;
   const sort=(a,b)=>a.localeCompare(b,undefined,{numeric:true,sensitivity:"base"});
   const unique=a=>[...new Set(a)].sort(sort);
@@ -281,7 +281,7 @@
   }
   function renderList(){
     const found=filtered();list.replaceChildren();
-    count.textContent=found.length+" matching engine preset"+(found.length===1?"":"s")+" · "+records.length+" research entries";
+    count.textContent=found.length+" matching engine record"+(found.length===1?"":"s")+" · "+records.length+" total";
     if(!found.length)list.append(elm("p","ef-empty","No matching entries. Try an engine code (for example LS3, M54B30, K24A2, VQ35DE) or reset the filters."));
     const frag=document.createDocumentFragment();
     found.slice(0,shown).forEach(e=>{
@@ -293,7 +293,7 @@
     });
     list.append(frag);
     more.hidden=found.length<=shown;
-    more.textContent="Show more results ("+Math.min(40,Math.max(0,found.length-shown))+" next)";
+    more.textContent="Show "+Math.min(40,Math.max(0,found.length-shown))+" more engines";
   }
   function render(){renderList();renderDetails();}
   function choose(id,changeHash){
