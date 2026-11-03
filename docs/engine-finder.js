@@ -50,6 +50,7 @@
     const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e;
   }
   function ecuFit(e){
+    if(e.cyl===0)return "Rotary management is not established by matching a crank pattern; dedicated engine synchronization, ignition and injection scheduling require separate verification.";
     if(e.fuel.toLowerCase().includes("direct injection")){
       return "Factory GDI is not natively validated on Big Brick; external GDI control is untested. Mini Brick has no GDI support.";
     }
@@ -71,7 +72,7 @@
     const flag=elm("span","ef-level ef-level-"+e.level,statusText[e.level]);
     top.append(kicker,title,flag);
     const grid=elm("dl","ef-specs");
-    grid.append(field("Engine",e.make+" / "+e.family+" / "+e.model),field("Cylinders",String(e.cyl)),field("Fuel system",e.fuel),field("rusEFI crank / trigger selection",e.crank),field("rusEFI cam / VVT selection",e.cam),field("ECU channel suitability",ecuFit(e)));
+    grid.append(field("Engine",e.make+" / "+e.family+" / "+e.model),field("Cylinders / rotors",e.cyl===0?"2 rotors (rotary)":String(e.cyl)),field("Fuel system",e.fuel),field("rusEFI crank / trigger selection",e.crank),field("rusEFI cam / VVT selection",e.cam),field("ECU channel suitability",ecuFit(e)));
     const note=elm("div","ef-detail-note");
     note.append(elm("strong",null,"Variant notes and cautions"),elm("p",null,e.notes));
     const warning=elm("div","notice warning");
