@@ -1,0 +1,32 @@
+
+/* Big Brick ECU connector pinout: transcribed from user-provided reference,
+   with explicit corrections. This is a reference, not a vehicle harness schematic. */
+const groups = {
+A: [
+["A1","KNOCK1","Input","Piezo knock sensor 1"],["A2","KNOCK2","Input","Piezo knock sensor 2"],
+["A3","AV6","Input","Analog voltage, 0–5 V"],["A4","AT4","Input","Thermistor temperature, 4.7 kΩ pull-up to 5 V"],
+["A5","AT2","Input","Thermistor temperature, 4.7 kΩ pull-up to 5 V"],["A6","VR1−","Input","VR channel 1 negative"],["A7","VR1+","Input","VR channel 1 positive"],["A8","VR2−","Input","VR channel 2 negative"],["A9","VR2+","Input","VR channel 2 positive"],
+["A10","AV7","Input","Analog voltage, 0–5 V"],["A11","AV9","Input","Analog voltage, 0–5 V"],["A12","AT1","Input","Thermistor temperature, 4.7 kΩ pull-up to 5 V"],["A13","AT3","Input","Thermistor temperature, 4.7 kΩ pull-up to 5 V"],
+["A14","D6","Input","Hall/digital, 2.2 kΩ pull-up to 5 V"],["A15","D5","Input","Hall/digital, 2.2 kΩ pull-up to 5 V"],["A16","SGND","Ground","Sensor ground only"],["A17","AV8","Input","Analog voltage, 0–5 V; duplicate label pending confirmation"],
+["A18","AV5","Input","Analog voltage, 0–5 V"],["A19","AV8","Input","Analog voltage, 0–5 V; user-corrected label"],["A20","AV2","Input","Analog voltage, 0–5 V"],["A21","D2","Input","Hall/digital, 2.2 kΩ pull-up to 5 V"],["A22","D4","Input","Hall/digital, 2.2 kΩ pull-up to 5 V"],["A23","SGND","Ground","Sensor ground only"],["A24","SGND","Ground","Sensor ground only"],["A25","SGND","Ground","Sensor ground only"],
+["A26","AV3","Input","Analog voltage, 0–5 V"],["A27","AV4","Input","Analog voltage, 0–5 V"],["A28","AV1","Input","Analog voltage, 0–5 V"],["A29","D3","Input","Hall/digital, 2.2 kΩ pull-up to 5 V"],["A30","D1","Input","Hall/digital, 2.2 kΩ pull-up to 5 V"],["A31","S5V","Supply","Sensor 5 V"],["A32","S5V","Supply","Sensor 5 V"],["A33","S5V","Supply","Sensor 5 V"],["A34","S5V","Supply","Sensor 5 V"]
+],
+B:[
+["B1","ETB2+","H-bridge","H-bridge 2 positive, 8 A maximum (user drawing)"],["B2","ETB2−","H-bridge","H-bridge 2 negative, 8 A maximum"],["B3","ETB12V","Supply","H-bridge 12 V supply; fuse up to 10 A per drawing"],["B4","ETB1+","H-bridge","H-bridge 1 positive, 8 A maximum"],["B5","ETB1−","H-bridge","H-bridge 1 negative, 8 A maximum"],["B6","HEAT+","Wideband","LSU heater positive"],["B7","HEAT−","Wideband","LSU heater negative"],["B8","KEY/VIN","Power","ECU and HS1–HS4 supply"],["B9","APE/IP","Wideband","LSU pump current"],["B10","IPN/VM","Wideband","LSU virtual ground"],["B11","RT/IA","Wideband","LSU trim resistor"],["B12","UN/RE","Wideband","LSU Nernst voltage"],["B13","WB12V+","Supply","Wideband 12 V power; fuse up to 10 A per drawing"],["B14","CAN-H","Comms","CAN high"],["B15","CAN-L","Comms","CAN low"],["B16","AV10","Input","Analog voltage, 0–5 V"],["B17","AV11","Input","Analog voltage, 0–5 V"],["B18","SGND","Ground","Sensor ground only"],["B19","SGND","Ground","Sensor ground only"],["B20","HS2","Output","VBAT high-side, 2 A max"],["B21","HS1","Output","VBAT high-side, 2 A max"],["B22","HS4","Output","VBAT high-side, 2 A max"],["B23","HS3","Output","VBAT high-side, 2 A max"],["B24","S5V","Supply","Sensor 5 V"],["B25","S5V","Supply","Sensor 5 V"],["B26","SGND","Ground","Sensor ground only"]
+],
+C:[
+["C1","LS16","Output","Low-side / IGBT igniter, 5 A max"],["C2","LS15","Output","Low-side / IGBT igniter, 5 A max"],["C3","LS14","Output","Low-side / IGBT igniter, 5 A max"],["C4","LS13","Output","Low-side / IGBT igniter, 5 A max"],["C5","LS12","Output","Low-side / IGBT igniter, 5 A max"],["C6","LS11","Output","Low-side / IGBT igniter, 5 A max"],["C7","LS10","Output","Low-side, 2 A max"],["C8","LS9","Output","Low-side, 2 A max"],["C9","PRTL","Control","Open captive portal"],["C10","LS8","Output","Low-side, 2 A max"],["C11","LS7","Output","Low-side, 2 A max"],["C12","LS6","Output","Low-side, 2 A max"],["C13","LS5","Output","Low-side, 2 A max"],["C14","LS4","Output","Low-side, 2 A max"],["C15","LS3","Output","Low-side, 2 A max"],["C16","LS2","Output","Low-side, 2 A max"],["C17","LS1","Output","Low-side, 2 A max"],
+["C18","IGN8","Output","5 V smart-coil logic"],["C19","IGN7","Output","5 V smart-coil logic"],["C20","IGN6","Output","5 V smart-coil logic"],["C21","IGN5","Output","5 V smart-coil logic"],["C22","IGN4","Output","5 V smart-coil logic"],["C23","IGN3","Output","5 V smart-coil logic"],["C24","IGN2","Output","5 V smart-coil logic"],["C25","IGN1","Output","5 V smart-coil logic"],["C26","PGND","Ground","Engine-block power ground"],["C27","PGND","Ground","Engine-block power ground"],["C28","PGND","Ground","Engine-block power ground"],["C29","PGND","Ground","Engine-block power ground"],["C30","PGND","Ground","Engine-block power ground"],["C31","IGN12","Output","12 V ignition logic per supplied drawing; verify coil interface"],["C32","IGN11","Output","12 V ignition logic per supplied drawing; verify coil interface"],["C33","IGN10","Output","12 V ignition logic per supplied drawing; verify coil interface"],["C34","IGN9","Output","12 V ignition logic per supplied drawing; verify coil interface"]
+]};
+const root=document.getElementById("pinout-root");
+if(root){
+const connector=document.getElementById("pin-connector"),search=document.getElementById("pin-search"),count=document.getElementById("pin-count"),copy=document.getElementById("pin-copy");
+const render=()=>{
+let all=[...groups[connector.value]??[],...(connector.value==="all"?[...groups.A,...groups.B,...groups.C]:[])];
+const q=search.value.toLowerCase().trim();all=all.filter(r=>r.join(" ").toLowerCase().includes(q));
+root.replaceChildren();all.forEach(r=>{const tr=document.createElement("tr");[r[0],r[1],r[2],r[3]].forEach((v,i)=>{const td=document.createElement("td");if(i===2){const s=document.createElement("span");s.className="pin-type";s.textContent=v;td.append(s)}else td.textContent=v;tr.append(td)});root.append(tr)});count.textContent=all.length+" / 94 pins shown";
+};
+connector.addEventListener("change",render);search.addEventListener("input",render);
+copy.addEventListener("click",async()=>{const rows=[...root.rows].map(r=>[...r.cells].map(c=>c.textContent).join("\t"));const data="Pin\tID\tType\tDescription\n"+rows.join("\n");try{await navigator.clipboard.writeText(data);copy.textContent="Copied";setTimeout(()=>copy.textContent="Copy visible pins",1800)}catch(e){copy.textContent="Copy unavailable"}});
+render();
+}
