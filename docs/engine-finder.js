@@ -130,7 +130,7 @@
       "decoder-only":"Decoder or catalogue reference checked; OEM variant-wheel evidence still missing"
     }[r.status]||"Research in progress"));
     const dl=elm("dl","ef-specs");
-    dl.append(field("OEM crank wheel",r.crankWheel),field("OEM cam/phase wheel",r.camWheel),field("OEM sensor hardware",r.electrical),field("rusEFI decoder correlation",r.decoderCorrelation),field("Still to verify",r.remaining));
+    dl.append(field("OEM crank wheel",r.crankWheel),field("OEM cam/phase wheel",r.camWheel),field("Sensor hardware",r.electrical),field("rusEFI decoder",r.decoderCorrelation));
     if(r.genericWheel){
       const g=r.genericWheel;
       dl.append(field("Custom wheel candidate",g.menu+": "+g.total+" nominal positions / "+g.missing+" missing / "+g.operation));
@@ -149,6 +149,31 @@
     if(e.cyl>6)return "Big Brick: channel-count candidate for up to 8-cylinder sequential fuel and spark. Mini Brick: not intended for 8-cylinder sequential builds.";
     if(e.cyl>4)return "Big Brick: channel-count candidate for sequential fuel/spark. Mini Brick: six-cylinder operation requires a separate wasted-spark and injector-output assessment.";
     return "Big Brick / Mini Brick: preliminary channel-count candidates only; actual trigger, ignition and sensor integration are untested.";
+  }
+  function runningSection(e){
+    const data=e.runningEvidence||{},wrap=elm("div","ef-running-evidence");
+    if(data.brickBig){
+      const strong=elm("strong",null,"Running on Big Brick");
+      const p=elm("p",null,"Brick ECU developer-tested VQ35DE, with a successful running result.");
+      wrap.append(strong,p);
+    }else if(data.brickFamily){
+      const strong=elm("strong",null,"Big Brick-tested engine family");
+      const p=elm("p",null,"A Gen IV LS has been run successfully on Big Brick; the exact engine code has not been specified, so this is family-level evidence.");
+      wrap.append(strong,p);
+    }
+    if(data.community?.length){
+      const community=elm("details","ef-community-evidence");
+      community.append(elm("summary",null,"rusEFI community examples ("+data.community.length+")"));
+      const ul=elm("ul");
+      for(const ex of data.community){
+        const li=elm("li"),a=elm("a",null,ex.label);a.href=ex.url;a.target="_blank";a.rel="noopener noreferrer";
+        li.append(a);
+        if(ex.scope)li.append(elm("span",null," — "+ex.scope));
+        ul.append(li);
+      }
+      community.append(ul);wrap.append(community);
+    }
+    return wrap.childElementCount?wrap:null;
   }
   function renderDetails(){
     details.replaceChildren();
@@ -222,7 +247,7 @@
       fold("Variant notes",note),
       fold("References ("+(e.references?.length||0)+")",audit)
     ];
-    details.append(top,scores,scoreDisclaimer,warning,confidenceLayerSection(e),...panels);
+    const running=runningSection(e);details.append(top,...(running?[running]:[]),scores,scoreDisclaimer,...(e.level==="blocked"?[warning]:[]),confidenceLayerSection(e),...panels);
   }
   function renderList(){
     const found=filtered();list.replaceChildren();
