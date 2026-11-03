@@ -15,7 +15,7 @@ The storefront and the technical manuals are separate static pages. No framework
 | `/docs/big-brick.html` | Big Brick hardware specifications |
 | `/docs/mini-brick.html` | Mini Brick hardware specifications |
 | `/docs/big-brick-pinout.html` | Interactive 94-position A/B/C pinout |
-| `/docs/compatibility.html` | Cascading text-only engine finder with 166 named/pattern/research entries across 22 manufacturers |
+| `/docs/compatibility.html` | Cascading text-only engine finder with 170 named/pattern/research entries across 22 manufacturers |
 | `/docs/visual-library.html` | Original full-size Big Brick connector A/B/C posters only |
 | `/docs/planning.html` | Documentation and verification planning |
 | `/docs/software.html` | Wi-Fi, TunerStudio, logging and firmware features |
@@ -26,7 +26,7 @@ The storefront and the technical manuals are separate static pages. No framework
 - `site.js` — navigation and reveal animations.
 - `pinout.js` — developer-provided Big Brick pin data; filters and copy function.
 - `docs/assets/full-pinout-connector-{a,b,c}.svg` — illustrated full-page connector/pin tables sourced from `pinout.js`.
-- `docs/engine-finder-data.js` — text-only research catalog (166 make/family/engine entries; current rusEFI named decoders and pattern candidates kept distinct).
+- `docs/engine-finder-data.js` — text-only research catalog (170 make/family/engine entries; current rusEFI named decoders and pattern candidates kept distinct).
 - `docs/engine-finder.js` — cascading manufacturer/family/engine selection, code search, live results, detailed text card and shareable engine deep links.
 - The five obsolete engine SVG sheets and five obsolete engine HTML pages were deliberately removed and replaced by the finder. Physical connector posters were retained.
 - `assets/` — original supplied PCB and vehicle photographs.
@@ -91,7 +91,7 @@ Cloudflare Workers is connected to this GitHub repository; changes to the config
 
 ## Engine finder confidence methodology
 
-The 166-entry `docs/engine-finder-data.js` catalog contains separate per-entry `confidence.big` and `confidence.mini` **non-statistical engineering screening percentages** plus `confidence.basis[]` explanations. These are not verified success probabilities, test results, installation recommendations or guaranteed engine compatibility. No engine in this list is asserted to have run on a Brick ECU.
+The 170-entry `docs/engine-finder-data.js` catalog contains separate per-entry `confidence.big` and `confidence.mini` **non-statistical engineering screening percentages** plus `confidence.basis[]` explanations. These are not verified success probabilities, test results, installation recommendations or guaranteed engine compatibility. No engine in this list is asserted to have run on a Brick ECU.
 
 **Rubric v1** (applied to native factory trigger and original factory fuel system):
 - Trigger evidence: named rusEFI decoder +42; source-identified generic wheel candidate +30; unknown exact crank/cam configuration +14; broken or stock-unsupported = 0.
@@ -104,3 +104,14 @@ The 166-entry `docs/engine-finder-data.js` catalog contains separate per-entry `
 **2026-11 review corrections:** the Ford Coyote Gen I pattern is documented as 36-1 by Haltech, while Gen III is described as 60-2 in third-party tuning documentation (the Gen IV wheel remains unverified); the rusEFI wiki explicitly does not support Nissan's factory high-resolution optical CAS; 4B11 and 4G69 are listed examples of 36-2-1. Exact engine variants and all wiring are still unvalidated. Selected individual entries include technical-source links.
 
 Source references: [latest rusEFI trigger menu](https://github.com/rusefi/rusefi/blob/master/firmware/integration/rusefi_config.txt), [supported trigger wiki](https://wiki.rusefi.com/All-Supported-Triggers/), [rusEFI wiring and injection limits](https://wiki.rusefi.com/FAQ-Basic-Wiring-and-Connections/), [Ford Coyote trigger reference](https://support.haltech.com/portal/en/kb/articles/coyote-engine).
+
+
+## Independently sourced OEM trigger-wheel research
+
+- The engine finder stores `research` fields per independently reviewed engine variant: `crankWheel`, `camWheel`, `electrical`, `decoderCorrelation`, `remaining`, `notes`, `status`, `checked` and `sources`.
+- Where proven physical wheels match rusEFI's general missing-tooth shape, `research.genericWheel` records the TunerStudio generic-wheel option plus nominal tooth count and missing tooth count. A numerical match does **not** prove that cam phase or synchronization works.
+- The first independently sourced batch contains 60 of the 170 engine variants (physical wheel and/or hardware limitation); the other 110 variants explicitly display research pending. Never replace missing OEM data with inferred family defaults.
+- Variants split after audit: early/VVT-i 1UZ and 2UZ, crank-sensor versus distributor 2JZ-GE, and Mitsubishi 4G63 Evo 4–8 versus Evo 9; those have substantially different engine-position patterns.
+- Source-checked examples: [Toyota UZ](https://support.haltech.com/portal/en/kb/articles/1uz-fe-engine), [Honda F20C](https://support.haltech.com/portal/en/kb/articles/f20c-ap1-engine), [Ford Barra](https://support.haltech.com/portal/en/kb/articles/4-0l-barra-engine), [Mazda LF-VE NC](https://support.haltech.com/portal/en/kb/articles/mazda-lf-mzr-engine), [Mitsubishi 4G63](https://support.haltech.com/portal/en/kb/articles/4g63-trigger), [rusEFI current firmware](https://github.com/rusefi/rusefi/blob/master/firmware/integration/rusefi_config.txt).
+- Crucial limitation: Big/Mini each expose two native VR channels. A VR crank plus both VR cams (Barra and some Toyota UZ VVT-i arrangements) requires third-channel signal conditioning; the candidate scores reflect that need.
+- **Open issue:** Haltech documents 12 V power to typical Gen IV LS 58X sensors, while MS3 guides document 5 V power to gray 58X sensors. We do not resolve this by assumption; always verify the actual sensor part number and intended supply.
