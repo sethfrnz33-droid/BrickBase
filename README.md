@@ -102,7 +102,7 @@ Research added for: GM LS2 24X/1X, Gen V LT 58X/4X and GDI limits, GM 7X and Opt
 
 **Scope:** A special multi-gap, distributor, optical or magnetic wheel must not be represented by an arbitrary generic number of missing teeth. All documented custom counts are crank-only candidates unless cam/phase also matches. Native factory GDI remains unsupported/untested on Brick hardware: Big Brick external driver integration is experimental and Mini Brick has no GDI software.
 
-## Engine finder confidence methodology
+## Engine finder confidence methodology — historical v1, superseded by v2
 
 The original 170-entry original `docs/engine-finder-data.js` catalog, expanded by 67 research records in `docs/engine-finder-expansion.js`, contains separate per-entry `confidence.big` and `confidence.mini` **non-statistical engineering screening percentages** plus `confidence.basis[]` explanations. These are not verified success probabilities, test results, installation recommendations or guaranteed engine compatibility. No engine in this list is asserted to have run on a Brick ECU.
 
@@ -172,3 +172,11 @@ The homepage now exposes Engine Finder, Big Brick pinouts, Downloads and Documen
 
 - [Full 237-engine finished/unfinished research ledger](docs/ENGINE_RESEARCH_AUDIT.md) — all records grouped by evidence status, with remaining verification, technical reference links and uncited-engine gaps.
 - [Searchable on-site research status](docs/research-status.html) — filter by manufacturer, evidence stage, engine code and completion. All current entries are research-only; none is validated as fully finished.
+
+## Engine confidence v2: seven independent evidence layers (November 3, 2026)
+
+The live engine finder uses `docs/engine-confidence-v2.js` to calculate **independent Big Brick and Mini Brick** scores in seven engineering categories: crank trigger (25%), injector channel count (15%), ignition signal count (14%), coil/igniter electrical type (14%), cam/VVT wheel and VR input capability (14%), factory MAP/MAF load strategy (8%), and port versus direct injection (10%). **See [the complete v2 scoring method](docs/ENGINE_CONFIDENCE_METHODOLOGY.md).**
+
+Smart coils are preferred; a compatible external igniter or an ignited single-coil distributor may be workable, but check distributor base timing and rotor phasing. Big Brick's six native IGBT power stages **share** the 16 low-side channels. Mini Brick ignition output power-stage capability is not assumed, so dumb factory coils score extremely poorly without an independently verified external igniter. Native factory GDI is unvalidated, and third VR pickups exceed the two native VR conditioners without extra hardware.
+
+The model distinguishes factory manifold MAP from MAF and from boost-only sensors. rusEFI speed-density is preferred when MAP is suitable, while MAF/Alpha-N may still work. **Unknown OEM equipment remains unknown.** No score is a success probability or a verified wiring/calibration endorsement; total confidence is capped at 79 before testing and set to zero for known native stock-system blockers. All 237 entries have the seven layers, but some layers still have unverified coil, airflow and VVT specifics, so this is **not a completed engine-by-engine approval audit**.
