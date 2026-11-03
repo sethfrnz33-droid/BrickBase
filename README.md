@@ -19,7 +19,7 @@ Both products include mating harness connectors and pins.
 
 ## Pinout caution
 
-The Big Brick connector reference is transcribed from the supplied hardware drawing and corrections, **not an independently validated vehicle harness schematic**. The A17 and A19 entries both currently have label `AV8`; A19 is a confirmed user correction, while A17 remains to be checked before using the table for wiring. The source labels C31–C34 as 12 V ignition logic; this also requires checking against the final hardware and coil interface. Do not wire based on unresolved labels.
+The Big Brick connector reference is transcribed from the supplied hardware drawing and corrections, **not an independently validated vehicle harness schematic**. A17 is ground (specific ground category not yet confirmed), and A19 is AV8, per the latest corrections. The source labels C31–C34 as 12 V ignition logic; this also requires checking against the final hardware and coil interface. Do not wire based on unresolved labels.
 
 ## Deployment
 
