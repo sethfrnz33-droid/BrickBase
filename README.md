@@ -16,6 +16,7 @@ The storefront and the technical manuals are separate static pages. No framework
 | `/docs/mini-brick.html` | Mini Brick hardware specifications |
 | `/docs/big-brick-pinout.html` | Interactive 94-position A/B/C pinout |
 | `/docs/compatibility.html` | Searchable engine compatibility *research* directory |
+| `/docs/visual-library.html` | Eight original-style full-page illustrated reference charts |
 | `/docs/engines/*.html` | Engine-family reference entries (currently unvalidated) |
 | `/docs/planning.html` | Documentation and verification planning |
 | `/docs/software.html` | Wi-Fi, TunerStudio, logging and firmware features |
@@ -25,6 +26,8 @@ The storefront and the technical manuals are separate static pages. No framework
 - `site.css` — original retro blue / beveled encyclopedia-style design with responsive pages.
 - `site.js` — navigation, reveal animations, searchable engine directory.
 - `pinout.js` — developer-provided Big Brick pin data; filters and copy function.
+- `docs/assets/full-pinout-connector-{a,b,c}.svg` — illustrated full-page connector/pin tables sourced from `pinout.js`.
+- `docs/assets/engine-review-*.svg` — research-only engine charts showing ignition topology and pending verification. These are **not physical wiring guides**.
 - `assets/` — original supplied PCB and vehicle photographs.
 
 ### Purchasing
