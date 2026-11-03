@@ -1,6 +1,6 @@
 # Ask Brick — website AI documentation assistant
 
-**Status:** Frontend and backend source committed; **not automatically live** on the existing Cloudflare Workers static deployment. The public chat launcher deliberately stays hidden until the backend responds to a health check with `configured: true`.
+**Status:** Frontend and backend source committed; **not automatically live** on the existing Cloudflare Workers static deployment. The chat launcher is always visible. If the Worker reports `configured: true`, live AI answers are enabled; otherwise the widget uses clearly labelled built-in documentation answers, without any AI inference.
 
 This provides short answers to basic Brick ECU product, wiring-reference and tuning-concept questions. The replies use a curated product/documentation knowledge base, and the UI shows **actual local documentation links** alongside each answer. It cannot read an ECU, calculate a verified base tune, produce a confirmed donor-vehicle pinout, connect to TunerStudio, or approve a particular installation.
 
@@ -30,7 +30,7 @@ References: [Cloudflare Git integration](https://developers.cloudflare.com/worke
 2. Deploy the separate service with `npx wrangler deploy --config wrangler.jsonc`. Its `AI` binding is already declared in that configuration. Cloudflare returns a Worker URL like `https://brick-ecu-help.<YOUR-SUBDOMAIN>.workers.dev`. **This is a placeholder, not a verified or preconfigured URL.**
 3. In Cloudflare Workers & Pages → select `brick-ecu-help` → Settings → Variables and Secrets, add a **plain text** `ALLOWED_ORIGINS` value containing the *actual complete origin* of your website, for example `https://YOUR-REAL-DOMAIN`. If you use multiple site origins, separate them with commas. No wildcard or trailing slash. Redeploy the AI Worker if your dashboard requires it.
 4. Change `API_ENDPOINT` in `ai/config.js` from `"/api/brick-help"` to the actual full HTTPS Worker URL. Commit that small change to the static storefront repository.
-5. Open the Worker URL: `GET /` should respond with JSON containing `"service":"Brick ECU help","configured":true`. From your store origin, the widget will now become visible and should send a successful POST request. If it stays hidden, check the browser's Network panel for endpoint/CORS errors and confirm `ALLOWED_ORIGINS`.
+5. Open the Worker URL: `GET /` should respond with JSON containing `"service":"Brick ECU help","configured":true`. From your store origin, the widget should switch from documentation-only answers to AI-powered answers and send a successful POST request. If it stays hidden, check the browser's Network panel for endpoint/CORS errors and confirm `ALLOWED_ORIGINS`.
 
 ### Option B — same-origin Worker route
 
@@ -42,7 +42,7 @@ The storefront and assistant are **two separately deployed Workers** connected t
 
 An obsolete optional Cloudflare Pages Function formerly at `functions/api/brick-help.js` caused Wrangler 4.157.0 to reject deploying the static repository root. That file was deleted 2026-11-03. The top-level `functions/` directory is **absent** from the GitHub root, so this specific error is resolved. If Cloudflare still shows the old checkout, trigger a fresh deployment from the latest commit rather than a stale earlier commit.
 
-The separate AI Worker does not automatically give your storefront an API path: use the Worker URL in `ai/config.js` plus the correct `ALLOWED_ORIGINS` as outlined above. The chat launcher stays hidden until the AI Worker returns `configured: true`.
+The separate AI Worker does not automatically give your storefront an API path: use the Worker URL in `ai/config.js` plus the correct `ALLOWED_ORIGINS` as outlined above. The chat launcher remains visible and switches to Cloudflare AI only when the Worker returns `configured: true`.
 
 
 ## Billing and abuse controls
@@ -67,7 +67,7 @@ No application-side transcripts are intentionally logged or saved by this code. 
 
 Check `GET /api/brick-help` (or the separate Worker URL) for `configured: true`. Example test questions: “Does Mini Brick drive high-impedance injectors?”, “Where is the Big Brick pinout?”, “What does a crank trigger decoder do?”, “How does TunerStudio Lite differ from registered?”, and “Which engines have been reported running on Big Brick?”.
 
-Confirm the answer **does not** fabricate a pin, guaranteed engine support or a complete tune, and that document links open on the store domain. If `AI` is unbound, the health check returns `configured: false` and the public widget stays hidden.
+Confirm the answer **does not** fabricate a pin, guaranteed engine support or a complete tune, and that document links open on the store domain. If `AI` is unbound, the health check returns `configured: false` and the public widget uses built-in documentation answers without AI inference.
 
 Official Cloudflare documentation:
 - <https://developers.cloudflare.com/workers-ai/get-started/workers-wrangler/>
