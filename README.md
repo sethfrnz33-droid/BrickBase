@@ -1,18 +1,30 @@
-# BrickBase — Brick ECU storefront
+# BrickBase — Brick ECU website
 
-Official source repository for the **Brick ECU** product website.
+Official static Brick ECU storefront. Built as plain HTML/CSS/JavaScript with no dependencies. Connected to Cloudflare Workers by the repository owner.
 
-## Website
+## Pages and functionality
 
-Open `index.html` in a browser to preview the static storefront. No dependencies or build step are required. For public hosting, connect this repository to Cloudflare Pages (static output, root directory) or enable GitHub Pages.
+- `index.html` — product pages, comparison, FAQ, full Big Brick connector section.
+- `glass.css` — translucent, Pikmin-inspired blue-green design (original styling, no Nintendo assets).
+- `pinout.js` — searchable/copyable **94-position** Big Brick ECU connector reference.
+- `PHOTO_GUIDE.md` — image capture instructions and launch checklist.
 
-### Product models
-- **Mini Brick — CAD $600 shipped:** rusEFI MRE/STM32F407 based; protected outputs, native Wi-Fi TunerStudio tuning, 6 A H-bridge; intended for 4-cylinder or 6-cylinder wasted-spark builds; no GDI or internal wideband controller.
-- **Big Brick — CAD $1,200 shipped:** Proteus-based; 16 low-side channels including 6 IGBT-capable low-sides, onboard knock sensing, native Wi-Fi, LSU 4.9 controller, non-removable onboard 256 MB SD storage; external-hardware GDI potential is untested.
+## Current advertised products
 
-Both models include mating ECU harness connectors and terminal pins.
+**Mini Brick — CAD $600 shipped:** rusEFI MRE/STM32F407 based, native Wi-Fi TunerStudio, protected outputs, 6 A H-bridge, primarily four-cylinder or six-cylinder wasted-spark applications. No GDI software and no internal wideband controller.
 
-## Next steps
-See [PHOTO_GUIDE.md](PHOTO_GUIDE.md) for the exact photo shots, asset preparation, Payhip checkout integration, and prelaunch verification.
+**Big Brick — CAD $1,200 shipped:** Proteus-based hardware with 16 low-side channels (six of those support IGBT ignition), onboard knock sensing, native Wi-Fi, LSU 4.9 wideband controller, 256 MB non-removable SD logging, and larger engine support. Possible external GDI hardware integration **has not been validated**.
 
-The current page uses labeled photography placeholders and has no active checkout buttons. Do not describe the website as deployed or ready for orders until hosting and checkout are configured.
+Both products include mating harness connectors and pins.
+
+## Pinout caution
+
+The Big Brick connector reference is transcribed from the supplied hardware drawing and corrections, **not an independently validated vehicle harness schematic**. The A17 and A19 entries both currently have label `AV8`; A19 is a confirmed user correction, while A17 remains to be checked before using the table for wiring. The source labels C31–C34 as 12 V ignition logic; this also requires checking against the final hardware and coil interface. Do not wire based on unresolved labels.
+
+## Deployment
+
+The site is entirely static. Cloudflare should point its deployment to the repository root on `main`. The pinout filter uses client-side JavaScript; no external API is required.
+
+## Photos and checkout
+
+Product photography from the owner has been provided in conversation but **has not yet been uploaded to GitHub**; labeled image placeholders remain on the site. Checkout links are also not connected. See [PHOTO_GUIDE.md](PHOTO_GUIDE.md).
