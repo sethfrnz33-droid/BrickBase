@@ -298,3 +298,92 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #b6
  .hero-window img,.image-well img{animation:none!important}
  .btn,.site-resources-grid a,.docs-task-link{transition:none!important}
 }
+
+/* Compact expandable encyclopedia entries: keep the primary findings visible,
+   with wheel geometry, wiring and long source lists one tap away. */
+.ef-details-pane{position:static}
+.ef-subsection{
+  margin:9px 0;overflow:hidden;background:rgba(8,36,49,.64);
+  border:1px solid rgba(120,187,178,.33);border-radius:13px;
+}
+.ef-subsection>summary{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  list-style:none;cursor:pointer;padding:12px 15px;color:#dcefe5;
+  font-size:.88rem;font-weight:850;line-height:1.4;
+}
+.ef-subsection>summary::-webkit-details-marker{display:none}
+.ef-subsection>summary::after{
+  content:"+";flex-shrink:0;display:grid;place-items:center;
+  width:23px;height:23px;color:#c7eac1;background:#17434a;
+  border:1px solid rgba(144,200,174,.40);border-radius:50%;font-size:1rem;
+}
+.ef-subsection[open]>summary{
+  color:#eaf6e7;background:rgba(57,113,107,.20);
+  border-bottom:1px solid rgba(130,198,184,.21);
+}
+.ef-subsection[open]>summary::after{content:"−"}
+.ef-subsection>.ef-specs{padding:0 15px 9px;margin:0}
+.ef-subsection>.ef-research{
+  border:0;border-radius:0;box-shadow:none;
+  background:transparent;margin:0;padding:13px 15px;
+}
+.ef-subsection>.ef-research>h4{display:none}
+.ef-subsection>.ef-research>.ef-specs{margin:0}
+.ef-subsection>.ef-detail-note{
+  background:transparent;border:0;border-radius:0;margin:0;
+  padding:13px 15px;
+}
+.ef-subsection>.ef-research ul{
+  padding-left:20px;overflow-wrap:anywhere;font-size:.82rem;line-height:1.65
+}
+.ef-subsection>.ef-research li{margin-bottom:7px}
+.ef-subsection>.ef-research a{color:#b1e5d0}
+.ef-details-pane>.notice.warning{padding:11px 14px;font-size:.83rem;line-height:1.55}
+.ef-layered{margin-top:15px;margin-bottom:16px}
+.ef-layer-weights{font-size:.77rem}
+.ef-layer-profile{gap:7px;padding:8px 0}
+.ef-layer-item{margin:0}
+.ef-layer-disclaimer{font-size:.75rem}
+.ef-result{transition:background .18s,border-color .18s,transform .18s}
+.ef-result:hover{transform:translateX(2px)}
+.ef-results{max-height:660px}
+.ef-scores{gap:9px}
+.ef-score-card{padding:11px 12px}
+.ef-score-meter{height:6px}
+.ef-score-number{font-size:1.3rem}
+.ef-level{font-size:.67rem}
+.ef-level-blocked{border-color:#ccab74!important;background:rgba(119,72,42,.25)!important;color:#f4d9a6!important}
+
+/* The research inventory gets the same cool-glass scanner visual language. */
+.audit-head h1{letter-spacing:-.045em;text-shadow:none}
+.audit-lead{color:#b6d2cc}
+.audit-stat,.audit-progress{
+  background:linear-gradient(160deg,rgba(17,64,73,.88),rgba(8,37,49,.87));
+  border:1px solid rgba(115,183,171,.42);
+  border-radius:16px;box-shadow:none;
+}
+.audit-stat strong{color:#eaf6e7}
+.audit-stat span,.audit-state span{color:#b8d8ce}
+.audit-state{
+  background:#0b2c3a;border:1px solid rgba(118,185,176,.27);
+  border-radius:11px;
+}
+.audit-state strong{color:#c3e9bd}
+.audit-progress h2{font-size:1.15rem}
+.audit-filters input,.audit-filters select{
+  background:#092532;border:1px solid #4a8889;border-radius:10px;
+}
+.audit-filters input:focus-visible,.audit-filters select:focus-visible{outline-color:#b8ecd0}
+.audit-table-wrap{border:1px solid rgba(116,184,175,.42);background:#0a2a38;border-radius:15px}
+.audit-table th{background:#164654;color:#e5f4e7}
+.audit-table td{border-top:1px solid rgba(110,181,173,.21);color:#d9eae3}
+.audit-table tr:hover td{background:#16434f}
+.audit-table a{color:#b1e5c4}
+.audit-category{color:#c8e5d6}
+.audit-result{color:#bcdccf}
+@media(max-width:680px){
+ .ef-subsection>summary{padding:12px;font-size:.82rem}
+ .ef-results{max-height:410px}
+ .ef-result:hover{transform:none}
+ .audit-stat,.audit-progress{padding:12px}
+}
