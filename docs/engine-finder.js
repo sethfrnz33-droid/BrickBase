@@ -87,6 +87,7 @@
        mixed:"Model-year/market dependent MAP or MAF",unknown:"Unknown; no assumed factory MAP"
      })[dat.factoryLoadSensor]||"Unknown"),
      field("Ignition firing topology",(dat.ignitionLayout==="twin-distributor"?"Two coils via two distributors":dat.ignitionLayout)||"unknown"),
+     field("Port injector count",dat.injectorCount===null?"Not source confirmed; one per cylinder modeled":(dat.injectorCount+" physical injectors, source-referenced"+(dat.injectorMode&&dat.injectorMode!=="unknown"?" · "+dat.injectorMode:""))),
      field("Cam/VVT complexity",dat.vvtClass||"unknown"));
     const engineNotes=(dat.notes||[]);
     if(engineNotes.length){
