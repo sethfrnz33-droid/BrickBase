@@ -191,3 +191,22 @@
 .ef-layer-coverage-details ul{padding-left:19px;margin:9px 0 0}
 .ef-layer-coverage-details li{color:#c6ddea;font-size:.8rem;line-height:1.55;margin:3px 0}
 .ef-layer-coverage-details li a{color:#98d6f9;margin-left:5px;text-decoration:underline}
+
+
+/* Big Brick signal coloring: same reference palette as the Mini Brick chart.
+   Markers decorate documented signal labels, not physical connector cavities. */
+.big-pin-dot{display:inline-block;width:12px;height:12px;flex:0 0 12px;border-radius:50%;vertical-align:middle;margin-right:10px;border:1px solid #0c1726;box-shadow:0 0 0 1px #8795a4}
+.big-pin-dot-low{background:#35da76}
+.big-pin-dot-ground{background:#d5d9e0}
+.big-pin-dot-comms{background:#26dbdb}
+.big-pin-dot-temperature{background:#ff9e48}
+.big-pin-dot-sensor{background:#40e4f2}
+.big-pin-dot-bridge,.big-pin-dot-ign{background:#a76bfa}
+.big-pin-dot-analog{background:#408fff}
+.big-pin-dot-control,.big-pin-dot-aux{background:#f66bc1}
+.big-pin-dot-high{background:#ff535c}
+.big-pin-dot-power{background:#da8535}
+.big-pin-dot-neutral{background:#d1d5db}
+.big-pin-color-legend{display:flex;gap:10px 18px;flex-wrap:wrap;margin:14px 0 21px;padding:14px 16px;border:1px solid #365974;border-radius:10px;background:#081b2d}
+.big-pin-color-legend span{display:inline-flex;align-items:center;gap:8px;color:#cfebfa;font-size:.83rem;font-weight:650}
+.big-pin-color-legend .big-pin-dot{margin-right:0}
