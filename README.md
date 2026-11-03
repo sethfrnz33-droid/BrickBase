@@ -94,6 +94,14 @@ Cloudflare Workers is connected to this GitHub repository; changes to the config
 - Current rusEFI offers the exact trigger option **`GM LT1 Optispark (8-slot only)`**. This uses the low-resolution 8-slot track and *does not* read the 360-slot track. An aftermarket crank trigger wheel is **not inherently required** if the 8-slot decoding and installation are suitable, but is a reasonable separately validated option when higher-resolution triggering is desired.
 - As with all engine guides, require actual sync logs and verified ignition timing stability before advertising confirmed support. References: https://github.com/rusefi/rusefi/blob/master/firmware/integration/rusefi_config.txt and https://www.msextra.com/doc/pdf/MS3XV357_Hardware-1.4.pdf .
 
+## All-engine research expansion (November 2, 2026)
+
+Research fields now appear for every one of 170 catalog entries, with crank geometry, cam synchronization, electrical sensor requirements, actual rusEFI decoder correlation, unresolved validation and technical source links.
+
+Research added for: GM LS2 24X/1X, Gen V LT 58X/4X and GDI limits, GM 7X and Optispark; BMW M54/S54 double VANOS, N54 Hall 60-2 vs N55 magnetic multipole; Ford TFI, Modular 3V, Coyote Ti-VCT and Duratec; Honda OBD1 distributor 24+1 and earlier 16-tooth, K24 and J30A2; Nissan QR25/MR18 36-2-2, HR irregular crank, VK56DE 36-1-1 plus phase, VQ30 cam-only; Mazda Miata 4+2 CAS, NC MZR multi-gap, RX8 and Skyactiv limits; Mitsubishi special 36_2_1 and 6G72; Subaru uneven six-crank/seven-cam, EZ30, SVX multiple pickups; Dodge Neon, Chrysler NGC decoder warnings, Jeep Renix, Hemi, Viper; and Suzuki, Daihatsu, Rover, Renault, Skoda, Fiat, Mercedes, Kawasaki, Benelli and Arctic Cat.
+
+**Scope:** A special multi-gap, distributor, optical or magnetic wheel must not be represented by an arbitrary generic number of missing teeth. All documented custom counts are crank-only candidates unless cam/phase also matches. Native factory GDI remains unsupported/untested on Brick hardware: Big Brick external driver integration is experimental and Mini Brick has no GDI software.
+
 ## Engine finder confidence methodology
 
 The 170-entry `docs/engine-finder-data.js` catalog contains separate per-entry `confidence.big` and `confidence.mini` **non-statistical engineering screening percentages** plus `confidence.basis[]` explanations. These are not verified success probabilities, test results, installation recommendations or guaranteed engine compatibility. No engine in this list is asserted to have run on a Brick ECU.
@@ -111,11 +119,11 @@ The 170-entry `docs/engine-finder-data.js` catalog contains separate per-entry `
 Source references: [latest rusEFI trigger menu](https://github.com/rusefi/rusefi/blob/master/firmware/integration/rusefi_config.txt), [supported trigger wiki](https://wiki.rusefi.com/All-Supported-Triggers/), [rusEFI wiring and injection limits](https://wiki.rusefi.com/FAQ-Basic-Wiring-and-Connections/), [Ford Coyote trigger reference](https://support.haltech.com/portal/en/kb/articles/coyote-engine).
 
 
-## Independently sourced OEM trigger-wheel research
+## Engine-by-engine trigger-wheel research and evidence levels
 
-- The engine finder stores `research` fields per independently reviewed engine variant: `crankWheel`, `camWheel`, `electrical`, `decoderCorrelation`, `remaining`, `notes`, `status`, `checked` and `sources`.
+- The engine finder stores research fields per engine variant (OEM evidence and decoder evidence vary): `crankWheel`, `camWheel`, `electrical`, `decoderCorrelation`, `remaining`, `notes`, `status`, `checked` and `sources`.
 - Where proven physical wheels match rusEFI's general missing-tooth shape, `research.genericWheel` records the TunerStudio generic-wheel option plus nominal tooth count and missing tooth count. A numerical match does **not** prove that cam phase or synchronization works.
-- All 170 engine entries now have explicit research-status notes. Of those, 74 have source-backed OEM/family/wheel/hardware research; the other 96 currently have only a *decoder/catalogue audit*, not independently sourced exact OEM crank/cam geometry. Decoder-only entries must NOT be counted as a confirmed engine preset; they remain the next target for OEM research. Some of the 74 existing sourced entries remain partial/family-level too. Never replace missing OEM data with inferred family defaults.
+- **Research audit completed for 170/170 records; 46 regular missing-tooth crank candidates.** Evidence: 55 trigger wheel sourced, 55 family-wheel sourced, 3 OEM wheel sourced (rusEFI pair unresolved), 19 partial, 20 hardware constraints, 2 unresolved cam/crank generic pairings, and **16 decoder-only entries** lacking independently verified OEM wheel details for a particular year/variant. No record is a tested Brick ECU installation. Never infer generic wheel counts from unsupported shapes.
 - Variants split after audit: early/VVT-i 1UZ and 2UZ, crank-sensor versus distributor 2JZ-GE, and Mitsubishi 4G63 Evo 4–8 versus Evo 9; those have substantially different engine-position patterns.
 - Source-checked examples: [Toyota UZ](https://support.haltech.com/portal/en/kb/articles/1uz-fe-engine), [Honda F20C](https://support.haltech.com/portal/en/kb/articles/f20c-ap1-engine), [Ford Barra](https://support.haltech.com/portal/en/kb/articles/4-0l-barra-engine), [Mazda LF-VE NC](https://support.haltech.com/portal/en/kb/articles/mazda-lf-mzr-engine), [Mitsubishi 4G63](https://support.haltech.com/portal/en/kb/articles/4g63-trigger), [rusEFI current firmware](https://github.com/rusefi/rusefi/blob/master/firmware/integration/rusefi_config.txt).
 - Crucial limitation: Big/Mini each expose two native VR channels. A VR crank plus both VR cams (Barra and some Toyota UZ VVT-i arrangements) requires third-channel signal conditioning; the candidate scores reflect that need.

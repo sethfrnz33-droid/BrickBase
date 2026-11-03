@@ -75,8 +75,8 @@
       return wrap;
     }
     const badge=elm("p","ef-research-status","Research status: "+({
-      "wheel-sourced":"OEM wheel and proposed rusEFI correlation sourced",
-      "family-wheel-sourced":"Family documented; exact variant wheel remains to confirm",
+      "wheel-sourced":"Trigger geometry sourced; exact variant and Brick synchronization not tested",
+      "family-wheel-sourced":"Engine-family trigger documented; exact variant still to confirm",
       "oem-wheel-sourced":"OEM wheel documented; rusEFI correlation unresolved",
       "partial-wheel-sourced":"Partial OEM wheel research; more evidence required",
       "hardware-constraint":"OEM hardware limitation identified",
