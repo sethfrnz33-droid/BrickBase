@@ -103,3 +103,27 @@
 .docs-page .doc-main #pinout-root td{line-height:1.5}
 .docs-page .doc-main .pin-controls{margin-bottom:15px}
 .docs-page .doc-main .pin-controls input:focus-visible,.docs-page .doc-main .pin-controls select:focus-visible{outline:2px solid #93d9ff}
+
+/* Downloads: two clear actions, firmware targets, and concise paid-feature descriptions. */
+.docs-download-head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.docs-download-head>div{max-width:590px;flex:1 1 300px}
+.docs-download-head h3{margin:0 0 8px!important}
+.docs-download-head p{margin:0 0 14px}
+.docs-download-head>.btn{white-space:normal;text-align:center}
+.docs-feature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:17px 0}
+.docs-feature{padding:15px;background:#0b2b4d;border:1px solid #365f84;border-radius:9px}
+.docs-feature strong{display:block;margin-bottom:7px;color:#ecf7ff;font-size:.93rem}
+.docs-feature span{display:block;font-size:.85rem;line-height:1.55;color:#c0d9eb}
+.docs-firmware-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:17px 0}
+.docs-firmware-item{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-width:0;border:1px solid #4279a2;border-radius:12px;padding:20px;background:linear-gradient(155deg,#0c3357,#081d37)}
+.docs-firmware-item h3{font-size:1.23rem;margin:0!important;color:#f1fbff}
+.docs-firmware-item p{font-size:.88rem;line-height:1.52;margin:0!important}
+.docs-firmware-item code{display:block;max-width:100%;font:.79rem ui-monospace,Consolas,monospace;padding:6px 8px;overflow-wrap:anywhere;color:#a5dbf6;background:#051a32;border:1px solid #244c6c;border-radius:6px}
+.docs-firmware-item .btn{width:100%;margin-top:auto;text-align:center;white-space:normal}
+.docs-download-model{color:#91d7fa;font-size:.73rem;font-weight:900;letter-spacing:.12em}
+.docs-download-crosslink{display:flex;gap:7px 14px;flex-wrap:wrap;align-items:center;background:#0e3457;border:1px solid #447ca6;border-radius:9px;padding:12px 15px;margin:0 0 16px;font-size:.86rem}
+.docs-download-crosslink strong{color:#e1f6ff}
+.docs-download-crosslink a{color:#a9ddff}
+.docs-page .doc-main #tunerstudio-registration .actions{margin:8px 0 16px}
+.docs-page .doc-main #firmware-downloads .notice{margin:13px 0}
+@media(max-width:680px){.docs-feature-grid,.docs-firmware-grid{grid-template-columns:1fr}.docs-firmware-item{padding:16px}.docs-download-head>.btn{width:100%}}
