@@ -6,9 +6,9 @@
 
 | Evidence field | Reference-backed / identified | Still unknown or variant-dependent |
 | --- | ---: | ---: |
-| Original ignition coil/power-stage type | 106 | 131 |
+| Original ignition coil/power-stage type | 109 | 128 |
 | Factory load-sensor type (MAP/MAF) | 102 | 135 |
-| Original port injector count (not driver compatibility) | 68 | 169 |
+| Original port injector count (not driver compatibility) | 71 | 166 |
 | Injector impedance class | 6 | 231 |
 | Fully validated Brick installation | 0 | 237 |
 
@@ -352,9 +352,9 @@ The layered engine finder also has an **eight-check source-coverage score** sepa
 | Engine family / variant | Big / Mini | Coil / firing scheme | Stock load | Injector count / electrical | Cam/VVT | Evidence | Open gaps | Field source examples |
 | --- | --- | --- | --- | --- | --- | ---: | --- | --- |
 | 1.8T / **AEB 1.8T** | 76 / 76 | external-multi / cop | maf | count unknown; Z unknown | fixed | 4/8 | wheel/decoder, injector count, injector current, Brick running test | [Coil](https://support.haltech.com/portal/en/kb/articles/1-8-turbo-20v) |
-| 1.8T / **ATW 1.8T** | 63 / 63 | unknown / unknown | maf | count unknown; Z unknown | switched | 2/8 | wheel/decoder, injector count, injector current, coil layout, coil power stage, Brick running test | [Cam](https://support.haltech.com/portal/en/kb/articles/1-8-turbo-20v) |
-| 1.8T / **AUG 1.8T** | 57 / 58 | unknown / unknown | maf | count unknown; Z unknown | unknown | 1/8 | wheel/decoder, injector count, injector current, coil layout, coil power stage, cam/VVT, Brick running test | [MAP/MAF](https://support.haltech.com/portal/en/kb/articles/1-8-turbo-20v) |
-| 1.8T / **AWM 1.8T** | 57 / 58 | unknown / unknown | maf | count unknown; Z unknown | unknown | 1/8 | wheel/decoder, injector count, injector current, coil layout, coil power stage, cam/VVT, Brick running test | [MAP/MAF](https://support.haltech.com/portal/en/kb/articles/1-8-turbo-20v) |
+| 1.8T / **ATW 1.8T** | 77 / 78 | smart / cop | maf | 4 injectors; Z unknown | switched | 5/8 | wheel/decoder, injector current, Brick running test | [Injector](https://charm.li/Volkswagen/2005/Passat%20Sedan%20%283B3%29%20L4-1.8L%20Turbo%20%28AWM%29/Repair%20and%20Diagnosis/Powertrain%20Management/Computers%20and%20Control%20Systems/Testing%20and%20Inspection/Component%20Tests%20and%20General%20Diagnostics/Ignition%20Coils%20With%20Power%20Output%20Stage%2C%20Checking/) · [Cam](https://support.haltech.com/portal/en/kb/articles/1-8-turbo-20v) |
+| 1.8T / **AUG 1.8T** | 72 / 73 | smart / cop | maf | 4 injectors; Z unknown | unknown | 4/8 | wheel/decoder, injector current, cam/VVT, Brick running test | [Injector](https://charm.li/Volkswagen/2005/Passat%20Sedan%20%283B3%29%20L4-1.8L%20Turbo%20%28AWM%29/Repair%20and%20Diagnosis/Powertrain%20Management/Computers%20and%20Control%20Systems/Testing%20and%20Inspection/Component%20Tests%20and%20General%20Diagnostics/Ignition%20Coils%20With%20Power%20Output%20Stage%2C%20Checking/) |
+| 1.8T / **AWM 1.8T** | 72 / 73 | smart / cop | maf | 4 injectors; Z unknown | unknown | 4/8 | wheel/decoder, injector current, cam/VVT, Brick running test | [Injector](https://charm.li/Volkswagen/2005/Passat%20Sedan%20%283B3%29%20L4-1.8L%20Turbo%20%28AWM%29/Repair%20and%20Diagnosis/Powertrain%20Management/Computers%20and%20Control%20Systems/Testing%20and%20Inspection/Component%20Tests%20and%20General%20Diagnostics/Ignition%20Coils%20With%20Power%20Output%20Stage%2C%20Checking/) |
 | EA113 / EA888 / **2.0 TFSI EA113 BPY** | 0 / 0 | unknown / unknown | unknown | count unknown; Z unknown | unknown | 0/8 | wheel/decoder, injector count, injector current, coil layout, coil power stage, cam/VVT, MAP/MAF, Brick running test | No field-specific link |
 | EA113 / EA888 / **2.0 TSI EA888 Gen 1/2** | 0 / 0 | unknown / unknown | unknown | count unknown; Z unknown | unknown | 0/8 | wheel/decoder, injector count, injector current, coil layout, coil power stage, cam/VVT, MAP/MAF, Brick running test | No field-specific link |
 | EA113 / EA888 / **2.0 TSI EA888 Gen 3** | 0 / 0 | unknown / unknown | unknown | count unknown; Z unknown | unknown | 0/8 | wheel/decoder, injector count, injector current, coil layout, coil power stage, cam/VVT, MAP/MAF, Brick running test | No field-specific link |
