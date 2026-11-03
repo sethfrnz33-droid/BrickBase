@@ -19,6 +19,7 @@ The storefront and the technical manuals are separate static pages. No framework
 | `/docs/visual-library.html` | Original full-size Big Brick connector A/B/C posters only |
 | `/docs/planning.html` | Documentation and verification planning |
 | `/docs/software.html` | Wi-Fi, TunerStudio, logging and firmware features |
+| `/docs/downloads.html` | Official TunerStudio MS downloads/registration and upstream Big Brick Proteus F7 / Mini Brick MRE F4 firmware ZIPs |
 
 ### Documentation navigation
 
@@ -119,3 +120,12 @@ Source references: [latest rusEFI trigger menu](https://github.com/rusefi/rusefi
 - Source-checked examples: [Toyota UZ](https://support.haltech.com/portal/en/kb/articles/1uz-fe-engine), [Honda F20C](https://support.haltech.com/portal/en/kb/articles/f20c-ap1-engine), [Ford Barra](https://support.haltech.com/portal/en/kb/articles/4-0l-barra-engine), [Mazda LF-VE NC](https://support.haltech.com/portal/en/kb/articles/mazda-lf-mzr-engine), [Mitsubishi 4G63](https://support.haltech.com/portal/en/kb/articles/4g63-trigger), [rusEFI current firmware](https://github.com/rusefi/rusefi/blob/master/firmware/integration/rusefi_config.txt).
 - Crucial limitation: Big/Mini each expose two native VR channels. A VR crank plus both VR cams (Barra and some Toyota UZ VVT-i arrangements) requires third-channel signal conditioning; the candidate scores reflect that need.
 - **Open issue:** Haltech documents 12 V power to typical Gen IV LS 58X sensors, while MS3 guides document 5 V power to gray 58X sensors. We do not resolve this by assumption; always verify the actual sensor part number and intended supply.
+
+## Software downloads and licensing
+- Downloads page: `/docs/downloads.html`. The current installer for TunerStudio MS Lite (free) and registered TunerStudio MS (licensed) comes from EFI Analytics: https://www.tunerstudio.com/index.php/downloads .
+- Registration: https://www.efianalytics.com/register/register.jsp?appName=TunerStudioMS . A one-time optional paid TunerStudio MS license activates VE Analyze Live (AutoTune), high-speed logging (over the approximately 15 Hz Lite limit, hardware permitting), tabbed customized gauge dashboards, and advanced analysis. This license is purchased from EFI Analytics, not Brick ECU; **MS Ultra** is a separate optional tier. Prices/activation terms are set by the vendor.
+- Big Brick upstream board target: Proteus F7, `https://rusefi.com/build_server/rusefi_bundle_proteus_f7.zip`.
+- Mini Brick upstream board target: microRusEFI F4, STM32F407, `https://rusefi.com/build_server/rusefi_bundle_mre_f4.zip`.
+- Both ZIPs are **generic rusEFI builds**, not Brick ECU-validated firmware releases. Generic packages may change board mappings, wireless support, or tune compatibility; back up settings and verify exact hardware/firmware targets before any use. Big/Mini are not interchangeable.
+- Fast TunerStudio laptop logging is a licensed application capability and is conditional on the ECU and physical/network connection. Big Brick's onboard 256 MB logging is a distinct function.
+- Source of current firmware links: https://rusefi.com/build_server/ ; registered MS feature list: https://www.tunerstudio.com/index.php/products/tuner-studio/tunerstudioms .
