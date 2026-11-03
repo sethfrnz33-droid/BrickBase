@@ -15,6 +15,7 @@ The storefront and the technical manuals are separate static pages. No framework
 | `/docs/big-brick.html` | Big Brick hardware specifications |
 | `/docs/mini-brick.html` | Mini Brick hardware specifications |
 | `/docs/big-brick-pinout.html` | Interactive 94-position A/B/C pinout |
+| `/docs/research-status.html` | Field-by-field engine research progress and missing-evidence filters |
 | `/docs/compatibility.html` | Cascading text-only engine finder with 237 named/pattern/research entries across 22 manufacturers |
 | `/docs/visual-library.html` | Original full-size Big Brick connector A/B/C posters only |
 | `/docs/planning.html` | Documentation and verification planning |
@@ -23,16 +24,19 @@ The storefront and the technical manuals are separate static pages. No framework
 
 ### Documentation navigation
 
-The `/docs/index.html` landing page is organized by user task (engine lookup, 94-pin connector lookup, Big/Mini specifications, tuning, installation planning and original connector posters), with a seven-guide keyword search and `/` keyboard focus shortcut. Documentation detail pages use `/docs/docs.css` for a lighter content hierarchy and grouped sticky/sidebar navigation; `/docs/docs-ui.js` generates on-page section jump links. On narrow screens the navigation is horizontally scrollable. The large connector posters remain unchanged, but appear *after* the searchable pin table on the pinout page.
+The `/docs/index.html` landing page is organized by user task (engine lookup, 94-pin connector lookup, Big/Mini specifications, tuning, installation planning and original connector posters), with keyword search and `/` keyboard focus shortcut. Documentation detail pages use `/docs/docs.css` for a lighter content hierarchy and grouped sticky/sidebar navigation; `/docs/docs-ui.js` generates on-page section jump links. On narrow screens the navigation is horizontally scrollable. The original connector posters remain unchanged and appear *before* the searchable pin table on the pinout page.
 
 ### Shared files
 
-- `site.css` — original retro blue / beveled encyclopedia-style design with responsive pages.
+- `site.css` — base responsive site layout and legacy retro-blue styles.
+- `field-console.css` — quieter blue-green, botanical-scanner interface inspired by the exploration and encyclopedia menus of Pikmin 2, using original CSS only. This stylesheet loads last on every HTML page.
 - `site.js` — navigation and reveal animations.
 - `pinout.js` — developer-provided Big Brick pin data; filters and copy function.
 - `docs/assets/full-pinout-connector-{a,b,c}.svg` — illustrated full-page connector/pin tables sourced from `pinout.js`.
-- `docs/engine-finder-data.js` — text-only research catalog (237 make/family/engine entries; current rusEFI named decoders and pattern candidates kept distinct).
-- `docs/engine-finder.js` — cascading manufacturer/family/engine selection, code search, live results, detailed text card and shareable engine deep links.
+- `docs/engine-finder-data.js` — the original 170 engine research records.
+- `docs/engine-finder-expansion.js` — 67 additional research records, reaching 237 total.
+- `docs/engine-confidence-v2.js` — seven separate Big/Mini engineering screening layers and evidence-coverage checks.
+- `docs/engine-finder.js` — searchable manufacturer/family/engine list with Piklopedia-style expandable source, wheel and wiring research sections and shareable engine deep links.
 - The five obsolete engine SVG sheets and five obsolete engine HTML pages were deliberately removed and replaced by the finder. Physical connector posters were retained.
 - `assets/` — original supplied PCB and vehicle photographs.
 
@@ -189,3 +193,9 @@ The model distinguishes factory manifold MAP from MAF and from boost-only sensor
 - The [live searchable research-status table](docs/research-status.html) can now filter by missing trigger, injector count/current, coil count/driver, cam/VVT, load sensing and actual Brick installation evidence. All 237 remain untested on Brick; status is independent of the seven numeric confidence layers.
 
 - A documented source conflict in VW 1.8T: the general Haltech family guide describes an external four-channel igniter, while VW factory ATW/AUG/AWM service references identify integrated four-pin coil output stages. The engine finder now distinguishes AEB versus those later engine codes and exposes both sources rather than claiming one architecture for all 1.8T builds.
+
+## Site presentation and copy pass (2026-11-03)
+
+- A playful blue-green field-console style now applies to **all public HTML pages** via `field-console.css`, with rounded scanner panels, pale green accents, reduced borders and shadows, soft botanical motifs and calmer typography. The design uses original CSS; no Nintendo graphics, logos or game assets are included.
+- Hero/product copy, documentation navigation descriptions and download explanations have been tightened. The engine finder keeps critical compatibility warnings visible, while long OEM wheel research, electrical notes, conflicts and source libraries are collapsed into accessible expandable sections.
+- Do not change technical claims while rewriting marketing copy. The GDI limitation, Big's **16 total** low-side outputs with six included IGBT stages, and Mini's unverified Brick-specific terminal map remain explicit.
