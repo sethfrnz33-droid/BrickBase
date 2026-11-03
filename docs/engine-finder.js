@@ -9,7 +9,7 @@
   if(!make||!family||!variant||!search||!list||!details)return;
   const source="https://wiki.rusefi.com/All-Supported-Triggers/";
   const firmware="https://github.com/rusefi/rusefi/blob/master/firmware/integration/rusefi_config.txt";
-  const statusText={named:"Named decoder in rusEFI",pattern:"Wheel-pattern candidate",research:"Needs trigger verification",blocked:"Not recommended: decoder warning"};
+  const statusText={named:"Named decoder in rusEFI",pattern:"Wheel-pattern candidate",research:"Needs trigger verification",blocked:"Stock trigger unsupported / warned"};
   let selected=null,shown=40;
   const sort=(a,b)=>a.localeCompare(b,undefined,{numeric:true,sensitivity:"base"});
   const unique=a=>[...new Set(a)].sort(sort);
@@ -49,6 +49,23 @@
   function elm(tag,cls,txt){
     const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e;
   }
+  function scoreCard(name,pct){
+    const card=elm("div","ef-score-card"+(pct===0?" ef-score-zero":""));
+    const header=elm("div","ef-score-header");
+    header.append(elm("span","ef-score-name",name),elm("strong","ef-score-number",pct+"%"));
+    const meter=elm("progress","ef-score-meter");
+    meter.max=100;meter.value=pct;meter.setAttribute("aria-label",name+" engineering screening confidence: "+pct+" percent");
+    card.append(header,meter);
+    return card;
+  }
+  function scoreExplanation(e){
+    const wrap=elm("div","ef-score-reasons");
+    wrap.append(elm("strong",null,"Why these estimates?"));
+    const ul=elm("ul");
+    (e.confidence?.basis||["No rating methodology recorded."]).forEach(msg=>ul.append(elm("li",null,msg)));
+    wrap.append(ul);
+    return wrap;
+  }
   function ecuFit(e){
     if(e.cyl===0)return "Rotary management is not established by matching a crank pattern; dedicated engine synchronization, ignition and injection scheduling require separate verification.";
     if(e.fuel.toLowerCase().includes("direct injection")){
@@ -71,6 +88,9 @@
     const title=elm("h3",null,e.model);
     const flag=elm("span","ef-level ef-level-"+e.level,statusText[e.level]);
     top.append(kicker,title,flag);
+    const scores=elm("div","ef-scores");
+    scores.append(scoreCard("Big Brick",e.confidence?.big??0),scoreCard("Mini Brick",e.confidence?.mini??0));
+    const scoreDisclaimer=elm("p","ef-score-disclaimer","Engineering screening estimates for an unmodified factory trigger/fuel setup, NOT statistically measured success rates or validated installation claims. 0% can mean a specific native incompatibility; hardware changes require separate evaluation.");
     const grid=elm("dl","ef-specs");
     grid.append(field("Engine",e.make+" / "+e.family+" / "+e.model),field("Cylinders / rotors",e.cyl===0?"2 rotors (rotary)":String(e.cyl)),field("Fuel system",e.fuel),field("rusEFI crank / trigger selection",e.crank),field("rusEFI cam / VVT selection",e.cam),field("ECU channel suitability",ecuFit(e)));
     const note=elm("div","ef-detail-note");
@@ -82,7 +102,12 @@
     const a=elm("a",null,"rusEFI trigger reference");a.href=source;a.target="_blank";a.rel="noopener noreferrer";
     const b=elm("a",null,"Current firmware trigger menu");b.href=firmware;b.target="_blank";b.rel="noopener noreferrer";
     refs.append(a,document.createTextNode("  ·  "),b);
-    details.append(top,grid,note,warning,refs);
+    (e.sources||[]).forEach((url,i)=>{
+      const link=elm("a",null,"Engine technical source "+(i+1));
+      link.href=url;link.target="_blank";link.rel="noopener noreferrer";
+      refs.append(document.createTextNode("  ·  "),link);
+    });
+    details.append(top,scores,scoreDisclaimer,grid,note,scoreExplanation(e),warning,refs);
   }
   function renderList(){
     const found=filtered();list.replaceChildren();
@@ -92,7 +117,7 @@
     found.slice(0,shown).forEach(e=>{
       const row=elm("button","ef-result"+(e.id===selected?" selected":""),"");
       row.type="button";row.setAttribute("aria-pressed",String(e.id===selected));
-      row.append(elm("span","ef-result-name",e.model),elm("span","ef-result-family",e.make+" · "+e.family),elm("span","ef-result-trigger",e.crank),elm("span","ef-mini-status",statusText[e.level]));
+      row.append(elm("span","ef-result-name",e.model),elm("span","ef-result-family",e.make+" · "+e.family),elm("span","ef-result-trigger",e.crank),elm("span","ef-result-ratings","Big "+(e.confidence?.big??0)+"%   ·   Mini "+(e.confidence?.mini??0)+"%"),elm("span","ef-mini-status",statusText[e.level]));
       row.addEventListener("click",()=>choose(e.id,true));
       frag.append(row);
     });
