@@ -90,3 +90,16 @@
  .docs-section-nav a{white-space:nowrap;flex-shrink:0}
 }
 @media(prefers-reduced-motion:reduce){.docs-task-link{transition:none}}
+
+/* Keep connector posters readable without restoring the heavy reference-card styling. */
+.docs-posters .section{padding:10px 0 30px}
+.docs-posters .section-label{border:0;box-shadow:none;border-radius:7px;background:#11365a;font-size:.72rem}
+.docs-posters .section .frame{border:1px solid #3b6384;border-radius:13px;background:#0b2442;box-shadow:none;overflow:hidden}
+.docs-posters .section .frame-head{background:#123555;border-bottom:1px solid #386180;box-shadow:none}
+.docs-posters .section .frame-body{padding:16px}
+.docs-posters .section img{background:#fff;object-fit:contain}
+.docs-page .doc-main>.frame>.frame-body>.notice:first-child{margin-top:0}
+.docs-page .frame-body .table-scroll{border-radius:8px;overflow-x:auto}
+.docs-page .doc-main #pinout-root td{line-height:1.5}
+.docs-page .doc-main .pin-controls{margin-bottom:15px}
+.docs-page .doc-main .pin-controls input:focus-visible,.docs-page .doc-main .pin-controls select:focus-visible{outline:2px solid #93d9ff}
