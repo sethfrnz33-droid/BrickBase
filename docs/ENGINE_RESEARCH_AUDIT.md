@@ -4,7 +4,7 @@
 
 ## Finished: 0 / 237
 
-No catalog entry has a recorded verified Brick ECU engine-harness pinout, proven live engine synchronization, validated sensor/ignition/injector electrical integration, and operating calibration. **Sourced trigger geometry is not a finished engine installation.**
+No catalog entry yet contains a **complete published** donor-specific harness map, synchronization evidence, electrical validation, and calibrated setup. **Successful running results have been reported on Big Brick for VQ35DE and a Gen IV LS engine** (the exact LS variant is unspecified); those real tests do not automatically complete the documentation checklist. **Sourced trigger geometry is not a finished engine installation.**
 
 ## Unfinished: 237 / 237
 
