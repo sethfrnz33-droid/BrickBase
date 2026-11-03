@@ -15,19 +15,20 @@ The storefront and the technical manuals are separate static pages. No framework
 | `/docs/big-brick.html` | Big Brick hardware specifications |
 | `/docs/mini-brick.html` | Mini Brick hardware specifications |
 | `/docs/big-brick-pinout.html` | Interactive 94-position A/B/C pinout |
-| `/docs/compatibility.html` | Searchable engine compatibility *research* directory |
-| `/docs/visual-library.html` | Eight original-style full-page illustrated reference charts |
-| `/docs/engines/*.html` | Engine-family reference entries (currently unvalidated) |
+| `/docs/compatibility.html` | Cascading text-only engine finder with 166 named/pattern/research entries across 22 manufacturers |
+| `/docs/visual-library.html` | Original full-size Big Brick connector A/B/C posters only |
 | `/docs/planning.html` | Documentation and verification planning |
 | `/docs/software.html` | Wi-Fi, TunerStudio, logging and firmware features |
 
 ### Shared files
 
 - `site.css` — original retro blue / beveled encyclopedia-style design with responsive pages.
-- `site.js` — navigation, reveal animations, searchable engine directory.
+- `site.js` — navigation and reveal animations.
 - `pinout.js` — developer-provided Big Brick pin data; filters and copy function.
 - `docs/assets/full-pinout-connector-{a,b,c}.svg` — illustrated full-page connector/pin tables sourced from `pinout.js`.
-- `docs/assets/engine-review-*.svg` — research-only engine charts showing ignition topology and pending verification. These are **not physical wiring guides**.
+- `docs/engine-finder-data.js` — text-only research catalog (166 make/family/engine entries; current rusEFI named decoders and pattern candidates kept distinct).
+- `docs/engine-finder.js` — cascading manufacturer/family/engine selection, code search, live results, detailed text card and shareable engine deep links.
+- The five obsolete engine SVG sheets and five obsolete engine HTML pages were deliberately removed and replaced by the finder. Physical connector posters were retained.
 - `assets/` — original supplied PCB and vehicle photographs.
 
 ### Purchasing
