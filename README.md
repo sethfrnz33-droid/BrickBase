@@ -129,3 +129,7 @@ Source references: [latest rusEFI trigger menu](https://github.com/rusefi/rusefi
 - Both ZIPs are **generic rusEFI builds**, not Brick ECU-validated firmware releases. Generic packages may change board mappings, wireless support, or tune compatibility; back up settings and verify exact hardware/firmware targets before any use. Big/Mini are not interchangeable.
 - Fast TunerStudio laptop logging is a licensed application capability and is conditional on the ECU and physical/network connection. Big Brick's onboard 256 MB logging is a distinct function.
 - Source of current firmware links: https://rusefi.com/build_server/ ; registered MS feature list: https://www.tunerstudio.com/index.php/products/tuner-studio/tunerstudioms .
+
+## Navigation and discoverability
+
+The homepage now exposes Engine Finder, Big Brick pinouts, Downloads and Documentation as four visible navigation shortcuts; main navigation links Engine Finder and Downloads separately. Documentation indexes all eight resources under `Tools`, `Downloads`, `Hardware` and `Guides`. Downloads is its own category, not a guide. Mini and Big Brick product pages also link directly to relevant product resources. Keyword search remains optional, not required to discover sections.

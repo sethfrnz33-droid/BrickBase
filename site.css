@@ -82,3 +82,26 @@
 .ef-research-note{color:#deedfc;font-size:.8rem;line-height:1.55;margin:10px 0 0}
 .ef-research-pending{color:#ffdbad;font-size:.85rem;margin:4px 0}
 @media(max-width:600px){.ef-research .ef-spec{grid-template-columns:1fr;gap:4px}}
+
+/* Site-wide discovery: main resources are linked before visitors must know their names. */
+.navlinks{gap:5px}
+.navlinks a{padding:8px 10px;font-size:.8rem}
+.site-resources{margin:10px 0 22px;padding:24px 0}
+.site-resources-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-bottom:16px}
+.site-resources-heading .kicker{display:block;margin-bottom:8px}
+.site-resources-heading h2{margin:0;font-size:clamp(1.35rem,2.7vw,1.8rem);letter-spacing:-.02em}
+.site-resources-heading p{margin:0;color:#a9cade;max-width:410px;font-size:.87rem;line-height:1.5}
+.site-resources-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.site-resources-grid a{display:flex;flex-direction:column;gap:7px;min-height:170px;padding:17px;border:1px solid #457fad;background:#102e52;border-radius:12px;color:#eaf7ff;text-decoration:none;transition:background .18s,border-color .18s,transform .18s}
+.site-resources-grid a:hover,.site-resources-grid a:focus-visible{background:#1d4e7c;border-color:#9ad9ff;transform:translateY(-2px)}
+.site-resource-type{font-size:.68rem;letter-spacing:.07em;font-weight:850;color:#94cce9}
+.site-resources-grid strong{font-size:1.05rem;line-height:1.25}
+.site-resources-grid a>span:nth-last-child(2){color:#c2d9e8;font-size:.8rem;line-height:1.45}
+.site-resource-action{margin-top:auto;font-size:.75rem;font-weight:850;color:#a4e1ff}
+.site-resources-compact{margin:8px 0 4px;padding:16px 0}
+.site-resources-compact .site-resources-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.site-resources-compact .site-resources-grid a{min-height:112px}
+.site-resources-compact .site-resources-grid small{margin-top:auto;color:#a4e1ff;font-weight:750}
+@media(max-width:900px){.site-resources-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.site-resources-grid,.site-resources-compact .site-resources-grid{grid-template-columns:1fr}.site-resources-grid a{min-height:112px}.site-resources-compact .site-resources-grid a{min-height:99px}}
+@media(prefers-reduced-motion:reduce){.site-resources-grid a{transition:none}}

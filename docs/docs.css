@@ -127,3 +127,24 @@
 .docs-page .doc-main #tunerstudio-registration .actions{margin:8px 0 16px}
 .docs-page .doc-main #firmware-downloads .notice{margin:13px 0}
 @media(max-width:680px){.docs-feature-grid,.docs-firmware-grid{grid-template-columns:1fr}.docs-firmware-item{padding:16px}.docs-download-head>.btn{width:100%}}
+
+/* Visible site map: tools, standalone downloads, hardware, and guides. */
+.docs-category-jumps{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 20px}
+.docs-category-jumps a{font-size:.84rem;color:#cdefff;background:#113758;border:1px solid #41769e;border-radius:8px;padding:8px 12px;text-decoration:none;font-weight:750}
+.docs-category-jumps a:hover,.docs-category-jumps a:focus-visible{background:#205b88;border-color:#9ad7fa}
+.docs-downloads-category{margin:22px 0 30px}
+.docs-download-spotlight{display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:22px 24px;border:1px solid #66a7d0;border-left:4px solid #a2ddff;border-radius:13px;background:#113b61;color:#effaff;text-decoration:none}
+.docs-download-spotlight:hover,.docs-download-spotlight:focus-visible{background:#1b4d78;border-color:#b4e5ff}
+.docs-download-spotlight strong{font-size:1.28rem}
+.docs-download-spotlight>span:nth-of-type(2){font-size:.88rem;line-height:1.6;color:#cce1ee}
+.docs-download-spotlight .docs-task-go{margin-top:3px}
+.docs-download-shortcuts{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0 0}
+.docs-download-shortcuts a{font-size:.79rem;color:#afe2ff;text-decoration:none;border:1px solid #315c7d;padding:7px 10px;border-radius:8px;background:#0a2846}
+.docs-download-shortcuts a:hover{background:#1a456a}
+.docs-hub-group{scroll-margin-top:110px}
+.docs-local-nav .docs-sidebar-group:has(.docs-sidebar-label:first-child){min-width:0}
+.docs-local-nav .docs-sidebar-group:has(a[href="downloads.html"]){background:#0e2b48;border-radius:8px}
+.docs-local-nav .docs-sidebar-group:has(a[href="downloads.html"]) a{font-weight:800}
+.docs-page .docs-hub-header{padding-bottom:18px}
+.docs-page .docs-hub-header>p{max-width:740px}
+@media(max-width:900px){.docs-local-nav .docs-sidebar-group:has(a[href="downloads.html"]){background:none}}
