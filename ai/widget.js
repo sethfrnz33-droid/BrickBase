@@ -171,7 +171,7 @@ async function probe(){
    if(!response.ok)throw new Error("Assistant endpoint unavailable");
    const data=await response.json();
    aiReady=(data?.service==="Brick ECU help"&&data.configured===true);
-   if(statusLabel)statusLabel.textContent=aiReady?"Free Cloudflare AI · Documentation":"Documentation help · AI offline";
+   if(statusLabel)statusLabel.textContent=aiReady?"Cloudflare AI connected · Documentation":"Documentation help · AI offline";
  }catch(_){
    aiReady=false;
    if(statusLabel)statusLabel.textContent="Documentation help · AI offline";
