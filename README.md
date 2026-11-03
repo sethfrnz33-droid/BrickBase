@@ -67,3 +67,9 @@ Cloudflare Workers is connected to this GitHub repository; changes to the config
 - [rusEFI microRusEFI wiring](https://wiki.rusefi.com/Hardware-microRusEFI-wiring/)
 - [rusEFI trigger patterns](https://wiki.rusefi.com/All-Supported-Triggers/)
 - [rusEFI wiring concepts](https://wiki.rusefi.com/FAQ-Basic-Wiring-and-Connections/)
+
+## Confirmed research notes (user-reviewed)
+
+- **GM LS Gen IV factory 58X crank sensor:** use **5 V supply**, consistent with the MicroSquirt/MegaSquirt reference and confirmed by the project owner on 2026-11-02. An earlier third-party Haltech wiring reference cited 12 V; do not copy that into Brick ECU wiring guidance for the factory Gen IV 58X sensor. Verify sensor part number and signal pull-up requirements for every actual harness before publishing a connector-level wiring diagram.
+- **Gen III 24X** uses a 12 V supplied internally conditioned digital crank sensor, generally a 1X cam and factory smart coils. **Gen IV 58X** uses a different crank pattern and 4X cam, generally smart coils. **Gen V 58X / 4X** additionally introduces GDI that is not validated on Big Brick.
+- Big Brick LS candidate support is not a proven vehicle installation; publish engine-specific physical connector maps only after sensor/harness variant verification.
