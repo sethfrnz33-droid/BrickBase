@@ -71,3 +71,14 @@
 .ef-score-reasons ul{margin:9px 0 0;padding-left:20px;color:#d5ecfc;font-size:.8rem;line-height:1.5}
 .ef-score-reasons li+li{margin-top:5px}
 @media(max-width:540px){.ef-scores{grid-template-columns:1fr}}
+
+/* Text-based engine-by-engine OEM trigger evidence */
+.ef-research{margin:15px 0;padding:15px 16px;border:1px solid #4487be;border-radius:13px;background:linear-gradient(155deg,#0b2c53,#081a33)}
+.ef-research h4{font-size:1rem;letter-spacing:.02em;margin:0 0 10px;color:#d6f2ff}
+.ef-research-status{display:inline-block;margin:0 0 12px;font-size:.72rem;font-weight:800;color:#b8e9ff;background:#0a3c69;padding:5px 9px;border:1px solid #367daf;border-radius:8px}
+.ef-research .ef-spec{grid-template-columns:1fr 1.4fr}
+.ef-research .ef-spec dt{font-size:.76rem}
+.ef-research .ef-spec dd{font-size:.83rem}
+.ef-research-note{color:#deedfc;font-size:.8rem;line-height:1.55;margin:10px 0 0}
+.ef-research-pending{color:#ffdbad;font-size:.85rem;margin:4px 0}
+@media(max-width:600px){.ef-research .ef-spec{grid-template-columns:1fr;gap:4px}}
