@@ -237,7 +237,7 @@
     }
     if(ul.childElementCount) audit.append(ul);
     else audit.append(elm("p",null,"No engine-specific external source verified; firmware reference links follow."));
-    details.append(top,scores,scoreDisclaimer,confidenceLayerSection(e),grid,researchSection(e),integration,conflicts,audit,note,scoreExplanation(e),warning,refs);
+    details.append(top,scores,scoreDisclaimer,confidenceLayerSection(e),grid,researchSection(e),integration,conflicts,audit,note,warning,refs);
   }
   function renderList(){
     const found=filtered();list.replaceChildren();
