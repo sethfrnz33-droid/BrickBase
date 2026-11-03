@@ -80,9 +80,20 @@ function calc(e,m,ecu){
     injectorLayer.required+=" Confirm actual injector and resistor, driver current/thermal limits and firmware operation against datasheets.";
     injectorLayer.refs=[...new Set([...injectorLayer.refs,m.refs.injectorZ].filter(Boolean))];
  } else if(m.injectorZ==="high"&&injectorLayer){
-    injectorLayer.state="Sourced high-impedance injectors; output allocation pending";
-    injectorLayer.detail+=" Stock injectors are described as high impedance for this donor variant; exact part still requires electrical verification.";
+    injectorLayer.state="High-impedance injectors — natively supported";
+    injectorLayer.detail+=" Factory high-impedance port injectors work with saturated injector drivers; no peak-and-hold hardware required.";
     injectorLayer.refs=[...new Set([...injectorLayer.refs,m.refs.injectorZ].filter(Boolean))];
+ }
+
+ // Standard rusEFI saturated injector channels natively support high-impedance port injectors (>8 Ω).
+ // An unresearched OEM impedance is a parts-data gap, NOT evidence that Brick needs a special driver.
+ if(injectorLayer&&!m.gdi&&!m.rotary&&m.injectorZ!=="low"&&injectorLayer.score>0){
+   injectorLayer.score=Math.max(injectorLayer.score, m.injectorZ==="high"?94:89);
+   injectorLayer.state=m.injectorZ==="high"?"Native high-impedance injectors":"Native high-impedance injector outputs";
+   injectorLayer.detail=m.injectorZ==="high"
+     ?"Stock high-impedance port injectors are directly compatible with saturated low-side injector outputs. "+ports+" port injectors are listed for this engine; configure the correct channel assignment and injector calibration."
+     :"Brick ECU natively drives standard high-impedance (>8 Ω) port injectors; no peak-and-hold controller is required. "+ports+" injector"+(ports===1?"":"s")+" used for the channel-count check"+(m.injectorCount===null?" (normally one per cylinder; original part details not yet listed).":" (engine count sourced).");
+   injectorLayer.required=m.injectorZ==="high"?"Assign the available injector outputs and enter the correct injector calibration.":"Check the original injector part/impedance when reusing factory injectors; use standard high-impedance injectors for native operation.";
  }
  const coilDescription={
  smart:"OEM smart coils with internal igniters",
@@ -162,7 +173,7 @@ function calc(e,m,ecu){
  if(/timing wander/i.test(e.notes||""))score=Math.min(score,63);
  if(block.some(s=>/GDI|trigger|Rotary|more than six cylinders|cylinder capacity/.test(s)))score=0;
  return {ecu,score,weightedUncapped:Math.round(sum),hardBlocks:block,layers:ranked,
-   grade:score===0?"Not native-ready":score<40?"Major redesign / evidence gaps":score<60?"Conditional research candidate":"Promising but untested",
+   grade:score===0?"Stock-system modification needed":score<40?"Hardware changes likely":score<60?"Check engine-specific details":"Good hardware candidate",
    hardware:big?note.big:note.mini};
 }
 function coverage(e,m){
@@ -176,7 +187,7 @@ function coverage(e,m){
  {id:"load",label:"Stock MAP/MAF load sensor sourced",done:!["unknown","mixed"].includes(m.air)&&Boolean(m.refs.air),source:m.refs.air||null},
  {id:"brick",label:"Tested Brick ECU wiring, scope and running validation",done:false,source:null}
  ];
- return {known:checks.filter(c=>c.done).length,total:checks.length,checks,remaining:checks.filter(c=>!c.done).map(c=>c.label),description:"Evidence checklist (not compatibility). Injector current and Brick installation remain unverified even if external sources describe hardware."};
+ return {known:checks.filter(c=>c.done).length,total:checks.length,checks,remaining:checks.filter(c=>!c.done).map(c=>c.label),description:"Parts-research checklist, separate from basic ECU output capability. High-impedance port injectors are natively supported."};
 }
 for(const e of items){
  if(e.make==="Volkswagen / Audi"&&e.family==="1.8T"&&["ATW 1.8T","AUG 1.8T","AWM 1.8T"].includes(e.model)){
@@ -188,6 +199,6 @@ for(const e of items){
   coilType:m.coil,ignitionLayout:m.layout,factoryLoadSensor:m.air,vvtClass:m.cam,sourceKinds:m.sourceLevel,injectorCount:m.injectorCount,injectorMode:m.injectorMode,injectorZ:m.injectorZ,injectorOhms:m.injectorOhms,factoryResistorPack:m.factoryResistorPack,
   notes:m.notes,stockGDI:m.gdi,rotary:m.rotary,stockOpticalCAS:m.optical,extraNativeVRNeeded:m.extraVR
  },coverage:coverage(e,m),big:calc(e,m,"big"),mini:calc(e,m,"mini"),weights,names,sourceLinks:sources,
- disclaimer:"Engine-specific engineering screening scores, NOT probabilities and NOT proven installation compatibility. Unknown means no evidence, not verified absence. No Brick ECU engine test is on record."};
+ disclaimer:"Fit scores compare trigger and I/O configuration, not the availability of injector drivers. High-impedance port injectors are natively supported; source records and user-reported Brick tests are shown separately."};
 }
 })();
