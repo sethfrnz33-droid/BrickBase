@@ -52,9 +52,9 @@
   function scoreCard(name,pct){
     const card=elm("div","ef-score-card"+(pct===0?" ef-score-zero":""));
     const header=elm("div","ef-score-header");
-    header.append(elm("span","ef-score-name",name),elm("strong","ef-score-number",pct+"%"));
+    header.append(elm("span","ef-score-name",name),elm("strong","ef-score-number",pct+"/100"));
     const meter=elm("progress","ef-score-meter");
-    meter.max=100;meter.value=pct;meter.setAttribute("aria-label",name+" engineering screening confidence: "+pct+" percent");
+    meter.max=100;meter.value=pct;meter.setAttribute("aria-label",name+" engineering screening score: "+pct+" out of 100; not a measured probability");
     card.append(header,meter);
     return card;
   }
@@ -73,12 +73,29 @@
     const intro=elm("p","ef-layer-intro","Seven independent checks compare Big vs Mini, with the evidence source and outstanding verification visible in each row. Scores describe a preliminary hardware/firmware screening, NOT real-world success probability.");
     const weights=elm("p","ef-layer-weights","Weights: crank decoder 25 · injector I/O 15 · ignition count 14 · ignition power stage 14 · cam/VVT 14 · load sensor 8 · injection technology 10. Untested total capped at 79; a stock-system blocker overrides the combined total to 0.");
     wrap.append(h,intro,weights);
+    if(v.coverage){
+      const c=v.coverage,coverage=elm("div","ef-layer-coverage");
+      coverage.append(elm("strong",null,"Source coverage: "+c.known+"/"+c.total+" evidence checks"));
+      coverage.append(elm("p",null,"Independent from the compatibility score. Source-backed means a reference exists; actual Brick wiring/driver verification remains outstanding."));
+      const d=elm("details","ef-layer-coverage-details");
+      d.append(elm("summary",null,"Show verified references and remaining research"));
+      const ul=elm("ul");
+      for(const ch of c.checks){
+        const li=elm("li",null,(ch.done?"Referenced: ":"Outstanding: ")+ch.label+" ");
+        if(ch.source&&/^https:\/\//.test(ch.source)){
+          const a=elm("a",null,"Reference");a.href=ch.source;a.target="_blank";a.rel="noopener noreferrer";li.append(a);
+        }
+        ul.append(li);
+      }
+      d.append(ul);coverage.append(d);wrap.append(coverage);
+    }
     const profile=elm("div","ef-layer-profile");
     const dat=v.model||{};
     profile.append(field("Factory coil type",({
        smart:"Smart coils / built-in igniter",dumb:"Passive coils / external power stage required",
        "external-multi":"Coils via multi-channel external igniter",
        "external-single":"Single coil via OEM igniter / distributor",
+       varies:"Different coils/igniters by engine generation; exact donor required",
        unknown:"Unknown: coil and driver require source verification"
      })[dat.coilType]||"Unknown"),
      field("Stock load sensor",({
@@ -88,6 +105,8 @@
      })[dat.factoryLoadSensor]||"Unknown"),
      field("Ignition firing topology",(dat.ignitionLayout==="twin-distributor"?"Two coils via two distributors":dat.ignitionLayout)||"unknown"),
      field("Port injector count",dat.injectorCount===null?"Not source confirmed; one per cylinder modeled":(dat.injectorCount+" physical injectors, source-referenced"+(dat.injectorMode&&dat.injectorMode!=="unknown"?" · "+dat.injectorMode:""))),
+     field("Stock injector electrical class",dat.injectorZ==="low"?"Low impedance"+(dat.injectorOhms!==null?" · "+dat.injectorOhms+" ohms":"")+"; current-limited driver required":dat.injectorZ==="high"?"High impedance (source-referenced)":"Unknown; output count alone does not prove driver compatibility"),
+     field("Factory injector resistor/current limiting",dat.factoryResistorPack===true?"OEM series resistor pack documented; Brick electrical check outstanding":dat.factoryResistorPack===false?"No factory resistor indicated for sourced high-Z configuration":"Unverified"),
      field("Cam/VVT complexity",dat.vvtClass||"unknown"));
     const engineNotes=(dat.notes||[]);
     if(engineNotes.length){
@@ -195,7 +214,10 @@
     note.append(elm("strong",null,"Variant notes and cautions"),elm("p",null,e.notes));
     const warning=elm("div","notice warning");
     warning.textContent="Research entry only — no Brick ECU harness, tune, synchronization or ignition timing has been tested for this variant. A decoder name is not a guarantee of compatibility.";
-    if(e.level==="blocked")warning.textContent="WARNING: rusEFI marks the selected decoder as problematic. Do not treat this engine as a supported trigger application.";
+    if(e.level==="blocked"){
+      const mod=e.confidenceV2?.model||{};
+      warning.textContent=mod.stockGDI?"WARNING: Factory GDI/high-pressure injector control is not natively validated on Brick ECU. Big external integration is experimental; Mini does not support GDI.":mod.rotary?"WARNING: Rotary fuel and leading/trailing ignition scheduling are not Brick ECU validated.":mod.stockOpticalCAS?"WARNING: Stock high-resolution Nissan optical CAS is not natively verified; an alternative trigger would need independent validation.":"WARNING: rusEFI marks this stock trigger decoder as unsupported/problematic. Do not claim validated compatibility.";
+    }
     const refs=elm("p","ef-sources");
     const a=elm("a",null,"rusEFI trigger reference");a.href=source;a.target="_blank";a.rel="noopener noreferrer";
     const b=elm("a",null,"Current firmware trigger menu");b.href=firmware;b.target="_blank";b.rel="noopener noreferrer";
