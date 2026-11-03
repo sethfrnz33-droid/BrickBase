@@ -11,7 +11,6 @@ This provides short answers to basic Brick ECU product, wiring-reference and tun
 - `/ai/config.js` — website assistant endpoint (defaults to `/api/brick-help`).
 - `/ai/widget.js` — small accessibility-conscious conversation interface, loaded from the shared `site.js` on every website page.
 - `/ai/wrangler.jsonc` — standalone Workers AI deployment configuration.
-- `/functions/api/brick-help.js` — optional Pages Function entry point if the hosting project is Cloudflare **Pages** rather than static **Workers**.
 
 ## Deployment — current static Cloudflare Workers website
 
@@ -37,9 +36,14 @@ References: [Cloudflare Git integration](https://developers.cloudflare.com/worke
 
 Attach the AI Worker to an existing Cloudflare-proxied **custom hostname** on route `/api/brick-help*` using Cloudflare Worker routing if compatible with your domain's present Worker deployment. The public widget default `API_ENDPOINT="/api/brick-help"` then works unchanged, with no cross-origin requests. **Do not replace the static site's origin Worker or route all traffic to this API Worker.** Determine the actual Cloudflare hostname/routing before creating a route; this repo doesn't specify it.
 
-### Option C — Cloudflare Pages
+### Important: don't deploy the storefront as the AI Worker
 
-If the site is migrated to Cloudflare Pages, the committed `functions/api/brick-help.js` automatically provides `/api/brick-help`; add a **Workers AI** binding named exactly `AI` in your Pages project (Settings → Bindings), then redeploy. The default frontend endpoint requires no change.
+The storefront and assistant are **two separately deployed Workers** connected to the same GitHub repository. For the **storefront** Worker, use the repository root (`/`) and its existing static deployment settings. For the **brick-ecu-help** Worker, set **Settings → Build → Root directory** to `ai` and deploy with `npx wrangler deploy`. The AI Worker uses `ai/wrangler.jsonc` and `ai/worker.js`.
+
+An obsolete optional Cloudflare Pages Function formerly at `functions/api/brick-help.js` caused Wrangler 4.157.0 to reject deploying the static repository root. That file was deleted 2026-11-03. The top-level `functions/` directory is **absent** from the GitHub root, so this specific error is resolved. If Cloudflare still shows the old checkout, trigger a fresh deployment from the latest commit rather than a stale earlier commit.
+
+The separate AI Worker does not automatically give your storefront an API path: use the Worker URL in `ai/config.js` plus the correct `ALLOWED_ORIGINS` as outlined above. The chat launcher stays hidden until the AI Worker returns `configured: true`.
+
 
 ## Billing and abuse controls
 
