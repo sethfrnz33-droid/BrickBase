@@ -447,3 +447,90 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #b6
 .policy-preview p{font-size:.84rem;color:#c5ded7;line-height:1.55;margin:0}
 .policy-preview a{color:#b0e9b5;text-decoration:underline;text-underline-offset:3px}
 @media(max-width:650px){.policy-head{padding-top:23px}.policy-quick{grid-template-columns:1fr}.policy-risk{padding:15px}.policy-section{padding:16px 0 20px}.policy-end{padding:17px}}
+
+/* Ask Brick — quiet documentation assistant. Hidden until backend health passes. */
+.brick-help-toggle{
+ position:fixed;right:21px;bottom:21px;z-index:125;
+ border:1px solid rgba(188,237,184,.75);border-radius:999px;
+ color:#0c3033;background:linear-gradient(145deg,#d9f7c3,#9de3bb);
+ box-shadow:0 10px 34px rgba(0,13,21,.35);
+ min-height:47px;padding:11px 20px 11px 18px;
+ font:800 .9rem/1.2 "Trebuchet MS",system-ui,sans-serif;
+ cursor:pointer;
+}
+.brick-help-toggle::before{content:"✿";font-size:1.13rem;margin-right:9px;color:#377e58}
+.brick-help-toggle:hover{background:#e4f8d3;transform:translateY(-2px)}
+.brick-help-toggle:focus-visible,.brick-help-panel button:focus-visible,.brick-help-input:focus-visible{
+ outline:2px solid #c4f8cf;outline-offset:3px
+}
+.brick-help-panel{
+ position:fixed;right:20px;bottom:82px;z-index:126;
+ display:flex;flex-direction:column;
+ width:min(395px,calc(100vw - 28px));height:min(565px,calc(100dvh - 116px));
+ border:1px solid rgba(142,212,198,.6);border-radius:18px;overflow:hidden;
+ background:linear-gradient(145deg,#154958,#0a293b 72%);
+ color:#e7f4ec;box-shadow:0 18px 50px rgba(0,9,18,.5);
+ font:400 .88rem/1.5 "Trebuchet MS",system-ui,sans-serif;
+}
+.brick-help-panel[hidden]{display:none!important}
+.brick-help-header{
+ display:flex;justify-content:space-between;gap:14px;align-items:center;
+ padding:13px 15px;background:rgba(41,104,108,.35);
+ border-bottom:1px solid rgba(149,206,188,.25)
+}
+.brick-help-heading{display:flex;flex-direction:column;gap:1px}
+.brick-help-heading strong{font-size:1.08rem;line-height:1.2;color:#e9fae8}
+.brick-help-heading span{font-size:.75rem;color:#b2d5cc}
+.brick-help-close{
+ width:30px;height:30px;padding:0;border-radius:50%;
+ border:1px solid rgba(156,203,188,.35);background:rgba(8,39,50,.65);
+ color:#c9e7dc;font-size:1.5rem;cursor:pointer;
+}
+.brick-help-messages{
+ min-height:0;flex:1 1 auto;overflow-y:auto;overscroll-behavior:contain;
+ padding:13px 13px 9px;display:flex;flex-direction:column;gap:9px;
+ scrollbar-width:thin;
+}
+.brick-help-intro{margin:4px 2px 7px;color:#c0dcd3;font-size:.86rem;line-height:1.57}
+.brick-help-message{
+ max-width:96%;padding:10px 12px;border-radius:13px;
+ border:1px solid rgba(130,188,179,.3);background:rgba(14,55,67,.75);
+ overflow-wrap:anywhere
+}
+.brick-help-message p{margin:0;color:#dcefe7;white-space:pre-wrap;font-size:.84rem;line-height:1.58}
+.brick-help-user{align-self:flex-end;background:#215f67;border-color:#4e9b93}
+.brick-help-assistant{align-self:flex-start}
+.brick-help-questions{padding:0 13px 7px;display:flex;gap:6px;flex-wrap:wrap}
+.brick-help-questions[hidden]{display:none}
+.brick-help-prompt{
+ background:rgba(13,56,65,.75);border:1px solid rgba(139,203,163,.4);
+ color:#ccecd6;border-radius:999px;padding:7px 11px;
+ font:700 .74rem "Trebuchet MS",system-ui,sans-serif;cursor:pointer
+}
+.brick-help-prompt:hover{background:#1f626a}
+.brick-help-sources{display:flex;flex-direction:column;gap:6px;margin-top:10px;padding-top:8px;border-top:1px solid #4c848055}
+.brick-help-sources strong{font-size:.73rem;color:#a9d0c7}
+.brick-help-sources a{color:#b2edc4;text-decoration:underline;text-underline-offset:3px;font-size:.78rem}
+.brick-help-form{
+ padding:10px 11px;display:flex;gap:8px;
+ border-top:1px solid rgba(151,206,192,.26);background:rgba(5,28,39,.42);
+}
+.brick-help-input{
+ min-width:0;flex:1 1 auto;padding:10px 12px;border-radius:9px;
+ border:1px solid #5d9a9a;background:#0a2b39;color:#eff9ef;
+ font:400 .83rem "Trebuchet MS",system-ui,sans-serif;
+}
+.brick-help-input::placeholder{color:#9abfb9}
+.brick-help-send{
+ border:1px solid #c5edbc;border-radius:9px;padding:9px 13px;
+ color:#102f30;background:#b8e6b5;font-weight:800;cursor:pointer
+}
+.brick-help-send:disabled{opacity:.55;cursor:wait}
+.brick-help-disclaimer{
+ margin:0;padding:0 14px 10px;background:rgba(5,28,39,.42);
+ font-size:.68rem;line-height:1.38;color:#a1c3b9
+}
+@media(max-width:640px){
+ .brick-help-toggle{right:13px;bottom:13px;padding:10px 16px;min-height:43px}
+ .brick-help-panel{right:10px;bottom:70px;width:calc(100vw - 20px);height:min(565px,calc(100dvh - 85px))}
+}
