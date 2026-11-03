@@ -43,7 +43,7 @@ No application-side transcripts are intentionally logged or saved by this code. 
 
 ## Response limits
 
-- Use `@cf/meta/llama-3.1-8b-instruct` by default through `env.AI.run` (override with a compatible `AI_MODEL` environment variable if needed).
+- Use `@cf/meta/llama-3.1-8b-instruct-fast` by default through `env.AI.run` (override with a compatible `AI_MODEL` environment variable if needed).
 - The assistant must not invent Brick connector cavities, sensor/coil voltages, crank/cam decoder configurations, tuning numbers or fixed ignition/dwell settings.
 - It may explain concepts, refer readers to engine-specific references, and answer general product/sales questions.
 - High-impedance (>8 Ω) port injectors are natively supported; low-impedance injectors need a verified current-limiting arrangement.
