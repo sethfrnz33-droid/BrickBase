@@ -28,10 +28,14 @@ export const KNOWLEDGE=[
 export function selectTopics(question,limit=4){
  const q=String(question||"").toLowerCase();
  const words=q.match(/[a-z0-9-]{3,}/g)||[];
+ const normalized=" "+q.replace(/[^a-z0-9]+/g," ").trim()+" ";
  const scored=KNOWLEDGE.map(topic=>{
    const hay=topic.keywords.join(" ").toLowerCase();
    let score=0;
-   for(const key of topic.keywords){const word=key.toLowerCase();if(q.includes(word))score+=word.includes(" ")?6:3;}
+   for(const key of topic.keywords){
+      const word=" "+key.toLowerCase().replace(/[^a-z0-9]+/g," ").trim()+" ";
+      if(normalized.includes(word))score+=key.includes(" ")?6:3;
+   }
    if(q.includes(topic.title.toLowerCase()))score+=8;
    for(const word of words){if(word.length>=5&&hay.includes(word))score+=0.15;}
    return {...topic,score};
