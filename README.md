@@ -41,7 +41,10 @@ Both advertised prices include mating harness connectors and terminal pins. Paym
 - Big Brick has the integrated LSU 4.9 controller, knock sensing and non-removable 256 MB logging card.
 - Big Brick potential external GDI hardware integration is **not tested or validated**.
 - Mini Brick **does not support GDI** and does **not** have an internal wideband controller.
-- Big Brick pin **A17 is SGND** and pin **A19 is AV8**.
+- Big Brick pin **A17 is SGND**, pin **A19 is AV8**, and **C9 / PRTL resets forgotten Wi-Fi SSID and password** (it is not the ordinary captive portal trigger).
+- Connector B H-bridge outputs B1/B2/B4/B5 are annotated **6 A max** in the developer-supplied original pinout drawing; earlier 8 A transcription was incorrect.
+- Engine factory coil type varies: M54 passive/dumb (DME-side driver); common GM LS smart; VW 1.8T AEB external module vs later internal igniter; early 4G63 turbo external igniter vs some later internal igniters; K20A/K24A factory coils to be confirmed for the exact part and year.
+- The previous AI-generated engine wiring diagrams contained unverified assumptions and **must not be treated as installation instructions**.
 - Mini Brick has no independently confirmed complete Brick-specific terminal-level pinout in this repository.
 - Engine library entries are **research candidates, not verified compatible installations**. Never invent vehicle-side pinouts, tested calibrations, sensor requirements or fuse values.
 
