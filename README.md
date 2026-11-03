@@ -184,6 +184,8 @@ The model distinguishes factory manifold MAP from MAF and from boost-only sensor
 ## Field-by-field engine research audit (2026-11-03)
 
 - [All 237 engines: ignition, MAP/MAF, injectors, VVT, scores, unknowns, source links](docs/ENGINE_SUBSYSTEM_GAPS.md) — auditable source-coverage ledger with independent Big/Mini screening scores.
-- Latest source-classified fields in this pass: **106** engine entries with specific coil-power-stage types, **102** with factory MAP/MAF identification, **68** with port-injector counts, and **6** with source-specific injector electrical impedance classes. All remaining values explicitly stay unknown or revision-dependent.
+- Latest source-classified fields in this pass: **109** engine entries with specific coil-power-stage types, **102** with factory MAP/MAF identification, **71** with port-injector counts, and **6** with source-specific injector electrical impedance classes. All remaining values explicitly stay unknown or revision-dependent.
 - Critical newly established hardware issue: 1997 Supra 2JZ-GTE low-Z injectors and original resistor pack; DSM turbo 4G63 low-Z/resistor pack; Suzuki G13B 2.2-ohm injectors with unknown OEM/current-limiting interoperability. None of these constitute Brick low-Z injector driver approval.
 - The [live searchable research-status table](docs/research-status.html) can now filter by missing trigger, injector count/current, coil count/driver, cam/VVT, load sensing and actual Brick installation evidence. All 237 remain untested on Brick; status is independent of the seven numeric confidence layers.
+
+- A documented source conflict in VW 1.8T: the general Haltech family guide describes an external four-channel igniter, while VW factory ATW/AUG/AWM service references identify integrated four-pin coil output stages. The engine finder now distinguishes AEB versus those later engine codes and exposes both sources rather than claiming one architecture for all 1.8T builds.
