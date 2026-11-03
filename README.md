@@ -166,3 +166,9 @@ The homepage now exposes Engine Finder, Big Brick pinouts, Downloads and Documen
 - New families include VW/Audi VR6, R32, 2.7T, EA113/EA888; Toyota 4A-G, 3S, GR, AR, AZ, NZ; Volvo redblock/whiteblock; BMW M20/M42/M44, S50/S52, M60/M62; GM 3800/Ecotec; Honda J/L/R; Mercedes M104/M111/M112/M113; Ford Zetec/Lima/ST; Nissan KA/CA/RB; Mazda RX-7; Subaru EJ207/FA20/FA24.
 - **Evidence limit:** 237 catalog entries are *research records*, not 237 verified Brick ECU configurations. Source lists include independent third-party references and firmware documentation; a URL does not establish a specific engine/year pinout, and linked material may apply only to adjacent versions. Detailed wiring and sensors remain unresolved where source specificity is insufficient. The original 16 decoder-only entries remain unresolved.
 - **Do not publish unverified pin numbers, supply voltages, trigger edges, ignition dwell or ECU mappings as confirmed facts.** Existing known conflicts remain explicitly visible. Factory GDI and rotary management are unvalidated.
+
+
+## Engine research completion inventory
+
+- [Full 237-engine finished/unfinished research ledger](docs/ENGINE_RESEARCH_AUDIT.md) — all records grouped by evidence status, with remaining verification, technical reference links and uncited-engine gaps.
+- [Searchable on-site research status](docs/research-status.html) — filter by manufacturer, evidence stage, engine code and completion. All current entries are research-only; none is validated as fully finished.
