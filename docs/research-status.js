@@ -48,8 +48,8 @@
    for(const e of filtered){
      const tr=document.createElement("tr");
      const name=cell(tr);name.append(link("compatibility.html#engine="+encodeURIComponent(e.id),e.model));const where=document.createElement("small");where.textContent=e.make+" / "+e.family;name.append(where);
-     cell(tr,isComplete(e)?"Finished / verified":"Unfinished / untested").className="audit-unknown";
-     cell(tr,(e.confidenceV2?.big?.score??"—")+"/100").className="audit-category";
+     cell(tr,isComplete(e)?"Complete setup guide":"More docs needed").className="audit-category";
+     const bigCell=cell(tr,(e.confidenceV2?.big?.score??"—")+"/100");bigCell.className="audit-category";if(e.runningEvidence?.brickBig||e.runningEvidence?.brickFamily){const extra=document.createElement("small");extra.textContent=e.runningEvidence?.brickBig?"RUNNING on Big Brick":"Gen IV LS family tested";bigCell.append(extra);}
      cell(tr,(e.confidenceV2?.mini?.score??"—")+"/100").className="audit-category";
      cell(tr,e.confidenceV2?.coverage?(e.confidenceV2.coverage.known+"/"+e.confidenceV2.coverage.total+" sourced"):"No audit").className="audit-category";
      cell(tr,descriptions[e.research?.status]||e.research?.status||"Unknown").className="audit-category";
