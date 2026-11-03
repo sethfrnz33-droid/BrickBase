@@ -33,7 +33,7 @@
   function matchesSearch(e){
     const q=search.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
     if(!q.length)return true;
-    const str=[e.make,e.family,e.model,e.crank,e.cam,e.notes,e.fuel].join(" ").toLowerCase();
+    const str=[e.make,e.family,e.model,e.crank,e.cam,e.notes,e.fuel,e.research?.crankWheel,e.research?.camWheel,e.research?.electrical,e.research?.decoderCorrelation].filter(Boolean).join(" ").toLowerCase();
     return q.every(word=>str.includes(word));
   }
   function filtered(){
@@ -64,6 +64,27 @@
     const ul=elm("ul");
     (e.confidence?.basis||["No rating methodology recorded."]).forEach(msg=>ul.append(elm("li",null,msg)));
     wrap.append(ul);
+    return wrap;
+  }
+  function researchSection(e){
+    const r=e.research,wrap=elm("section","ef-research");
+    wrap.append(elm("h4",null,"OEM trigger-wheel research"));
+    if(!r){
+      const status=elm("p","ef-research-pending","Engine-specific OEM wheel research is pending. The trigger choices above are preliminary and must not be treated as verified for this variant.");
+      wrap.append(status);
+      return wrap;
+    }
+    const badge=elm("p","ef-research-status","Research status: "+({
+      "wheel-sourced":"OEM wheel and proposed rusEFI correlation sourced",
+      "family-wheel-sourced":"Family documented; exact variant wheel remains to confirm",
+      "oem-wheel-sourced":"OEM wheel documented; rusEFI correlation unresolved",
+      "partial-wheel-sourced":"Partial OEM wheel research; more evidence required",
+      "hardware-constraint":"OEM hardware limitation identified"
+    }[r.status]||"Research in progress"));
+    const dl=elm("dl","ef-specs");
+    dl.append(field("OEM crank wheel",r.crankWheel),field("OEM cam/phase wheel",r.camWheel),field("OEM sensor hardware",r.electrical),field("rusEFI decoder correlation",r.decoderCorrelation),field("Still to verify",r.remaining));
+    wrap.append(badge,dl);
+    if(r.notes)wrap.append(elm("p","ef-research-note",r.notes));
     return wrap;
   }
   function ecuFit(e){
@@ -102,12 +123,12 @@
     const a=elm("a",null,"rusEFI trigger reference");a.href=source;a.target="_blank";a.rel="noopener noreferrer";
     const b=elm("a",null,"Current firmware trigger menu");b.href=firmware;b.target="_blank";b.rel="noopener noreferrer";
     refs.append(a,document.createTextNode("  ·  "),b);
-    (e.sources||[]).forEach((url,i)=>{
+    [...new Set([...(e.sources||[]),...(e.research?.sources||[])])].forEach((url,i)=>{
       const link=elm("a",null,"Engine technical source "+(i+1));
       link.href=url;link.target="_blank";link.rel="noopener noreferrer";
       refs.append(document.createTextNode("  ·  "),link);
     });
-    details.append(top,scores,scoreDisclaimer,grid,note,scoreExplanation(e),warning,refs);
+    details.append(top,scores,scoreDisclaimer,grid,researchSection(e),note,scoreExplanation(e),warning,refs);
   }
   function renderList(){
     const found=filtered();list.replaceChildren();
