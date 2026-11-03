@@ -181,3 +181,13 @@
 .ef-layer-blockers h4{font-size:.91rem;margin:0 0 7px}
 .ef-layer-blockers p{font-size:.82rem;line-height:1.55;margin:6px 0;color:#ebd6b4}
 @media(max-width:690px){.ef-layer-profile,.ef-layer-body{grid-template-columns:1fr}.ef-layer-summary{grid-template-columns:minmax(0,1fr) auto auto;gap:4px;padding:9px 7px}.ef-layer-name{font-size:.75rem}.ef-layer-chip{font-size:.65rem;padding:5px}.ef-layered{padding:12px 9px}}
+
+/* Evidence coverage is separate from the numerical compatibility screen. */
+.ef-layer-coverage{border:1px solid #4b738f;border-radius:9px;padding:12px;margin:11px 0;background:#09233d}
+.ef-layer-coverage strong{font-size:.85rem;color:#f2faff}
+.ef-layer-coverage p{font-size:.79rem;line-height:1.5;color:#bdd8e8;margin:5px 0 8px}
+.ef-layer-coverage-details summary{cursor:pointer;font-size:.8rem;font-weight:750;color:#98d6f9}
+.ef-layer-coverage-details summary:focus-visible{outline:2px solid #9fdfff;outline-offset:2px}
+.ef-layer-coverage-details ul{padding-left:19px;margin:9px 0 0}
+.ef-layer-coverage-details li{color:#c6ddea;font-size:.8rem;line-height:1.55;margin:3px 0}
+.ef-layer-coverage-details li a{color:#98d6f9;margin-left:5px;text-decoration:underline}
