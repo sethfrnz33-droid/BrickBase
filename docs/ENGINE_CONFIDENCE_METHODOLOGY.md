@@ -1,10 +1,17 @@
 # Brick ECU engine confidence methodology (v2)
 
-**Updated:** 2026-11-03  
+**Updated:** 2026-11-04  
 **Live implementation:** `docs/engine-confidence-v2.js`  
 **Scope:** 237 research entries across Big Brick and Mini Brick. Scores are screening heuristics for *factory installed* ignition/trigger/fuel hardware, **not measured probabilities, certified compatibility, wiring instructions, or finished base tunes**.
 
 All seven layers are **independent** and always visible in the [engine finder](compatibility.html), with expandable evidence, source links, differences between Big/Mini, and the next required verification.
+
+
+## What counts as finished research
+
+The purpose of this catalog is to establish **OEM primary/crank trigger geometry, cam/cycle-phase pattern, the original crank/cam pickup technologies, original coil/igniter architecture, injection type, and rusEFI decoding/Brick control-method suitability**. An engine does **not** need an actual Brick ECU installation, harness, measured run, dyno test, or published tune to count as a researched entry.
+
+The source-backed [trigger/sensor audit](ENGINE_TRIGGER_SENSOR_AUDIT_20261104.md) is generated from the live catalog and separates seven checks: crank shape, cam/phase shape, CKP type, CMP type or documented no-physical-cam strategy, ignition/control stage, fuel system, and firmware decoder correlation. **Family-level hints, generic firmware decoder names, and unresolved OEM variants are not silently treated as exact-engine evidence.** A control incompatibility can itself be a valid research conclusion (e.g., factory GDI or a frequency-excited cam sensor) rather than an invitation to mark every engine unfinished until installed.
 
 ## Layer weights
 
@@ -18,7 +25,7 @@ All seven layers are **independent** and always visible in the [engine finder](c
 | Factory air-load sensor | 8 | Factory manifold MAP and known calibration favor rusEFI speed-density; MAF-only engines remain possible via MAF fueling or a **separately fitted, calibrated external manifold MAP**. A boost-control pressure sensor is not always a full-range manifold MAP sensor. Mark uncertain factory MAP/MAF as **unknown**, not MAF. |
 | Injection architecture | 10 | Normal port injection is viable by output type subject to injector driver assessment. Factory high-pressure GDI, including combined PFI+DI, gets **0** for native stock fueling: Big external GDI controller is experimental/unvalidated and Mini has no GDI software. Rotary fuel/ignition scheduling likewise remains unvalidated. |
 
-**Method:** Each layer is 0–100 with evidence and explicit outstanding tasks, then the weighted average is calculated using the percentages above. Untested whole-engine candidates are capped at **79/100**. A true native blocker (stock GDI, unsupported Nissan optical CAS, broken factory trigger or rotary fuel/ignition scheduling) sets **the overall score to 0** while preserving all seven subsystem layer scores. Mini eight-cylinder-plus engines are out of scope. A low score does not prove impossibility after modifying the factory hardware.
+**Method:** Each layer is 0–100 with evidence and explicit outstanding research needs, then the weighted average is calculated using the percentages above. **Running-installation testing is not required and does not cap research-based scores.** These are hardware-topology screening heuristics, not promises of a functioning installation. A true native blocker (stock GDI, unsupported Nissan optical CAS, broken factory trigger or rotary fuel/ignition scheduling) sets **the overall score to 0** while preserving all seven subsystem layer scores. Mini eight-cylinder-plus engines are out of scope. A low score does not prove impossibility after modifying the factory hardware.
 
 **Scope separation:** Trigger-wheel identification is not cam decoder verification; 720-degree phase is not ignition timing accuracy; GPIO output count is not electrical power-stage compliance; and having a single stock MAP does not prove adequate boost/vacuum range. Source quality (engine code and year, manufacturer/manual, family guide, firmware decoder list, unverified lead) is shown separately from the numerical rating.
 
