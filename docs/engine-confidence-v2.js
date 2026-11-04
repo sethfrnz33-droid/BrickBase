@@ -37,6 +37,17 @@ function model(e){
    for(const [k,v] of Object.entries(rule[3])){m[k]=v;m.refs[k]=rule[4];m.sourceLevel[k]=rule[2]?"engine-variant external reference":"engine-family external reference";}
    m.notes.push(rule[5]);
  }
+ // Optional, explicit source-scoped evidence added by November research modules.
+ // Never derive coil driver, injector data, or sensor geometry from cylinder count.
+ if(e.sourcedHardware){
+   for(const [key,record] of Object.entries(e.sourcedHardware)){
+     if(!(key in m)||!record||!Object.hasOwn(record,"value")||!/^https:\/\//.test(record.source||""))continue;
+     m[key]=record.value;
+     m.refs[key]=record.source;
+     m.sourceLevel[key]="engine-family external reference (donor-specific verification pending)";
+     m.notes.push(key+": "+(record.scope||"Named-engine external reference; original donor hardware to confirm."));
+   }
+ }
  if(m.cam==="unknown"){
    const s=(e.model+" "+e.family+" "+(e.notes||"")).toLowerCase();
    if(/non.vvt|non.vct|fixed cam|no vvt|without vvt/.test(s))m.cam="fixed";
