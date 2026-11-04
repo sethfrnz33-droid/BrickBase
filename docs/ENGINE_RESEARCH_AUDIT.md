@@ -1,5 +1,8 @@
 # Brick ECU — finished vs unfinished engine research audit
 
+**Latest complete 237-record evidence ledger (November 4, 2026): [view updated research progress](ENGINE_RESEARCH_PROGRESS_20261104.md).** Historical tables below retain their earlier snapshot counts; use the new ledger or [live archive](research-status.html) for current research coverage.
+
+
 
 ## Research update — November 4, 2026 (10 additional records)
 
