@@ -38,17 +38,17 @@ function type(text,kind){
 }
 function hardwareAssessment(e,m,ecu,crankLevel){
  const big=ecu==="big",n=Number(e.cyl)||0;
- if(m.gdi)return big?"Factory GDI cannot run natively: external specialized injector/pump drivers remain experimental.":"Factory GDI control is not available in Mini Brick software.";
+ if(m.stockGDI)return big?"Factory GDI cannot run natively: external specialized injector/pump drivers remain experimental.":"Factory GDI control is not available in Mini Brick software.";
  if(n===0)return "Rotary-leading/trailing ignition and fuel scheduling need a dedicated compatibility assessment.";
  if(!big&&n>6)return "Mini Brick is outside its intended cylinder/output capacity.";
  if(big&&n>12)return "More cylinders than Big Brick's stated 12-cylinder batch-fuel/sequential-spark capability.";
- if(m.optical)return "Original high-resolution Nissan optical CAS has no verified native decoder path; a different trigger/interface may be necessary.";
- if(m.broken)return "Original trigger decoder is flagged problematic; firmware support needs independent review.";
+ if(m.stockOpticalCAS)return "Original high-resolution Nissan optical CAS has no verified native decoder path; a different trigger/interface may be necessary.";
+ if(m.brokenDecoder)return "Original trigger decoder is flagged problematic; firmware support needs independent review.";
  if(/frequency.excited|frequency.coded|frequency.modulated/i.test(e.triggerGuide?.cmp||""))return "OEM cam sensor uses a frequency-coded interface rather than ordinary Hall/VR; a supported alternate sensor or decoder is needed for reliable full phase control.";
- if(!big&&m.coil==="dumb")return "Original passive coils need a separately verified ignition power stage; Mini has no validated native dumb-coil driver.";
- if(big&&m.coil==="dumb"&&n>6)return "More than six passive COP coils require additional external ignition power stages beyond Big's six native IGBT stages.";
+ if(!big&&m.coilType==="dumb")return "Original passive coils need a separately verified ignition power stage; Mini has no validated native dumb-coil driver.";
+ if(big&&m.coilType==="dumb"&&n>6)return "More than six passive COP coils require additional external ignition power stages beyond Big's six native IGBT stages.";
  if(!big&&n===6)return "Six-cylinder use requires a verified wasted-spark/injector-output allocation rather than assumed full sequential I/O.";
- if(m.extraVR)return "Original pickup set may exceed independently documented conditioned VR channels; confirm signal-interface budget.";
+ if(m.extraNativeVRNeeded)return "Original pickup set may exceed independently documented conditioned VR channels; confirm signal-interface budget.";
  if(crankLevel==="missing")return "Factory crank geometry is not yet established for this donor; no reliable trigger/ECU fit decision yet.";
  return "Preliminary control-topology candidate; confirm cam decoder, signal voltage, injector type, ignition drivers and required actuator channels.";
 }
