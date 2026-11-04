@@ -13,6 +13,7 @@ for(const st of entries){
   if(st.cam){e.cam=st.cam;r.camWheel=st.cam;}
   r.electrical=[g.ckp?"Primary pickup: "+g.ckp:null,g.cmp?"Phase pickup: "+g.cmp:null].filter(Boolean).join("; ");
   if(st.decoder)r.decoderCorrelation=st.decoder;
+  if(e.model==="F20C"||e.model==="F22C1"){e.notes=[e.notes,"OEM VR crank + two VR cam phase pickups require three conditioned VR inputs if retaining all three sensors; native Brick channel allocation must be assessed."].filter(Boolean).join(" ");}
   if(st.level==="engine"){g.primaryPatternEvidence="engine";g.camPatternEvidence="engine";r.status="wheel-sourced";}
   else if(st.level==="family"){g.primaryPatternEvidence="family";g.camPatternEvidence="family";r.status="family-wheel-sourced";}
   r.checked="2026-11-04";
