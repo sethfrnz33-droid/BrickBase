@@ -1,0 +1,29 @@
+/* Donor-scoped verified CKP/CMP and primary-phase research, 2026-11-04. */
+(()=>{
+"use strict";
+const all=window.BRICK_ENGINE_PRESETS;
+if(!Array.isArray(all))return;
+const studies=[{"models":["LS3 6.2"],"src":"https://support.haltech.com/portal/en/kb/articles/ls2-ls3-trigger","scope":"GM LS2/LS3 58X-generation trigger technical reference","crank":"LS3 Gen IV crank: 60 nominal positions with 2 missing (58 physical teeth, 58X or 60-2).","ckp":"Active powered Hall-style CKP. The 58X sensor electrical supply must be matched to its exact part number.","cam":"4X cam reference with two broad and two narrow segments (four signal transitions per cam revolution); front-mounted cam sensor.","cmp":"Powered Hall-effect cam sensor used with the Gen IV 4X target.","decoder":"rusEFI generic 60-2 crank with appropriate 4X cam target/correlation; exact trigger angle and cam mode are calibration-dependent.","status":"wheel-sourced"},{"models":["M50B20","M50B25"],"src":"https://support.haltech.com/portal/en/kb/articles/m50-engine","scope":"BMW M50 non-TU, standard crank and original non-VANOS cam generation","crank":"M50 non-TU: front pulley 60-2 crank wheel (58 physical teeth, two missing).","ckp":"Passive VR/inductive magnetic crank sensor","cam":"M50 non-TU: one cam phase tooth on sprocket; no intake VANOS.","cmp":"Passive VR/inductive cam pickup on non-VANOS M50 engines","decoder":"rusEFI generic 60-2 crank plus single phase-tooth cam candidate.","status":"wheel-sourced"},{"models":["M50B25TU"],"src":"https://support.haltech.com/portal/en/kb/articles/m50-engine","scope":"BMW M50TU intake VANOS trigger reference","crank":"M50TU: front pulley 60-2 crank reference (58 physical teeth).","ckp":"Passive VR/inductive crank sensor","cam":"M50TU: single cam phase reference on the intake cam; switched intake VANOS.","cmp":"Powered Hall-effect cam phase sensor (M50 TU generation)","decoder":"rusEFI generic 60-2 crank and one-tooth/phase cam strategy, with VANOS control separately evaluated.","status":"wheel-sourced"},{"models":["M52B25","M52B28"],"src":"https://support.haltech.com/portal/en/kb/articles/m52-engine","scope":"BMW M52 non-TU Hall crank and frequency-excited stock cam sensor","crank":"M52 non-TU: 60-2 crank reference wheel at engine front.","ckp":"Powered Hall-effect CKP, nominal 5 V sensor supply in Haltech M52 reference","cam":"Cam synchronizing target has a single half-moon reference sector.","cmp":"OEM frequency-excited cam sensor, NOT a conventional standalone Hall/VR pulse source; original signal needs compatible excitation/decoder or changed hardware","decoder":"rusEFI generic 60-2 crank can model geometry. Stock non-TU frequency-coded CMP is not equivalent to an ordinary Hall phase input.","status":"wheel-sourced"},{"models":["M52TUB25","M52TUB28"],"src":"https://support.haltech.com/portal/en/kb/articles/m52-engine","scope":"BMW M52TU double VANOS generation","crank":"M52TU: 60-2 crank reference wheel with Hall pickup.","ckp":"Powered Hall-effect CKP","cam":"Two cam references (intake and exhaust) for double VANOS; exact cam tooth geometry must be identified by TU model.","cmp":"Two ordinary powered Hall cam-phase sensors (intake and exhaust) on M52TU","decoder":"rusEFI 60-2 crank with two Hall phase/VANOS inputs; exact cam target geometry and offset still needs source.","status":"wheel-sourced"},{"models":["M54B22","M54B25","M54B30"],"src":"https://charm.li/BMW/2005/530%20%28E60%29%20L6-3.0L%20%28M54%29/Repair%20and%20Diagnosis/Powertrain%20Management/Description%20and%20Operation/Technical%20Training/MS45%20With%20M54%20Engine/Fuel%20Management/Fuel%20Management/","scope":"2005 BMW M54B30 MS45 training source and shared M54 family sensor topology","ckp":"Powered Hall CKP on M54; digital square wave from missing-tooth crank reference.","cam":"M54: independent intake and exhaust phase pickups for continuously variable double VANOS; their individual target tooth geometry is not established in this service excerpt.","cmp":"Both intake and exhaust sensors are powered static Hall devices; type sourced for M54 family.","decoder":"Generic 60-2 crank reference plus two compatible cam phase decoders as appropriate; OEM cam target shapes remain to identify."},{"models":["2AR-FE 2.5"],"src":"https://lemon-manuals.la/Toyota/2010/RAV4%202WD%20L4-2.5L%20%282AR-FE%29/Repair%20and%20Diagnosis/A%20L%20L%20%20Diagnostic%20Trouble%20Codes%20%28%20DTC%20%29/Testing%20and%20Inspection/P%20Code%20Charts/P0340/","scope":"2010 Toyota 2AR-FE intake-cam CMP sensor service","cmp":"Active magnetoresistive MRE (magnetic-resistance) intake cam sensor. Exhaust cam pickup technology/phase geometry still requires a separate source."}];
+const touched=new Set();
+for(const a of studies){
+ for(const e of all.filter(x=>a.models.includes(x.model))){
+  const r=e.research||(e.research={}),g=e.triggerGuide||(e.triggerGuide={});
+  for(const field of ["crank","cam","ckp","cmp","decoder"])if(a[field])g[field]=a[field];
+  g.scope=[g.scope,a.scope].filter(Boolean).join("; ");
+  if(a.crank){e.crank=a.crank;r.crankWheel=a.crank}
+  if(a.cam){e.cam=a.cam;r.camWheel=a.cam}
+  if(a.ckp||a.cmp)r.electrical=[g.ckp?"Crank: "+g.ckp:null,g.cmp?"Cam: "+g.cmp:null].filter(Boolean).join("; ");
+  if(a.decoder)r.decoderCorrelation=a.decoder;
+  if(a.status)r.status=a.status;
+  r.checked="2026-11-04";
+  e.sources=[...new Set([...(e.sources||[]),a.src])];
+  r.sources=[...new Set([...(r.sources||[]),a.src])];
+  e.references ||= [];
+  if(!e.references.some(x=>x.url===a.src))e.references.push({url:a.src,label:"OEM / engine trigger technical source",scope:a.scope+"; sensor wiring and exact donor components still require independent documentation."});
+  e.audit ||= {};
+  e.audit.researchStatus=r.status;e.audit.checked="2026-11-04";e.audit.sourceCount=e.references.length;
+  touched.add(e.id);
+ }
+}
+window.BRICK_TRIGGER_SUPPLEMENT_COUNT=touched.size;
+})();
