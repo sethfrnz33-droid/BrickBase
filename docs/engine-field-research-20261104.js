@@ -134,16 +134,16 @@ const updates={
  "new-mercedes-benz-m104-m111-m112-m113-m113-5-0-5-4-v8":{
   urls:[sources.mbIgnition,sources.m113Sync,sources.mbCam],
   scope:"Mercedes M113 113.965 ME-SFI and 113.986–989 service explain double coils, 60-2 VR crank, Hall cam and sequential injection; the 5.4 Kompressor donor differs.",
-  crank:"M113.986–989 ME-SFI factory reference: 60-2 crank target sensed by a variable-reluctance alternating-voltage sensor; exact M113K configuration still donor-dependent.",
+  crank:"M113.986–989 ME-SFI factory service confirms a two-missing-tooth gap sensed by a variable-reluctance crank sensor. Exact total tooth count and M113K differences need separate verification.",
   cam:"Mercedes M113 ME-SFI synchronizes with cam Hall B6/1; actual target/phase edge must be confirmed on the engine.",
-  electrical:"M113 uses eight dual ignition coil packs and two spark plugs per cylinder. ME-SFI can stagger each cylinder's two sparks; 113.986–989 crank is a 60-2 VR target.",
+  electrical:"M113 uses eight dual ignition coil packs and two spark plugs per cylinder. ME-SFI can stagger each cylinder's two sparks; 113.986–989 crank sensor is inductive with a two-missing-tooth gap.",
   notes:"Eight twin-spark packs require a specific ignition-channel and driver strategy; eight cylinders alone do not imply that eight 5 V outputs reproduce the OEM sixteen individually timed sparks.",
-  status:"family-wheel-sourced",
-  sensors:"M113.986–989 factory ME-SFI reference confirms 60-2 VR crank and Hall cam; hot-film MAF and electronic throttle present on the reference system.",
+  status:"partial-wheel-sourced",
+  sensors:"M113.986–989 service confirms an inductive crank signal with two missing teeth and a cam Hall phase signal; total nominal crank tooth count still needs a dedicated source or scope trace.",
   ignition:"Eight double-coil assemblies serve sixteen plugs and stock ME-SFI independently schedules two primary events per cylinder. Driver electricals, output count and scheduling require verification.",
   injectors:"Eight port-fuel injectors are controlled by OEM ME-SFI; injector current and deadtime remain donor- and part-specific.",
   actuators:"Electronic throttle and model-dependent accessories; forced-induction and air-management differ for M113K versus naturally aspirated 5.0/5.4.",
-  remaining:"Split naturally aspirated M113 from M113K and verify exact 113.xxx, 60-2 wheel, cam edge, independent twin-spark channels/driver supply, injection/actuation data, and Brick runtime evidence."
+  remaining:"Split naturally aspirated M113 from M113K; verify exact 113.xxx, full crank tooth count, cam phase edge, independent twin-spark channels and power stages, injector data, and Brick runtime evidence."
  }
 };
 for(const e of all){
