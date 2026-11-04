@@ -1,5 +1,8 @@
 # Brick ECU — engine field-by-field evidence ledger
 
+**Latest complete 237-record evidence ledger (November 4, 2026): [view updated research progress](ENGINE_RESEARCH_PROGRESS_20261104.md).** Historical tables below retain their earlier snapshot counts; use the new ledger or [live archive](research-status.html) for current research coverage.
+
+
 
 > **November 4, 2026 addendum:** This page's table and totals are a November 3 snapshot and have **not** been regenerated. Ten records (Honda L15A/R18A, VW AAA/R32, Audi APB/BEL, Mercedes M104/M111/M112/M113) now have more source-backed engine data in `engine-field-research-20261104.js`. Use the [live research archive](research-status.html) for recalculated status counts and current source references. There is still no new fully verified Brick ECU installation guide.
 
