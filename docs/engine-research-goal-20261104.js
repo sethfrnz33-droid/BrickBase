@@ -71,8 +71,8 @@ for(const e of data){
  const crankDirect=(r.status==="wheel-sourced"||r.status==="oem-wheel-sourced")&&shape.test(crank)&&!missing.test(crank)&&!tentative.test(crank);
  const crankFamily=(r.status==="family-wheel-sourced")&&shape.test(crank)&&!missing.test(crank);
  const crankOther=shape.test(crank)&&!missing.test(crank)&&!tentative.test(crank);
- const crankLevel=crankDirect?"documented":crankFamily?"family":crankOther?"described":"missing";
- const camLevel=/synthetic CAMOUT|synthesi[sz]ed cam.phase|no physical cam tooth/i.test(cam)&&/ICM|module/i.test(cam)?"described":camShape.test(cam)&&!missing.test(cam)&&!tentative.test(cam)?"described":"missing";
+ const crankLevel=g.primaryPatternEvidence==="engine"?"documented":g.primaryPatternEvidence==="family"?"family":crankDirect?"documented":crankFamily?"family":crankOther?"described":"missing";
+ const camLevel=g.camPatternEvidence==="engine"?"described":g.camPatternEvidence==="family"?"family":/synthetic CAMOUT|synthesi[sz]ed cam.phase|no physical cam tooth/i.test(cam)&&/ICM|module/i.test(cam)?"described":camShape.test(cam)&&!missing.test(cam)&&!tentative.test(cam)?"described":"missing";
  const ckpKnown=!missing.test(ckp)&&!/not independently identified/i.test(ckp);
  const cmpKnown=!missing.test(cmp)&&!/not independently identified/i.test(cmp);
  const ignitionKnown=!["unknown","varies",undefined].includes(m.coilType)&&!["unknown","varies",undefined].includes(m.ignitionLayout);
@@ -89,7 +89,7 @@ for(const e of data){
   {id:"decoder",label:"rusEFI decoder or supported generic-wheel correlation",done:decoderDocumented,state:decoderDocumented?"candidate":"missing"}
  ];
  const complete=checks.every(c=>c.done);
- e.technicalResearch={crank,cam,ckp,cmp,crankLevel,camLevel,decoder:triggerDecoder,stageLabel:stageLabel[r.status]||"Research candidate",checks,known:checks.filter(c=>c.done).length,total:checks.length,missing:checks.filter(c=>!c.done).map(c=>c.label),complete,
+ e.technicalResearch={crank,cam,ckp,cmp,crankLevel,camLevel,decoder:triggerDecoder,stageLabel:crankLevel==="missing"&&["wheel-sourced","oem-wheel-sourced"].includes(r.status)?"Crank evidence incomplete":stageLabel[r.status]||"Research candidate",checks,known:checks.filter(c=>c.done).length,total:checks.length,missing:checks.filter(c=>!c.done).map(c=>c.label),complete,
   bigAssessment:hardwareAssessment(e,m,"big",crankLevel),miniAssessment:hardwareAssessment(e,m,"mini",crankLevel),notice:"Research is judged from OEM engine geometry, sensor type and control-method references. Family-only or donor-variable claims are explicitly qualified; physical installation testing is not a completion requirement."};
 }
 window.BRICK_ENGINE_RESEARCH_SUMMARY={total:data.length,complete:data.filter(e=>e.technicalResearch.complete).length,
