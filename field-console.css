@@ -534,3 +534,83 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #b6
  .brick-help-toggle{right:13px;bottom:13px;padding:10px 16px;min-height:43px}
  .brick-help-panel{right:10px;bottom:70px;width:calc(100vw - 20px);height:min(565px,calc(100dvh - 85px))}
 }
+
+
+/* Engine Finder: iPhone-width layout; keep desktop unchanged. */
+@media (max-width: 700px) {
+  .docs-page:has(#engine-finder) .doc-grid,
+  .docs-page:has(#engine-finder) .doc-main,
+  .docs-page:has(#engine-finder) #engine-finder,
+  .docs-page:has(#engine-finder) #engine-finder .frame-body,
+  #engine-finder .ef-picker,
+  #engine-finder .ef-workspace,
+  #engine-finder .ef-results-pane,
+  #engine-finder .ef-details-pane,
+  #engine-finder .ef-layered,
+  #engine-finder .ef-research {
+    min-width: 0;
+    max-width: 100%;
+  }
+  #engine-finder .ef-selects,
+  #engine-finder .ef-workspace,
+  #engine-finder .ef-scores,
+  #engine-finder .ef-fit-facts,
+  #engine-finder .ef-layer-profile,
+  #engine-finder .ef-layer-body,
+  #engine-finder .ef-research .ef-spec {
+    display: grid;
+    grid-template-columns: minmax(0,1fr);
+  }
+  #engine-finder .ef-picker { padding: 14px; }
+  #engine-finder .ef-picker label { min-width: 0; font-size: .95rem; }
+  #engine-finder .ef-picker input,
+  #engine-finder .ef-picker select {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    font-size: 16px; /* Prevent Safari input focus zoom. */
+    min-height: 48px;
+  }
+  #engine-finder .ef-filter-bar { font-size: .91rem; }
+  #engine-finder .ef-reset { min-height: 44px; font-size: .92rem; }
+  #engine-finder .ef-results { max-height: none; overflow: visible; padding-right: 0; }
+  #engine-finder .ef-result { min-width: 0; padding: 14px; }
+  #engine-finder .ef-result-name { font-size: 1.06rem; }
+  #engine-finder .ef-result-family,
+  #engine-finder .ef-result-trigger { font-size: .9rem; }
+  #engine-finder .ef-mini-status,
+  #engine-finder .ef-result-ratings { font-size: .85rem; }
+  #engine-finder .ef-details-pane { padding: 13px; border-width: 1px; }
+  #engine-finder .ef-detail-top h3 { font-size: 1.38rem; overflow-wrap: anywhere; }
+  #engine-finder .ef-spec,
+  #engine-finder .ef-research .ef-spec {
+    grid-template-columns: minmax(0,1fr);
+    gap: 4px;
+  }
+  #engine-finder .ef-spec dt,
+  #engine-finder .ef-layer-profile dt { font-size: .83rem; }
+  #engine-finder .ef-spec dd,
+  #engine-finder .ef-layer-profile dd,
+  #engine-finder .ef-layer-evidence p { font-size: .93rem; }
+  #engine-finder .ef-layered,
+  #engine-finder .ef-research { padding: 12px; }
+  #engine-finder .ef-layer-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding: 12px;
+  }
+  #engine-finder .ef-layer-name { flex: 1 0 100%; font-size: .94rem; }
+  #engine-finder .ef-layer-chip { font-size: .78rem; }
+  #engine-finder .ef-subsection>summary { font-size: .94rem; }
+  #engine-finder .ef-sources,
+  #engine-finder .ef-score-disclaimer,
+  #engine-finder .ef-research-note { font-size: .88rem; }
+  #engine-finder .ef-layered,
+  #engine-finder .ef-detail-note,
+  #engine-finder .ef-scores,
+  #engine-finder .ef-spec dd,
+  #engine-finder .ef-layer-evidence,
+  #engine-finder .ef-subsection { overflow-wrap: anywhere; }
+}
