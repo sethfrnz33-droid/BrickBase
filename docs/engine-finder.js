@@ -120,17 +120,25 @@
       wrap.append(status);
       return wrap;
     }
-    const badge=elm("p","ef-research-status","Research status: "+({
-      "wheel-sourced":"Trigger geometry sourced; exact variant and Brick synchronization not tested",
-      "family-wheel-sourced":"Engine-family trigger documented; exact variant still to confirm",
-      "oem-wheel-sourced":"OEM wheel documented; rusEFI correlation unresolved",
+    const tr=e.technicalResearch||{};
+    const badge=elm("p","ef-research-status","Trigger documentation: "+({
+      "wheel-sourced":"Crank geometry documented; specific donor detail shown below",
+      "family-wheel-sourced":"Family trigger documented; donor variant check required",
+      "oem-wheel-sourced":"OEM crank geometry documented; decoder pairing under research",
       "partial-wheel-sourced":"Partial OEM wheel research; more evidence required",
       "hardware-constraint":"OEM hardware limitation identified",
       "generic-correlation-pending":"OEM shape documented; generic rusEFI cam/crank pairing needs validation",
       "decoder-only":"Decoder or catalogue reference checked; OEM variant-wheel evidence still missing"
     }[r.status]||"Research in progress"));
     const dl=elm("dl","ef-specs");
-    dl.append(field("OEM crank wheel",r.crankWheel),field("OEM cam/phase wheel",r.camWheel),field("Sensor hardware",r.electrical),field("rusEFI decoder",r.decoderCorrelation));
+    dl.append(
+      field("OEM crank / primary pattern",tr.crank||r.crankWheel),
+      field("Crank / primary sensor type",tr.ckp||"Not established"),
+      field("OEM cam / cycle reference",tr.cam||r.camWheel),
+      field("Cam / phase sensor type",tr.cmp||"Not established"),
+      field("rusEFI decoder correlation",tr.decoder||r.decoderCorrelation)
+    );
+    wrap.append(elm("p","ef-research-note","Trigger research is evaluated from OEM geometry and sensor/control references. A running vehicle is not required for a documented research result."));
     if(r.genericWheel){
       const g=r.genericWheel;
       dl.append(field("Custom wheel candidate",g.menu+": "+g.total+" nominal positions / "+g.missing+" missing / "+g.operation));
@@ -185,13 +193,13 @@
     const e=byId.get(selected),top=elm("div","ef-detail-top");
     const kicker=elm("span","ef-eyebrow",e.make+"  /  "+e.family);
     const title=elm("h3",null,e.model);
-    const flag=elm("span","ef-level ef-level-"+e.level,statusText[e.level]);
+    const flag=elm("span","ef-level ef-level-"+e.level,e.technicalResearch?.stageLabel||statusText[e.level]);
     top.append(kicker,title,flag);
     const scores=elm("div","ef-scores");
     scores.append(scoreCard("Big Brick",e.confidenceV2?.big?.score??e.confidence?.big??0,Boolean(e.runningEvidence?.brickBig)),scoreCard("Mini Brick",e.confidenceV2?.mini?.score??e.confidence?.mini??0));
     const scoreDisclaimer=elm("p","ef-score-disclaimer","Hardware-fit scores are a guide, not a reliability percentage. High-impedance port injectors are natively supported.");
     const grid=elm("dl","ef-specs");
-    grid.append(field("Cylinders / rotors",e.cyl===0?"2 rotors":String(e.cyl)),field("Fuel system",e.fuel),field("Crank trigger",e.crank),field("Cam / VVT reference",e.cam));
+    grid.append(field("Cylinders / rotors",e.cyl===0?"2 rotors":String(e.cyl)),field("Fuel system",e.fuel),field("Crank trigger",e.technicalResearch?.crank||e.crank),field("Cam / VVT reference",e.technicalResearch?.cam||e.cam));
     const note=elm("div","ef-detail-note");
     note.append(elm("strong",null,"Variant notes and cautions"),elm("p",null,e.notes));
     const warning=elm("div","notice warning");
@@ -259,7 +267,7 @@
     found.slice(0,shown).forEach(e=>{
       const row=elm("button","ef-result"+(e.id===selected?" selected":""),"");
       row.type="button";row.setAttribute("aria-pressed",String(e.id===selected));
-      row.append(elm("span","ef-result-name",e.model),elm("span","ef-result-family",e.make+" · "+e.family),elm("span","ef-result-trigger",e.crank),elm("span","ef-result-ratings","Big "+(e.confidenceV2?.big?.score??e.confidence?.big??0)+"/100   ·   Mini "+(e.confidenceV2?.mini?.score??e.confidence?.mini??0)+"/100"),elm("span","ef-mini-status",statusText[e.level]));
+      row.append(elm("span","ef-result-name",e.model),elm("span","ef-result-family",e.make+" · "+e.family),elm("span","ef-result-trigger",e.technicalResearch?.crank||e.crank),elm("span","ef-result-ratings","Big "+(e.confidenceV2?.big?.score??e.confidence?.big??0)+"/100   ·   Mini "+(e.confidenceV2?.mini?.score??e.confidence?.mini??0)+"/100"),elm("span","ef-mini-status",e.technicalResearch?.stageLabel||statusText[e.level]));
       row.addEventListener("click",()=>choose(e.id,true));
       frag.append(row);
     });
