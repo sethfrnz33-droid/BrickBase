@@ -3,7 +3,7 @@
 
 ## Research update — November 4, 2026 (10 additional records)
 
-The counts and engine-by-engine rows below are a **November 3 snapshot**, not the latest score ledger. For current source counts, per-engine coverage, statuses and links, consult the live [Engine Finder](compatibility.html) or [Engine Research Archive](research-status.html), which load \`engine-field-research-20261104.js\` before computing coverage.
+The counts and engine-by-engine rows below are a **November 3 snapshot**, not the latest score ledger. For current source counts, per-engine coverage, statuses and links, consult the live [Engine Finder](compatibility.html) or [Engine Research Archive](research-status.html), which load `engine-field-research-20261104.js` before computing coverage.
 
 | Engine record | Additional sourced findings | Still unresolved |
 | --- | --- | --- |
