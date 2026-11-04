@@ -614,3 +614,101 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #b6
   #engine-finder .ef-layer-evidence,
   #engine-finder .ef-subsection { overflow-wrap: anywhere; }
 }
+
+
+/* Whole-site phone and small-tablet usability, 2026-11-04.
+   Desktop styling is deliberately untouched. */
+@media (max-width: 900px) {
+  /* Seven desktop navigation links do not fit on intermediate screens. */
+  .top .nav { min-height: 62px; flex-wrap: wrap; gap: 9px; padding-top: 10px; padding-bottom: 10px; }
+  .top .menu-toggle { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 68px; font-size: .94rem; }
+  .top .navlinks { display: none; flex-basis: 100%; flex-direction: column; align-items: stretch; gap: 7px; }
+  .top .navlinks.open { display: flex; }
+  .top .navlinks a { display: block; min-height: 44px; padding: 11px 14px; text-align: left; font-size: .95rem; }
+  .doc-grid, .docs-page .doc-grid { grid-template-columns: minmax(0,1fr); }
+  .doc-main, .doc-grid, .doc-main>.frame, .doc-side { min-width: 0; max-width: 100%; }
+  .docs-page .docs-local-nav { max-width: 100%; }
+  .docs-page .docs-local-nav a { min-height: 44px; display: flex; align-items: center; font-size: .91rem; }
+  .grid2, .grid3, .feature-list, .docs-task-grid, .docs-feature-grid, .docs-firmware-grid { min-width: 0; }
+  .grid2>*, .grid3>*, .feature-list>*, .docs-task-grid>*, .docs-firmware-grid>* { min-width: 0; }
+  .docs-page .table-scroll, .table-scroll, .mini-table-wrap, .audit-table-wrap {
+    width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;
+  }
+  .pin-controls input, .filters input, .filters select,
+  .mini-toolbar input, .mini-toolbar select { max-width: 100%; }
+}
+
+@media (max-width: 620px) {
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  .wrap { width: calc(100% - 28px); max-width: 100%; }
+  .top .nav { flex-wrap: wrap; }
+  .top .brand { font-size: 1.16rem; min-width: 0; }
+  .page { padding-bottom: 38px; }
+  .page-head { padding: 16px 0 20px; }
+  .page-head h1, .docs-hub-header h1 { font-size: clamp(2rem, 9vw, 2.7rem); line-height: 1.12; overflow-wrap: anywhere; }
+  .page-head p, .docs-page .page-head p, .lead { font-size: 1rem; line-height: 1.6; }
+  .kicker { font-size: .75rem; letter-spacing: .095em; line-height: 1.4; overflow-wrap: anywhere; }
+  .crumb { padding-top: 15px; line-height: 1.6; overflow-wrap: anywhere; }
+  .section { padding: 25px 0; }
+  .hero { gap: 16px; padding-top: 32px; }
+  .hero-window { min-width: 0; }
+  .hero-tag, .hero-status { font-size: .73rem; }
+  .hero-status { right: 9px; bottom: 9px; }
+  .product-body { padding: 18px; }
+  .product-body p, .feature p { font-size: .94rem; }
+  .pill, .status { font-size: .84rem; }
+  .price { font-size: 2rem; }
+  .actions { gap: 10px; }
+  .actions .btn { flex: 1 1 100%; min-height: 46px; font-size: .94rem; white-space: normal; text-align: center; }
+  .frame, .docs-page .doc-main>.frame { max-width: 100%; }
+  .frame-head, .docs-page .doc-main>.frame>.frame-head {
+    flex-wrap: wrap; align-items: flex-start; gap: 3px 12px; padding: 12px 13px;
+  }
+  .frame-head strong, .docs-page .doc-main>.frame>.frame-head strong { font-size: .86rem; overflow-wrap: anywhere; }
+  .frame-head span, .docs-page .doc-main>.frame>.frame-head span { font-size: .77rem; }
+  .frame-body, .docs-page .doc-main>.frame>.frame-body { min-width: 0; padding: 14px; }
+  .notice { padding: 13px; font-size: .94rem; line-height: 1.6; overflow-wrap: anywhere; }
+  .footer { padding: 25px 0; }
+  .footer-inner { gap: 17px; overflow-wrap: anywhere; }
+  .docs-page .docs-local-nav a { padding: 10px 12px; }
+  .docs-task-link, .docs-download-spotlight, .docs-link-list a { overflow-wrap: anywhere; }
+  .docs-searchbox { max-width: 100%; min-width: 0; }
+  .docs-searchbox input { font-size: 16px; min-width: 0; }
+  .docs-download-shortcuts a, .docs-category-jumps a { min-height: 44px; display: inline-flex; align-items: center; font-size: .9rem; }
+  .docs-download-crosslink, .docs-download-head { min-width: 0; overflow-wrap: anywhere; }
+  .docs-download-head>.btn, .docs-firmware-item .btn { min-height: 46px; }
+  .pin-controls, .mini-toolbar, .audit-filters { flex-direction: column; align-items: stretch; gap: 10px; }
+  .pin-controls label, .pin-controls input, .pin-controls button,
+  .mini-toolbar label, .audit-filters label { width: 100%; min-width: 0; flex: 0 1 auto; }
+  .pin-controls input, .pin-controls select,
+  .mini-toolbar input, .mini-toolbar select,
+  .audit-filters input, .audit-filters select {
+    min-height: 46px; width: 100%; font-size: 16px;
+  }
+  .pin-controls button { min-height: 44px; }
+  .pin-table, .mini-pin-table, .comparison, .audit-table { font-size: .92rem; }
+  .kv th, .kv td, .docs-page .doc-main .kv th, .docs-page .doc-main .kv td {
+    font-size: .9rem; padding: 9px 7px; overflow-wrap: anywhere;
+  }
+  .kv th { width: 45%; }
+  .docs-page .doc-main p, .docs-page .doc-main li { overflow-wrap: anywhere; }
+  .audit-summary { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .audit-status-grid { grid-template-columns: minmax(0,1fr); }
+  .audit-table-wrap { margin: 0; }
+  .audit-table th, .audit-table td { font-size: .88rem; }
+  .audit-guide { font-size: .94rem; }
+  .policy-section p, .policy-head .lead { font-size: 1rem; }
+  .policy-quick>div, .policy-risk, .policy-end { min-width: 0; overflow-wrap: anywhere; }
+  .ef-filter-bar, .ef-score-disclaimer { line-height: 1.6; }
+  .ef-layer-evidence { min-width: 0; }
+  .ef-subsection>summary { overflow-wrap: anywhere; }
+  /* Long links/part identifiers should wrap inside their card, not widen the viewport. */
+  .doc-main a, .frame-body a, .policy-section a, .ef-sources a { overflow-wrap: anywhere; }
+}
+
+@media (max-width: 380px) {
+  .wrap { width: calc(100% - 22px); }
+  .frame-body, .docs-page .doc-main>.frame>.frame-body { padding: 11px; }
+  .docs-page .page-head h1 { font-size: 2rem; }
+  .ef-layer-summary { gap: 5px; }
+}
