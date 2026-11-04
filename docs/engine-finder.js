@@ -196,7 +196,12 @@
     const flag=elm("span","ef-level ef-level-"+e.level,e.technicalResearch?.stageLabel||statusText[e.level]);
     top.append(kicker,title,flag);
     const scores=elm("div","ef-scores");
-    scores.append(scoreCard("Big Brick",e.confidenceV2?.big?.score??e.confidence?.big??0,Boolean(e.runningEvidence?.brickBig)),scoreCard("Mini Brick",e.confidenceV2?.mini?.score??e.confidence?.mini??0));
+    scores.append(scoreCard("Big Brick",e.confidenceV2?.big?.score??e.confidence?.big??0),scoreCard("Mini Brick",e.confidenceV2?.mini?.score??e.confidence?.mini??0));
+    const assessment=elm("section","ef-detail-note");
+    assessment.append(elm("strong",null,"Control-method hardware assessment"));
+    const hardware=elm("dl","ef-specs"),research=e.technicalResearch||{};
+    hardware.append(field("Big Brick",research.bigAssessment||"Control and sensor research pending"),field("Mini Brick",research.miniAssessment||"Control and sensor research pending"));
+    assessment.append(hardware);
     const scoreDisclaimer=elm("p","ef-score-disclaimer","Hardware-fit scores are a guide, not a reliability percentage. High-impedance port injectors are natively supported.");
     const grid=elm("dl","ef-specs");
     grid.append(field("Cylinders / rotors",e.cyl===0?"2 rotors":String(e.cyl)),field("Fuel system",e.fuel),field("Crank trigger",e.technicalResearch?.crank||e.crank),field("Cam / VVT reference",e.technicalResearch?.cam||e.cam));
@@ -257,7 +262,7 @@
       fold("Variant notes",note),
       fold("References ("+(e.references?.length||0)+")",audit)
     ];
-    const running=runningSection(e);details.append(top,...(running?[running]:[]),scores,scoreDisclaimer,...(e.level==="blocked"?[warning]:[]),confidenceLayerSection(e),...panels);
+    const running=runningSection(e);details.append(top,assessment,scores,scoreDisclaimer,...(e.level==="blocked"?[warning]:[]),confidenceLayerSection(e),...panels,...(running?[running]:[]));
   }
   function renderList(){
     const found=filtered();list.replaceChildren();
