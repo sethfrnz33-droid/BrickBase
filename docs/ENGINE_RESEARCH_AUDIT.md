@@ -1,5 +1,26 @@
 # Brick ECU — finished vs unfinished engine research audit
 
+
+## Research update — November 4, 2026 (10 additional records)
+
+The counts and engine-by-engine rows below are a **November 3 snapshot**, not the latest score ledger. For current source counts, per-engine coverage, statuses and links, consult the live [Engine Finder](compatibility.html) or [Engine Research Archive](research-status.html), which load \`engine-field-research-20261104.js\` before computing coverage.
+
+| Engine record | Additional sourced findings | Still unresolved |
+| --- | --- | --- |
+| Honda L15A PFI | L15A7 60-2 Hall crank, uneven three-tooth Hall cam; L15A1 vs L15A7 cam differences, coil/MAP details | Variant split, decoder correlation, OEM component values, Brick test |
+| Honda R18A | 12+1 Hall crank (not 12-1), Hall cam, internal-igniter COP, MAP and MAF, switched i-VTEC and DBW | Original cam connector explicitly unverified in source; Brick decoder/sync |
+| VW AAA VR6 12V | 1995 MAF G70 and six individually addressed port injectors | OEM crank geometry, power stage, OEM electrical data and Brick sync |
+| VW 3.2 VR6 R32 BFH/BUB | Six port injectors/COP assemblies, twin cam VVT, electronic throttle, variant differences | Actual crank/cam patterns and coil power-stage type |
+| Audi 2.7T APB | Six COP, separate bank ignition power stages N122/N192, cam Hall and adjustment hardware | Module signal requirements, crank/cam sync, injector data |
+| Audi 2.7T BEL | Six integrated-stage COP; distinguish from APB ignition harness | Coil trigger voltages, OEM crank/cam, Brick validation |
+| Mercedes M104 3.2 | 104.995 HFM has 60-2 VR crank and Hall cam; distributor versus coil system changes by generation | Split HFM/LH/CIS-E before selecting exact setup |
+| Mercedes M111 2.0/2.3 | HFM-era paired ignition and CKP/CMP inputs | Wheel count, ignition output stage and donor-generation split |
+| Mercedes M112 3.2 | Six dual-ignition packs for twelve plugs, independent twin-spark timing, cam Hall | Coil driver interface and twelve spark-event strategy |
+| Mercedes M113 5.0/5.4 | Eight dual-ignition packs for sixteen plugs; VR crank with two missing tooth gap, cam Hall | Full nominal crank tooth count, coil drive and twin-spark schedule |
+
+No additional Brick ECU installations were claimed or verified. External wiring diagrams are **not** Brick harness pinouts.
+
+
 > Generated from the current **237** engine records in `docs/engine-finder-data.js` and `docs/engine-finder-expansion.js` on 2026-11-03. This is a research-progress inventory; it is **not a declaration of compatibility**.
 
 ## Finished: 0 / 237
