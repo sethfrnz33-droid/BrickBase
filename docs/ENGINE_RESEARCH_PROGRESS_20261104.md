@@ -1,16 +1,16 @@
 # Brick ECU — 237-engine research progress ledger (November 4, 2026)
 
-**Status: 0 complete installation guides / 237 catalog entries.** This is a dated source-evidence audit, not a claim of installation compatibility. 62 records received additional source research on November 4, 2026; 175 retained prior source evidence. 143 have at least one source-backed engineering checklist item, while 94 have none.
+**0 finished installation guides / 237 catalog records.** 66 engine records received new source-backed research this date; the other 171 retained existing catalog evidence. All 237 now have at least one external source link, but an external link alone is not proof of OEM donor wiring or Brick compatibility. 143 entries have one or more of the eight research-coverage checks completed, and 94 have none.
 
-All entries require donor-year verification before installation: OEM connector and ECU part numbers, crank/cam voltage and waveforms, coil primary stage and dwell, injector electrical requirements and deadtime, configured rusEFI synchronization, locked timing, and actual Brick ECU running logs. Big and Mini engineering scores are **not probabilities**. Factory GDI control is still experimental/unvalidated for Big and unavailable for Mini. No other ECU's pin numbering should be presented as Brick wiring.
+Still required to finish a real installation guide: donor-year OEM connectors, exact electrical signals and crank/cam waveforms, ignition coil primary drivers/dwell, injector impedance and characterization, validated rusEFI decoder/locked timing, and actual Brick ECU logging/running validation. Scores are screening tools, not reliability probabilities. Factory GDI is unvalidated with external hardware on Big Brick and unsupported on Mini Brick.
 
 **Research status totals:** decoder-only: 16; partial-wheel-sourced: 65; wheel-sourced: 64; hardware-constraint: 29; family-wheel-sourced: 58; generic-correlation-pending: 2; oem-wheel-sourced: 3.
 
-[Interactive Engine Finder](compatibility.html) · [Live research archive](research-status.html) · [Research methods](ENGINE_CONFIDENCE_METHODOLOGY.md)
+[Engine Finder](compatibility.html) · [Live research archive](research-status.html) · [Research confidence method](ENGINE_CONFIDENCE_METHODOLOGY.md)
 
-## Current 237-record source checklist
+## Complete 237-entry catalog research audit
 
-| Manufacturer | Engine model | Trigger evidence | Coverage / 8 | Source links | November 4 pass | Main remaining evidence |
+| Manufacturer | Engine | Trigger research classification | Sourced checks / 8 | Source links | November 4 pass | Unresolved source or test evidence |
 | --- | --- | --- | ---: | ---: | --- | --- |
 | Arctic Cat | [Arctic Cat matching decoder](compatibility.html#engine=arctic-cat-arctic-cat-arctic-cat-matching-decoder) | decoder-only | 0/8 | 3 | Existing | Crank/cam decoding, Injector count, Injector electrical, Coil layout, Ignition power stage, Cam/VVT, MAP/MAF, Brick running proof |
 | Benelli | [Benelli Tre triple](compatibility.html#engine=benelli-tre-benelli-tre-triple) | partial-wheel-sourced | 0/8 | 3 | Existing | Crank/cam decoding, Injector count, Injector electrical, Coil layout, Ignition power stage, Cam/VVT, MAP/MAF, Brick running proof |
@@ -233,12 +233,12 @@ All entries require donor-year verification before installation: OEM connector a
 | Toyota | [4A-GE 20V Blacktop](compatibility.html#engine=new-toyota-a-series-4a-g-4a-ge-20v-blacktop) | partial-wheel-sourced | 4/8 | 1 | Existing | Crank/cam decoding, Injector count, Injector electrical, Brick running proof |
 | Toyota | [4A-GE 20V Silvertop](compatibility.html#engine=new-toyota-a-series-4a-g-4a-ge-20v-silvertop) | partial-wheel-sourced | 4/8 | 1 | Existing | Crank/cam decoding, Injector count, Injector electrical, Brick running proof |
 | Toyota | [4A-GZE supercharged](compatibility.html#engine=new-toyota-a-series-4a-g-4a-gze-supercharged) | partial-wheel-sourced | 3/8 | 1 | Existing | Crank/cam decoding, Injector count, Injector electrical, MAP/MAF, Brick running proof |
-| Volkswagen / Audi | [2.0 TFSI EA113 BPY](compatibility.html#engine=new-volkswagen-audi-ea113-ea888-2-0-tfsi-ea113-bpy) | hardware-constraint | 0/8 | 0 | Existing | Crank/cam decoding, Injector count, Injector electrical, Coil layout, Ignition power stage, Cam/VVT, MAP/MAF, Brick running proof |
-| Volkswagen / Audi | [2.0 TSI EA888 Gen 1/2](compatibility.html#engine=new-volkswagen-audi-ea113-ea888-2-0-tsi-ea888-gen-1-2) | hardware-constraint | 0/8 | 0 | Existing | Crank/cam decoding, Injector count, Injector electrical, Coil layout, Ignition power stage, Cam/VVT, MAP/MAF, Brick running proof |
-| Volkswagen / Audi | [2.0 TSI EA888 Gen 3](compatibility.html#engine=new-volkswagen-audi-ea113-ea888-2-0-tsi-ea888-gen-3) | hardware-constraint | 0/8 | 0 | Existing | Crank/cam decoding, Injector count, Injector electrical, Coil layout, Ignition power stage, Cam/VVT, MAP/MAF, Brick running proof |
+| Volkswagen / Audi | [2.0 TFSI EA113 BPY](compatibility.html#engine=new-volkswagen-audi-ea113-ea888-2-0-tfsi-ea113-bpy) | hardware-constraint | 0/8 | 1 | Researched | Crank/cam decoding, Injector count, Injector electrical, Coil layout, Ignition power stage, Cam/VVT, MAP/MAF, Brick running proof |
+| Volkswagen / Audi | [2.0 TSI EA888 Gen 1/2](compatibility.html#engine=new-volkswagen-audi-ea113-ea888-2-0-tsi-ea888-gen-1-2) | hardware-constraint | 0/8 | 1 | Researched | Crank/cam decoding, Injector count, Injector electrical, Coil layout, Ignition power stage, Cam/VVT, MAP/MAF, Brick running proof |
+| Volkswagen / Audi | [2.0 TSI EA888 Gen 3](compatibility.html#engine=new-volkswagen-audi-ea113-ea888-2-0-tsi-ea888-gen-3) | hardware-constraint | 0/8 | 1 | Researched | Crank/cam decoding, Injector count, Injector electrical, Coil layout, Ignition power stage, Cam/VVT, MAP/MAF, Brick running proof |
 | Volkswagen / Audi | [2.7T APB 30V](compatibility.html#engine=new-volkswagen-audi-v6-2-7t-2-7t-apb-30v) | partial-wheel-sourced | 3/8 | 2 | Researched | Crank/cam decoding, Injector electrical, Cam/VVT, MAP/MAF, Brick running proof |
 | Volkswagen / Audi | [2.7T BEL 30V](compatibility.html#engine=new-volkswagen-audi-v6-2-7t-2-7t-bel-30v) | partial-wheel-sourced | 3/8 | 2 | Researched | Crank/cam decoding, Injector electrical, Cam/VVT, MAP/MAF, Brick running proof |
-| Volkswagen / Audi | [2.8 VR6 24V AQP/BDF](compatibility.html#engine=new-volkswagen-audi-vr6-2-8-vr6-24v-aqp-bdf) | partial-wheel-sourced | 0/8 | 0 | Existing | Crank/cam decoding, Injector count, Injector electrical, Coil layout, Ignition power stage, Cam/VVT, MAP/MAF, Brick running proof |
+| Volkswagen / Audi | [2.8 VR6 24V AQP/BDF](compatibility.html#engine=new-volkswagen-audi-vr6-2-8-vr6-24v-aqp-bdf) | partial-wheel-sourced | 0/8 | 1 | Researched | Crank/cam decoding, Injector count, Injector electrical, Coil layout, Ignition power stage, Cam/VVT, MAP/MAF, Brick running proof |
 | Volkswagen / Audi | [3.2 VR6 R32 BFH/BUB](compatibility.html#engine=new-volkswagen-audi-vr6-3-2-vr6-r32-bfh-bub) | partial-wheel-sourced | 3/8 | 2 | Researched | Crank/cam decoding, Injector electrical, Ignition power stage, MAP/MAF, Brick running proof |
 | Volkswagen / Audi | [AAA 2.8 VR6 12V](compatibility.html#engine=new-volkswagen-audi-vr6-aaa-2-8-vr6-12v) | partial-wheel-sourced | 2/8 | 2 | Researched | Crank/cam decoding, Injector electrical, Coil layout, Ignition power stage, Cam/VVT, Brick running proof |
 | Volkswagen / Audi | [AEB 1.8T](compatibility.html#engine=volkswagen-audi-1-8t-aeb-1-8t) | family-wheel-sourced | 4/8 | 3 | Existing | Crank/cam decoding, Injector count, Injector electrical, Brick running proof |
@@ -250,6 +250,6 @@ All entries require donor-year verification before installation: OEM connector a
 | Volvo | [B5244T 2.4 turbo](compatibility.html#engine=new-volvo-whiteblock-5-cylinder-b5244t-2-4-turbo) | partial-wheel-sourced | 0/8 | 3 | Researched | Crank/cam decoding, Injector count, Injector electrical, Coil layout, Ignition power stage, Cam/VVT, MAP/MAF, Brick running proof |
 | Volvo | [B5254T 2.5 turbo](compatibility.html#engine=new-volvo-whiteblock-5-cylinder-b5254t-2-5-turbo) | partial-wheel-sourced | 0/8 | 2 | Researched | Crank/cam decoding, Injector count, Injector electrical, Coil layout, Ignition power stage, Cam/VVT, MAP/MAF, Brick running proof |
 
-## Source precision policy
+## Verification policy
 
-A family-level reference is not evidence that every engine code, model year, coil type or crank pattern matches. Source lists and scope notes are inside each Engine Finder entry. Only a documented installation with electrical measurements, synchronized runtime traces and tested calibration counts as a finished guide. External source links are not Brick pinouts.
+A family-level guide cannot establish exact original wiring, sensor type, synchronization pattern or ignition stage for a specific year. The precise external links and scope limitations are contained in each engine's Finder page. No source establishes Brick-specific mating connector pin assignments or a tested base map. Do not present third-party ECU pin numbers as Brick pins.
