@@ -1,5 +1,8 @@
 # Brick ECU — 237-engine research progress ledger (November 4, 2026)
 
+> **Superseded research-completion measure:** This earlier ledger used installation-validation requirements and does not measure the requested OEM trigger/sensor research goal. For the current 237-engine crank/cam, CKP/CMP and Big/Mini control-method audit, see **[ENGINE_TRIGGER_SENSOR_AUDIT_20261104.md](ENGINE_TRIGGER_SENSOR_AUDIT_20261104.md)**. No installed vehicle test is required to finish the research.
+
+
 **0 finished installation guides / 237 catalog records.** 66 engine records received new source-backed research this date; the other 171 retained existing catalog evidence. All 237 now have at least one external source link, but an external link alone is not proof of OEM donor wiring or Brick compatibility. 143 entries have one or more of the eight research-coverage checks completed, and 94 have none.
 
 Still required to finish a real installation guide: donor-year OEM connectors, exact electrical signals and crank/cam waveforms, ignition coil primary drivers/dwell, injector impedance and characterization, validated rusEFI decoder/locked timing, and actual Brick ECU logging/running validation. Scores are screening tools, not reliability probabilities. Factory GDI is unvalidated with external hardware on Big Brick and unsupported on Mini Brick.
