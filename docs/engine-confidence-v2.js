@@ -225,7 +225,7 @@ for(const e of items){
  }
  const m=model(e);e.confidenceV2={version:"2.0",reviewed:e.research?.checked||"2026-11-03",model:{
   coilType:m.coil,ignitionLayout:m.layout,factoryLoadSensor:m.air,vvtClass:m.cam,sourceKinds:m.sourceLevel,injectorCount:m.injectorCount,injectorMode:m.injectorMode,injectorZ:m.injectorZ,injectorOhms:m.injectorOhms,factoryResistorPack:m.factoryResistorPack,
-  notes:m.notes,stockGDI:m.gdi,rotary:m.rotary,stockOpticalCAS:m.optical,extraNativeVRNeeded:m.extraVR
+  notes:m.notes,stockGDI:m.gdi,rotary:m.rotary,stockOpticalCAS:m.optical,brokenDecoder:m.broken,extraNativeVRNeeded:m.extraVR
  },coverage:coverage(e,m),big:calc(e,m,"big"),mini:calc(e,m,"mini"),weights,names,sourceLinks:sources,
  disclaimer:"Fit scores compare trigger and I/O configuration, not the availability of injector drivers. High-impedance port injectors are natively supported; source records and user-reported Brick tests are shown separately."};
 }
