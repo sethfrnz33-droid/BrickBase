@@ -712,3 +712,54 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #b6
   .docs-page .page-head h1 { font-size: 2rem; }
   .ef-layer-summary { gap: 5px; }
 }
+
+
+/* Documentation navigation: prevent overlapping links on narrow iPhones.
+   Keep the compact horizontal scroller, but never shrink its text items. */
+@media (max-width: 900px) {
+  .docs-page .doc-side { width: 100%; min-width: 0; overflow: hidden; }
+  .docs-page .docs-local-nav {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    gap: 8px;
+  }
+  .docs-page .docs-local-nav .docs-sidebar-home,
+  .docs-page .docs-local-nav .docs-sidebar-group,
+  .docs-page .docs-local-nav .docs-sidebar-group a {
+    flex: 0 0 auto;
+    width: auto;
+    min-width: max-content;
+    max-width: none;
+  }
+  .docs-page .docs-local-nav .docs-sidebar-group {
+    display: inline-flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  .docs-page .docs-local-nav a {
+    flex: 0 0 auto;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-break: normal;
+    line-height: 1.35;
+    min-height: 44px;
+    padding: 10px 13px;
+  }
+  .docs-page .docs-sidebar-home { margin: 0; }
+}
