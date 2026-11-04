@@ -8,7 +8,7 @@ const data=window.BRICK_ENGINE_PRESETS;
 if(!Array.isArray(data))return;
 const missing=/\b(?:not established|not documented|not verified|unverified|unknown|not determined|need(?:s)?(?: to)? verify|requires? (?:donor|exact|year|OEM)|no .*?source|awaiting|not sourced|unresolved|pending|not yet confirmed)\b/i;
 const tentative=/\b(?:candidate|hypothesis|likely|reportedly|commonly reported|may be|appears|possible|not independently|not specified|not proven|family only|donor-dependent|may differ|must be confirmed|still to source)\b/i;
-const shape=/(?:\b\d{1,3}\s*[-+]\s*\d{1,3}(?:\s*[-+]\s*\d{1,3}){0,3}\b|\b\d{1,3}(?:[\w-]+|\s+){0,5}\b(?:teeth|tooth|slots|positions|events|pulses|features|blocks)\b|\b(?:one|two|three|four|five|six|seven|eight|twelve|twenty.four)(?:[\w-]+|\s+){0,3}\b(?:teeth|tooth|slots|pulses|events|features|blocks)\b|\b(?:missing.tooth|half.moon|one.tooth|two.tooth|irregular|asymmetric|multi.gap|optical|signature)\b)/i;
+const shape=/(?:\b\d{1,3}\s*[-+]\s*\d{1,3}(?:\s*[-+]\s*\d{1,3}){0,3}\b|\b\d{1,3}[\w\s-]{0,55}\b(?:teeth|tooth|slots|positions|events|pulses|features|blocks)\b|\b(?:one|two|three|four|five|six|seven|eight|twelve|twenty.four)(?:[\w-]+|\s+){0,3}\b(?:teeth|tooth|slots|pulses|events|features|blocks)\b|\b(?:missing.tooth|half.moon|one.tooth|two.tooth|irregular|asymmetric|multi.gap|optical|signature)\b)/i;
 const camShape=/(?:\b\d+(?:[\w-]+|\s+){0,3}\b(?:teeth|tooth|slots|events|pulses|windows|features)\b|\b(?:one|two|three|four|six)(?:[\w-]+|\s+){0,2}\b(?:teeth|tooth|slots|events|pulses|features)\b|\b(?:one.?tooth|half.?moon|single.?tooth|unequal|cam.speed|distributor|cam phase|cam Hall|two-track|multiple cam|vvt cam|pulse per|phase reference)\b)/i;
 function type(text,kind){
  const s=String(text||"");
