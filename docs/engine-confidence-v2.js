@@ -187,7 +187,7 @@ function calc(e,m,ecu){
  else if(m.gdi)log("fueling",0,"OEM GDI unsupported","Factory high-pressure direct injection, including hybrid port+GDI, is NOT plug-and-play on Brick.","Big Brick: external dedicated GDI control path untested/experimental. Mini Brick: no GDI control software.",[]);
  else log("fueling",92,"Port injection by catalog", "Engine catalog lists port injection; suitable for low-side port drivers in principle. Injector impedance and fuel-system data are still unverified.","Confirm injector count, impedance, voltage/current limits, fuel pressure, flow/deadtime, and rail pressure strategy.",[]);
  const sum=ranked.reduce((t,v)=>t+v.score*weights[v.id],0)/100;
- let score=Math.min(79,Math.round(sum)), block=[];
+ let score=Math.round(sum), block=[];
  if(m.gdi)block.push("Stock GDI/combined DI fueling is not validated; no native stock-fuel system support.");
  if(m.optical||m.broken)block.push("Factory trigger has no established supported native decoding.");
  if(m.rotary)block.push("Rotary fuel/ignition firmware behavior not validated.");
@@ -206,14 +206,14 @@ function calc(e,m,ecu){
 }
 function coverage(e,m){
  const checks=[
- {id:"trigger",label:"Named decoder plus independently sourced wheel (still untested)",done:e.level==="named"&&e.research?.status==="wheel-sourced"&&!(m.optical||m.broken),source:e.research?.sources?.[0]||null},
+ {id:"trigger",label:"Sourced OEM crank-wheel geometry",done:["wheel-sourced","oem-wheel-sourced"].includes(e.research?.status)&&!(m.broken),source:e.research?.sources?.[0]||null},
  {id:"injectorCount",label:"Source-backed original port injector count",done:m.injectorCount!==null&&m.gdi===false,source:m.refs.injectorCount||null},
  {id:"injectorElectrical",label:"Injector resistance/current limiting verified",done:false,source:m.refs.injectorZ||null},
  {id:"ignitionLayout",label:"Source-backed ignition coil layout and count",done:!["unknown","varies"].includes(m.layout)&&Boolean(m.refs.layout),source:m.refs.layout||null},
  {id:"coilDriver",label:"Original coil power stage identified",done:!["unknown","varies"].includes(m.coil)&&Boolean(m.refs.coil),source:m.refs.coil||null},
  {id:"cam",label:"Factory cam/VVT type source-backed",done:m.cam!=="unknown"&&m.sourceLevel.cam?.includes("external reference")===true,source:m.refs.cam||null},
  {id:"load",label:"Stock MAP/MAF load sensor sourced",done:!["unknown","mixed"].includes(m.air)&&Boolean(m.refs.air),source:m.refs.air||null},
- {id:"brick",label:"Tested Brick ECU wiring, scope and running validation",done:false,source:null}
+ {id:"sensorTypes",label:"OEM CKP and CMP pickup technologies identified",done:Boolean(e.triggerGuide?.ckp&&e.triggerGuide?.cmp)&&!/not (?:independently|explicitly|documented|established)|unknown|unverified/i.test(e.triggerGuide.ckp+" "+e.triggerGuide.cmp),source:e.research?.sources?.[0]||null}
  ];
  return {known:checks.filter(c=>c.done).length,total:checks.length,checks,remaining:checks.filter(c=>!c.done).map(c=>c.label),description:"Parts-research checklist, separate from basic ECU output capability. High-impedance port injectors are natively supported."};
 }
