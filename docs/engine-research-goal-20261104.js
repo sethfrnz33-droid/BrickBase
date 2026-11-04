@@ -6,12 +6,13 @@
 "use strict";
 const data=window.BRICK_ENGINE_PRESETS;
 if(!Array.isArray(data))return;
-const missing=/\b(?:not established|not documented|not verified|unverified|unknown|not determined|need(?:s)?(?: to)? verify|requires? (?:donor|exact|year)|no .*?source|awaiting|not sourced|unresolved)\b/i;
-const tentative=/\b(?:candidate|likely|reportedly|commonly reported|may be|appears|possible|not independently|family only|donor-dependent|may differ)\b/i;
+const missing=/\b(?:not established|not documented|not verified|unverified|unknown|not determined|need(?:s)?(?: to)? verify|requires? (?:donor|exact|year|OEM)|no .*?source|awaiting|not sourced|unresolved|pending|not yet confirmed)\b/i;
+const tentative=/\b(?:candidate|hypothesis|likely|reportedly|commonly reported|may be|appears|possible|not independently|not specified|not proven|family only|donor-dependent|may differ|must be confirmed|still to source)\b/i;
 const shape=/(?:\b\d{1,3}\s*[-+]\s*\d{1,3}(?:\s*[-+]\s*\d{1,3}){0,3}\b|\b\d{1,3}\s*(?:physical |nominal )?(?:teeth|tooth|slots|positions|events|pulses)\b|\b(?:missing.tooth|half.moon|one.tooth|two.tooth|irregular|asymmetric|multi.gap|optical|signature)\b)/i;
 const camShape=/(?:\b\d+\s*(?:cam |phase |sync )?(?:teeth|tooth|slots|events|pulses|windows|features)\b|\b(?:one.?tooth|half.?moon|single.?tooth|unequal|cam.speed|distributor|cam phase|cam Hall|two-track|multiple cam|vvt cam|pulse per|phase reference)\b)/i;
 function type(text,kind){
  const s=String(text||"");
+ if(/all three position sensors are Hall.effect/i.test(s))return "Powered Hall/digital";
  const segments=s.split(/(?<=[.;])\s+|\s+Additional donor-scoped evidence:/i);
  const names=kind==="crank"?/\b(?:crank|CKP|G28)\b/i:/\b(?:cam|CMP|G40|phase)\b/i;
  for(const segment of segments){
@@ -55,7 +56,7 @@ for(const e of data){
  const crankFamily=(r.status==="family-wheel-sourced")&&shape.test(crank)&&!missing.test(crank);
  const crankOther=shape.test(crank)&&!missing.test(crank)&&!tentative.test(crank);
  const crankLevel=crankDirect?"documented":crankFamily?"family":crankOther?"described":"missing";
- const camLevel=camShape.test(cam)&&!missing.test(cam)&&!tentative.test(cam)?"described":"missing";
+ const camLevel=/synthetic CAMOUT|synthesi[sz]ed cam.phase|no physical cam tooth/i.test(cam)&&/ICM|module/i.test(cam)?"described":camShape.test(cam)&&!missing.test(cam)&&!tentative.test(cam)?"described":"missing";
  const ckpKnown=!missing.test(ckp)&&!/not independently identified/i.test(ckp);
  const cmpKnown=!missing.test(cmp)&&!/not independently identified/i.test(cmp);
  const ignitionKnown=!["unknown","varies",undefined].includes(m.coilType)&&!["unknown","varies",undefined].includes(m.ignitionLayout);
