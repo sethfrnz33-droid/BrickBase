@@ -1,17 +1,150 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#06152f"><meta name="description" content="Explore Mini Brick and Big Brick standalone engine controllers with onboard Wi-Fi, included harness connectors and direct Payhip purchasing."><title>Mini Brick & Big Brick Standalone ECUs | Brick ECU</title><link rel="stylesheet" href="site.css"><link rel="stylesheet" href="field-console.css"></head><body><a href="#main" class="skip">Skip to content</a><header class="top"><nav class="nav wrap" aria-label="Main navigation"><a class="brand" href="index.html">BRICK<strong>ECU</strong></a><button type="button" class="menu-toggle" aria-controls="main-links" aria-expanded="false">Menu</button><div class="navlinks" id="main-links"><a href="index.html" aria-current="page">Home</a><a href="products/mini-brick.html">Mini Brick</a><a href="products/big-brick.html">Big Brick</a><a href="docs/compatibility.html">Engine Finder</a><a href="docs/downloads.html">Downloads</a><a href="docs/index.html">Docs</a><a href="index.html#models" class="buy">Shop ECUs</a></div></nav></header><main id="main" class="page"><div class="wrap">
-<section class="hero"><div><span class="kicker">BRICK ECU / ENGINE MANAGEMENT</span><h1>Your engine.<br><span>Your rules.</span></h1><p class="lead">Two standalone ECUs built for hands-on engine projects. Tune wirelessly, explore the hardware, and build a harness for your setup.</p><div class="actions"><a class="btn primary" href="#models">Explore the models</a><a class="btn ghost" href="docs/index.html">Technical documentation</a></div><p class="micro" style="margin-top:19px">Prices in CAD · Shipping included · Harness connector and terminal kits included</p></div><div class="frame "><div class="frame-head"><strong>BRICK ECU / EQUIPMENT BAY</strong><span>TWO PLATFORMS</span></div><div class="frame-body"><div class="hero-window"><span class="hero-tag">MINI + BIG</span><div class="image-pair"><img src="assets/mini-brick-transparent.png" alt="Mini Brick ECU circuit board"><img src="assets/big-brick-transparent.png" alt="Big Brick ECU circuit board"></div><span class="hero-status">FIELD CONSOLE <span class="loop-lights" aria-hidden="true"><i></i><i></i><i></i></span></span></div></div></div></section>
-<section class="site-resources" aria-labelledby="site-resources-title">
-<div class="site-resources-heading"><div><span class="kicker">EXPLORE BRICK ECU</span><h2 id="site-resources-title">Start exploring</h2></div><p>Find engine research, pinouts, firmware and setup notes in one place.</p></div>
-<div class="site-resources-grid">
-<a href="docs/compatibility.html"><span class="site-resource-type">ENGINE FIELD GUIDE</span><strong>Find your engine</strong><span>Explore 237 engine records, trigger research, and Big/Mini fit checks.</span><span class="site-resource-action">Browse the engine finder →</span></a>
-<a href="docs/big-brick-pinout.html"><span class="site-resource-type">WIRING &amp; CONNECTORS</span><strong>94-pin lookup</strong><span>Search Big Brick connector positions, signals and functions.</span><span class="site-resource-action">Open pinouts →</span></a>
-<a href="docs/downloads.html"><span class="site-resource-type">SOFTWARE &amp; FIRMWARE</span><strong>Downloads</strong><span>TunerStudio, paid features, Proteus F7 and MRE F4 bundles.</span><span class="site-resource-action">Go to Downloads →</span></a>
-<a href="docs/index.html"><span class="site-resource-type">TECHNICAL RESOURCES</span><strong>Documentation</strong><span>Specifications, setup instructions and connector posters.</span><span class="site-resource-action">Explore all resources →</span></a>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b110e">
+<meta name="description" content="Brick ECU standalone engine management. Explore Mini Brick and Big Brick, documentation, pinouts and engine research.">
+<title>Brick ECU | Standalone Engine Management</title>
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="field-console.css">
+<style>
+/* Brick ECU home / workstation layout / 2026-11-07
+   Deliberately unlike a card-based landing-page template. */
+.terminal-home{background:#0a0f0c;color:#dce6d8;font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}
+.terminal-home *{box-sizing:border-box}
+.terminal-home .wrap{width:min(1210px,calc(100% - 64px))}
+.terminal-home a{color:inherit}
+.terminal-home .top{background:#0a100c;border-bottom:1px solid #405745;box-shadow:none}
+.terminal-home .nav{min-height:66px}
+.terminal-home .brand{font-size:1.2rem;letter-spacing:.02em}
+.terminal-home .navlinks a{font-size:.77rem}
+.tb-topline{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid #283b2d;padding:17px 0;font-size:.68rem;letter-spacing:.1em;color:#83a28a}
+.tb-topline span:last-child{text-align:right}
+.tb-intro{padding:104px 0 92px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(290px,.8fr);gap:clamp(45px,8vw,122px);align-items:center}
+.tb-eyebrow{color:#a5c7a2;letter-spacing:.17em;font-size:.71rem;font-weight:650;text-transform:uppercase;margin-bottom:35px}
+.tb-cursor{display:inline-block;background:#a5d0a8;width:10px;height:15px;vertical-align:-2px;margin-right:9px}
+.terminal-home .tb-intro h1{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:clamp(2.55rem,5.3vw,5.6rem);font-weight:600;line-height:1.1;letter-spacing:-.065em;color:#e6ece1;margin:0 0 32px}
+.tb-intro h1 em{font-style:normal;color:#aad4aa}
+.tb-intro-copy{max-width:560px;font-family:system-ui,-apple-system,sans-serif;font-size:1.12rem;line-height:1.75;color:#b9c8b8;margin-bottom:32px}
+.tb-links{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center}
+.tb-links a{font-size:.78rem;text-decoration:none;padding:11px 0;border-bottom:1px solid #91b799;color:#d8ead6}
+.tb-links a:first-child{color:#b2d5b0;border-bottom-color:#b2d5b0}
+.tb-links a:hover{color:#fff;border-bottom-color:#fff}
+.tb-unit{position:relative;border-left:1px solid #415848;padding:14px 0 14px 26px}
+.tb-unit-head{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #35493a;padding:0 0 13px;margin-bottom:23px;color:#a5bca4;font-size:.69rem;letter-spacing:.08em}
+.tb-unit-visual{display:flex;align-items:center;justify-content:center;min-height:240px;padding:22px 10px}
+.tb-unit-visual img{display:block;max-height:240px;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 15px 22px #0009)}
+.tb-unit-foot{border-top:1px solid #35493a;padding-top:13px;display:flex;justify-content:space-between;color:#8da58f;font-size:.67rem;gap:10px}
+.tb-divider{border-top:1px solid #47614b}
+.tb-section{padding:72px 0 82px}
+.tb-section-title{display:flex;align-items:baseline;justify-content:space-between;gap:20px;margin-bottom:33px}
+.tb-section-title h2{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:1.3rem;letter-spacing:-.025em;font-weight:600;margin:0;color:#dce9d9}
+.tb-section-title span{color:#819c86;font-size:.69rem;letter-spacing:.1em}
+.tb-product{display:grid;grid-template-columns:55px minmax(170px,1fr) minmax(200px,1.6fr) 125px 75px;gap:26px;align-items:center;padding:31px 0;border-top:1px solid #304435;text-decoration:none}
+.tb-product:last-of-type{border-bottom:1px solid #304435}
+.tb-product:hover{background:#111b14}
+.tb-index{color:#6e9376;font-size:.82rem}
+.tb-product-name{font-size:1.3rem;color:#e7eee3;letter-spacing:-.03em}
+.tb-description{font-family:system-ui,-apple-system,sans-serif;color:#afc2b0;font-size:.93rem;line-height:1.6}
+.tb-price{color:#d2dfcd;font-size:.95rem;white-space:nowrap;text-align:right}
+.tb-open{color:#a8d2aa;text-align:right;font-size:.85rem}
+.tb-notes{font-size:.71rem;color:#829985;line-height:1.6;margin-top:20px}
+.tb-directory{display:grid;grid-template-columns:minmax(220px,.8fr) minmax(0,1.2fr);gap:70px;padding:75px 0 90px}
+.tb-directory-copy h2{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:clamp(1.6rem,3vw,2.7rem);font-weight:500;line-height:1.3;margin:18px 0 22px;color:#e1eadd}
+.tb-directory-copy p{font-family:system-ui,-apple-system,sans-serif;max-width:390px;color:#aebfad;line-height:1.75}
+.tb-directory-links a{display:flex;justify-content:space-between;gap:24px;align-items:center;padding:21px 0;border-bottom:1px solid #334738;text-decoration:none;color:#e0e9dc}
+.tb-directory-links a:first-child{border-top:1px solid #334738}
+.tb-directory-links a:hover{color:#b7e6b8}
+.tb-directory-links a strong{font-size:.92rem;font-weight:550}
+.tb-directory-links a small{display:block;color:#8da78f;font-size:.72rem;font-weight:400;margin-top:5px}
+.tb-directory-links a>span:last-child{font-size:1.2rem;color:#a5c9a3}
+.tb-bottom{display:flex;justify-content:space-between;gap:40px;padding:30px 0 35px;font-size:.69rem;color:#8ca38d;line-height:1.8}
+.tb-bottom a{color:#b9d2b5}
+.tb-bottom-right{text-align:right}
+.terminal-home .footer{background:transparent;border-top:1px solid #405745;padding:0}
+@media(max-width:960px){
+ .tb-intro{grid-template-columns:minmax(0,1fr) minmax(220px,.7fr);gap:35px}
+ .tb-product{grid-template-columns:30px minmax(130px,1fr) minmax(140px,1.3fr) 100px 35px;gap:15px}
+ .tb-directory{gap:35px}
+}
+@media(max-width:720px){
+ .terminal-home .wrap{width:calc(100% - 36px)}
+ .tb-topline{font-size:.6rem}
+ .tb-intro{grid-template-columns:1fr;gap:36px;padding:65px 0 58px}
+ .terminal-home .tb-intro h1{font-size:clamp(2.6rem,11vw,4.5rem)}
+ .tb-intro-copy{font-size:1rem}
+ .tb-unit{padding:0 0 0 18px;max-width:540px}
+ .tb-unit-visual{min-height:190px}
+ .tb-unit-visual img{max-height:205px}
+ .tb-section{padding:52px 0}
+ .tb-product{grid-template-columns:24px 1fr auto;gap:7px 13px;padding:23px 0}
+ .tb-product-name{font-size:1.12rem}
+ .tb-description{grid-column:2 / -1;grid-row:2;font-size:.87rem}
+ .tb-price{grid-column:2;grid-row:3;text-align:left;margin-top:7px}
+ .tb-open{grid-column:3;grid-row:3}
+ .tb-directory{grid-template-columns:1fr;gap:23px;padding:55px 0 60px}
+ .tb-bottom{flex-direction:column;gap:10px}
+ .tb-bottom-right{text-align:left}
+ .tb-section-title span{font-size:.6rem}
+}
+@media(max-width:380px){
+ .terminal-home .wrap{width:calc(100% - 28px)}
+ .tb-topline span:last-child{display:none}
+ .tb-section-title{display:block}
+ .tb-section-title span{display:block;margin-top:12px}
+}
+</style>
+</head>
+<body class="terminal-home">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><nav class="nav wrap" aria-label="Main navigation">
+<a class="brand" href="index.html">BRICK<strong>ECU</strong></a>
+<button type="button" class="menu-toggle" aria-controls="main-links" aria-expanded="false">Menu</button>
+<div class="navlinks" id="main-links">
+<a href="index.html" aria-current="page">Home</a>
+<a href="products/mini-brick.html">Mini Brick</a>
+<a href="products/big-brick.html">Big Brick</a>
+<a href="docs/compatibility.html">Engine Finder</a>
+<a href="docs/downloads.html">Downloads</a>
+<a href="docs/index.html">Docs</a>
+<a class="buy" href="#hardware">Shop ECUs</a>
+</div></nav></header>
+<main id="main">
+<div class="wrap">
+<div class="tb-topline"><span>BRICK ECU &nbsp; / &nbsp; ENGINE CONTROL SYSTEMS</span><span>HARDWARE &nbsp; · &nbsp; RESEARCH &nbsp; · &nbsp; REFERENCE</span></div>
+<section class="tb-intro" aria-labelledby="hero-heading">
+<div>
+<div class="tb-eyebrow"><span class="tb-cursor" aria-hidden="true"></span>Independent engine management</div>
+<h1 id="hero-heading">Control the<br><em>whole machine.</em></h1>
+<p class="tb-intro-copy">Standalone ECUs for people who want to understand, wire and tune their own engines. Two hardware platforms, wireless TunerStudio support, and the technical information to start planning a build.</p>
+<div class="tb-links"><a href="#hardware">View the hardware &rarr;</a><a href="docs/compatibility.html">Find your engine &rarr;</a><a href="docs/index.html">Technical library &rarr;</a></div>
+</div>
+<div class="tb-unit" aria-label="Big Brick ECU hardware photograph">
+<div class="tb-unit-head"><span>HARDWARE / BIG BRICK</span><span>01 / 02</span></div>
+<div class="tb-unit-visual"><img src="assets/big-brick-transparent.png" alt="Big Brick ECU circuit board"></div>
+<div class="tb-unit-foot"><span>PROTEUS-BASED PLATFORM</span><span>BRICK ECU</span></div>
+</div>
+</section>
+</div>
+<div class="tb-divider"></div>
+<section id="hardware" class="tb-section wrap" aria-labelledby="hardware-heading">
+<div class="tb-section-title"><h2 id="hardware-heading">01 / HARDWARE</h2><span>TWO CONTROLLERS. NO UNNECESSARY COMPLEXITY.</span></div>
+<a class="tb-product" href="products/mini-brick.html"><span class="tb-index">01</span><strong class="tb-product-name">Mini Brick</strong><span class="tb-description">Compact STM32F407 controller. Wi-Fi tuning, protected outputs, and electronic throttle support.</span><span class="tb-price">$600 CAD</span><span class="tb-open" aria-hidden="true">&rarr;</span></a>
+<a class="tb-product" href="products/big-brick.html"><span class="tb-index">02</span><strong class="tb-product-name">Big Brick</strong><span class="tb-description">More channels, onboard LSU 4.9 wideband and knock sensing, dual H-bridges and logging.</span><span class="tb-price">$1,200 CAD</span><span class="tb-open" aria-hidden="true">&rarr;</span></a>
+<p class="tb-notes">Prices include shipping and mating harness connector/terminal kits. Purchases are processed securely through Payhip on each product page.</p>
+</section>
+<div class="tb-divider"></div>
+<section class="tb-directory wrap" aria-labelledby="directory-heading">
+<div class="tb-directory-copy"><div class="tb-eyebrow">02 / REFERENCE LIBRARY</div><h2 id="directory-heading">Technical detail,<br>without the noise.</h2><p>Explore engine control methods, look up physical ECU connections, and find software and hardware documentation. No command knowledge required.</p></div>
+<div class="tb-directory-links">
+<a href="docs/compatibility.html"><span><strong>Engine finder</strong><small>237 research entries and Big/Mini hardware assessments</small></span><span aria-hidden="true">&rarr;</span></a>
+<a href="docs/big-brick-pinout.html"><span><strong>Big Brick pinout</strong><small>Search the 94-position connector reference</small></span><span aria-hidden="true">&rarr;</span></a>
+<a href="docs/mini-brick-pinout.html"><span><strong>Mini Brick pinout</strong><small>Connector lookup and documented signal assignments</small></span><span aria-hidden="true">&rarr;</span></a>
+<a href="docs/downloads.html"><span><strong>Software and downloads</strong><small>TunerStudio and upstream firmware resources</small></span><span aria-hidden="true">&rarr;</span></a>
+<a href="docs/index.html"><span><strong>All documentation</strong><small>Hardware specifications, guides and research status</small></span><span aria-hidden="true">&rarr;</span></a>
 </div></section>
-<section class="section" id="models"><span class="section-label">THE EQUIPMENT</span><h2>Meet the hardware</h2><p class="section-intro">Mini Brick keeps things compact. Big Brick adds more channels, onboard wideband control, knock sensing and logging.</p><div class="grid2">
-<article class="frame product reveal"><div class="frame-head"><strong>MINI BRICK</strong><span>MRE-BASED</span></div><div class="image-well"><img src="assets/mini-brick-transparent.png" loading="lazy" alt="Mini Brick ECU PCB"></div><div class="product-body"><h3>Mini Brick</h3><p>For four-cylinder builds and six-cylinder wasted-spark setups. Protected outputs, native Wi-Fi and a 6 A electronic-throttle H-bridge.</p><div class="pillrow"><span class="pill">STM32F407</span><span class="pill">Wi-Fi tuning</span><span class="pill">Protected outputs</span></div><div class="price">$600 <small>CAD · delivered</small></div><div class="actions"><a class="btn primary" href="https://payhip.com/b/K6IX5" target="_blank" rel="noopener noreferrer">Buy Mini Brick</a><a class="btn ghost" href="products/mini-brick.html">Explore Mini</a></div></div></article>
-<article class="frame product reveal"><div class="frame-head"><strong>BIG BRICK</strong><span>PROTEUS-BASED</span></div><div class="image-well"><img src="assets/big-brick-transparent.png" loading="lazy" alt="Big Brick ECU PCB"></div><div class="product-body"><h3>Big Brick</h3><p>Up to eight-cylinder fully sequential engine control, with onboard LSU 4.9 wideband, knock sensing, dual H-bridges and logging.</p><div class="pillrow"><span class="pill">16 low-side outputs</span><span class="pill">12 × 5 V ignition</span><span class="pill">Onboard wideband</span></div><div class="price">$1,200 <small>CAD · delivered</small></div><div class="actions"><a class="btn primary" href="https://payhip.com/b/6OIjf" target="_blank" rel="noopener noreferrer">Buy Big Brick</a><a class="btn ghost" href="products/big-brick.html">Explore Big</a></div></div></article>
-</div></section>
-<section class="section"><span class="section-label">Included with either model</span><div class="feature-list"><div class="feature"><h3>Native wireless tuning</h3><p>Connect from TunerStudio using the ECU's built-in Wi-Fi.</p></div><div class="feature"><h3>Harness connector kit</h3><p>Matching ECU harness connectors and terminal pins included in the price.</p></div><div class="feature"><h3>Shipping included</h3><p>Both advertised CAD prices include shipping and delivery.</p></div></div></section>
-<section class="section" aria-label="Order information"><span class="section-label">Before you order</span><div class="policy-preview"><p><strong>Made to order:</strong> usually ships within 3 weeks; allow up to 4 weeks during a batch build. <strong>1-year limited hardware warranty.</strong> No voluntary change-of-mind returns. <strong>Off-road use only.</strong> <a href="terms.html">Read shipping, warranty and safety terms</a> before purchasing.</p></div></section>
-<section class="docs-banner"><div class="frame "><div class="frame-head"><strong>TECHNICAL LIBRARY</strong><span>DOCUMENTATION &amp; DOWNLOADS</span></div><div class="frame-body"><div><h2>Technical resources</h2><p>Find hardware specifications, connector diagrams, engine research, setup guides and downloads.</p></div><div class="actions"><a class="btn primary" href="docs/index.html">Browse documentation</a><a class="btn ghost" href="docs/downloads.html">Software downloads</a></div></div></div></section></div></main><footer class="footer"><div class="wrap footer-inner"><div><a class="brand" href="index.html">BRICK<strong>ECU</strong></a><p class="small">rusEFI-based standalone engine management.<br>Product specifications are provided by Brick ECU.</p></div><div><a href="docs/index.html">Technical documentation</a> · <a href="docs/compatibility.html">Engine library</a><p class="small">Mini Brick $600 CAD · Big Brick $1,200 CAD<br>Listed prices include shipping and mating connector/terminal kits.</p></div></div></footer><script src="site.js?v=ask-brick-20261103" defer></script></body></html>
+</main>
+<footer class="footer"><div class="wrap tb-bottom"><div>BRICK ECU &nbsp; / &nbsp; rusEFI-based standalone engine management.<br>Hardware specifications are provided by Brick ECU.</div><div class="tb-bottom-right"><a href="terms.html">Ordering, warranty and safety</a><br>Mini Brick $600 CAD &nbsp; / &nbsp; Big Brick $1,200 CAD</div></div></footer>
+<script src="site.js?v=terminal-layout-20261107" defer></script>
+</body></html>
