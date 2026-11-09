@@ -16,3 +16,7 @@ jobs:
           node-version: '22'
       - name: Check local pages and Mini Brick sale status
         run: node scripts/site-audit.mjs
+      - name: Check JavaScript syntax
+        run: find . -name '*.js' -not -path './node_modules/*' -print0 | xargs -0 -n1 node --check
+      - name: Verify engine research and source counts
+        run: node scripts/research-audit.mjs
