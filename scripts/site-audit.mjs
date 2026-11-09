@@ -25,7 +25,7 @@ for(const [file,html] of contents){
   if(file.endsWith('/products/mini-brick.html') && (!/in development/i.test(html) || /Buy Mini Brick|visit Payhip to purchase/i.test(html))){
     fail(file,'Mini Brick product page must show development status and never offer checkout');
   }
-  for(const [, , value] of html.matchAll(/\\b(href|src)\\s*=\\s*(["'])(.*?)\\2/gi)){
+  for(const [, , , value] of html.matchAll(/\\b(href|src)\\s*=\\s*(["'])(.*?)\\2/gi)){
     if (!value || /^(?:https?:|mailto:|tel:|data:|javascript:|\\/\\/)/i.test(value)) continue;
     const hashIdx=value.indexOf('#');
     const pathname=(hashIdx>=0?value.slice(0,hashIdx):value).split('?')[0];
