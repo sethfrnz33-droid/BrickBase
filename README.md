@@ -1,6 +1,6 @@
 # Brick ECU — Website and technical documentation
 
-Public website source for **Brick ECU**: Mini Brick and Big Brick standalone engine management.
+Public website source for **Brick ECU**: Big Brick is offered for purchase; Mini Brick is in development with no checkout or announced launch date.
 
 ## Site structure
 
@@ -8,8 +8,8 @@ The storefront and the technical manuals are separate static pages. No framework
 
 | Route | Purpose |
 | --- | --- |
-| `/index.html` | Compact sales landing page and both Payhip purchase links |
-| `/products/mini-brick.html` | Mini Brick sales page |
+| `/index.html` | Product overview and link to Big Brick ordering only |
+| `/products/mini-brick.html` | Mini Brick in-development preview and planned specifications |
 | `/products/big-brick.html` | Big Brick sales page |
 | `/docs/index.html` | Technical documentation index |
 | `/docs/big-brick.html` | Big Brick hardware specifications |
@@ -42,10 +42,10 @@ The `/docs/index.html` landing page is organized by user task (engine lookup, 94
 
 ### Purchasing
 
-- **Mini Brick**: CAD $600 shipped — https://payhip.com/b/K6IX5
+- **Mini Brick**: in development, **not available for sale**; CAD $600 shipped is the proposed price if/when launched.
 - **Big Brick**: CAD $1,200 shipped — https://payhip.com/b/6OIjf
 
-Both advertised prices include mating harness connectors and terminal pins. Payment is processed by Payhip, not this static website.
+Big Brick at CAD $1,200 includes the mating connector kit. The same kit is proposed for Mini Brick at launch. Only Big Brick is currently available to order through Payhip; checkout is not hosted on this website.
 
 ### Accuracy rules
 
@@ -58,7 +58,7 @@ Both advertised prices include mating harness connectors and terminal pins. Paym
 - Connector B H-bridge outputs B1/B2/B4/B5 are annotated **6 A max** in the developer-supplied original pinout drawing; earlier 8 A transcription was incorrect.
 - Engine factory coil type varies: M54 passive/dumb (DME-side driver); common GM LS smart; VW 1.8T AEB external module vs later internal igniter; early 4G63 turbo external igniter vs some later internal igniters; K20A/K24A factory coils to be confirmed for the exact part and year.
 - The previous AI-generated engine wiring diagrams contained unverified assumptions and **must not be treated as installation instructions**.
-- Mini Brick has no independently confirmed complete Brick-specific terminal-level pinout in this repository.
+- Mini Brick has a developer-provided 48-cavity connector map in this repository; it is an in-development reference that is not independently electrically or production verified. Check physical connector orientation and final PCB revision before wiring.
 - Engine library entries are **research candidates, not verified compatible installations**. Never invent vehicle-side pinouts, tested calibrations, sensor requirements or fuse values.
 
 Descriptions and ratings are supplied by the Brick ECU developer; linked rusEFI manuals explain the upstream firmware/platform concepts, not guaranteed Brick-specific implementation.
