@@ -23,11 +23,13 @@ const studies=[
   url:"https://wiki.rusefi.com/All-Supported-Triggers/",
   scope:"rusEFI official supported trigger reference names MAZDA_MIATA_NB1 for the 1999-2000 Mazda BP-4W NB1 trigger",
   decoder:"rusEFI MAZDA_MIATA_NB1 is a named supported special trigger for the sourced NB1 geometry. This confirms a documented firmware candidate, not Brick ECU running validation or every factory cam/edge setting."}
-];
+,{"models":["Barra 4.0 NA","Barra 4.0 Turbo"],"url":"https://support.haltech.com/portal/en/kb/articles/4-0l-barra-engine","scope":"Ford Barra BA-FG 4.0 six-cylinder technical reference, dual VR cam pickups with separate 3+1 crank-relative phase targets","cam":"Two cam targets, one each on intake and exhaust, have three regularly spaced teeth plus one additional index feature (3+1 pattern).","camEvidence":"engine"},{"models":["1JZ-GTE non-VVT-i","2JZ-GTE non-VVT-i"],"url":"https://support.haltech.com/portal/en/kb/articles/2jz-1jz-engine","scope":"Non-VVT-i Toyota 1JZ/2JZ factory turbo crank/cam sensors per Haltech technical reference","cam":"Non-VVT-i JZ turbo engines have two independent cam sensors G1 and G2, both passive VR/reluctor pickups, each sensing a single tooth. One suitable phase input is used for engine sync.","camEvidence":"engine"},{"models":["2AZ-FE 2.4"],"url":"https://support.haltech.com/portal/en/kb/articles/2az-fe-engine","scope":"Toyota 2AZ-FE intake-cam target has three features and a passive reluctor cam sensor, per Haltech 2AZ-FE guide","cam":"Toyota 2AZ-FE: one intake-cam reluctor target with three physical teeth for phase detection and intake VVT-i.","camEvidence":"engine"},{"models":["2.0 Zetec SVT / ST170"],"url":"https://support.haltech.com/portal/en/kb/articles/duratec-zeta-2-0l-4-cyl","scope":"Ford 2.0L Zetec-E ST170/SVT engine with variable exhaust cam timing and later five-tooth phase trigger","cam":"Ford SVT/ST170 later Zetec-E: one exhaust-cam five-tooth phase target with unequal spacing, using a passive VR/inductive cam sensor. No intake VCT.","camEvidence":"engine"}]; 
 let touched=0;
 for(const study of studies){
  for(const e of all.filter(x=>study.models.includes(x.model))){
   const g=e.triggerGuide||(e.triggerGuide={}),r=e.research||(e.research={});
+  if(study.cam){g.cam=study.cam;e.cam=study.cam;r.camWheel=study.cam;}
+  if(study.camEvidence==="engine")g.camPatternEvidence="engine";
   if(study.cmp){
     g.cmp=study.cmp;
     r.electrical=[r.electrical,"Additional phase pickup: "+study.cmp].filter(Boolean).join("; ");
