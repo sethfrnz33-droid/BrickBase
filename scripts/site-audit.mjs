@@ -17,16 +17,16 @@ function walk(dir) {
 walk(root);
 const errors=[];
 const contents = new Map(files.map(file=>[file,fs.readFileSync(file,'utf8')]));
-const ids = new Map([...contents].map(([file,html])=>[file,new Set([...html.matchAll(/\\bid\\s*=\\s*["']([^"']+)["']/gi)].map(m=>m[1]))]));
+const ids = new Map([...contents].map(([file,html])=>[file,new Set([...html.matchAll(/\bid\s*=\s*["']([^"']+)["']/gi)].map(m=>m[1]))]));
 function fail(file,msg) { errors.push(path.relative(root,file)+': '+msg); }
 for(const [file,html] of contents){
-  if (!/<meta\\s+name=["']viewport["']/i.test(html)) fail(file,'missing responsive viewport meta tag');
-  if (/payhip\\.com\\/b\\/K6IX5/i.test(html)) fail(file,'Mini Brick checkout remains linked, but Mini is not for sale');
+  if (!/<meta\s+name=["']viewport["']/i.test(html)) fail(file,'missing responsive viewport meta tag');
+  if (/payhip\.com\/b\/K6IX5/i.test(html)) fail(file,'Mini Brick checkout remains linked, but Mini is not for sale');
   if(file.endsWith('/products/mini-brick.html') && (!/in development/i.test(html) || /Buy Mini Brick|visit Payhip to purchase/i.test(html))){
     fail(file,'Mini Brick product page must show development status and never offer checkout');
   }
-  for(const [, , , value] of html.matchAll(/\\b(href|src)\\s*=\\s*(["'])(.*?)\\2/gi)){
-    if (!value || /^(?:https?:|mailto:|tel:|data:|javascript:|\\/\\/)/i.test(value)) continue;
+  for(const [, , , value] of html.matchAll(/\b(href|src)\s*=\s*(["'])(.*?)\2/gi)){
+    if (!value || /^(?:https?:|mailto:|tel:|data:|javascript:|\/\/)/i.test(value)) continue;
     const hashIdx=value.indexOf('#');
     const pathname=(hashIdx>=0?value.slice(0,hashIdx):value).split('?')[0];
     const fragment=hashIdx>=0?value.slice(hashIdx+1):'';
