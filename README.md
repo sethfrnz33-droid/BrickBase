@@ -174,6 +174,9 @@ The homepage now exposes Engine Finder, Big Brick pinouts, Downloads and Documen
 
 ## Engine research completion inventory
 
+**Latest documented engine-control research (November 8, 2026): 33/237 records have all seven research fields addressed; 204 remain incomplete.** This is research documentation, not validated installations. See [new sourced addendum](docs/ENGINE_RESEARCH_ADDENDUM_20261108.md) and [live research status](docs/research-status.html). Automated checks in `scripts/research-audit.mjs` verify these figures and the source additions on each commit.
+
+
 - [Full 237-engine finished/unfinished research ledger](docs/ENGINE_RESEARCH_AUDIT.md) — all records grouped by evidence status, with remaining verification, technical reference links and uncited-engine gaps.
 - [Searchable on-site research status](docs/research-status.html) — filter by manufacturer, evidence stage, engine code and completion. All current entries are research-only; none is validated as fully finished.
 
@@ -199,6 +202,10 @@ The model distinguishes factory manifold MAP from MAF and from boost-only sensor
 - A playful blue-green field-console style now applies to **all public HTML pages** via `field-console.css`, with rounded scanner panels, pale green accents, reduced borders and shadows, soft botanical motifs and calmer typography. The design uses original CSS; no Nintendo graphics, logos or game assets are included.
 - Hero/product copy, documentation navigation descriptions and download explanations have been tightened. The engine finder keeps critical compatibility warnings visible, while long OEM wheel research, electrical notes, conflicts and source libraries are collapsed into accessible expandable sections.
 - Do not change technical claims while rewriting marketing copy. The GDI limitation, Big's **16 total** low-side outputs with six included IGBT stages, and Mini's unverified Brick-specific terminal map remain explicit.
+
+## Website integrity
+
+`.github/workflows/site-integrity.yml` checks all 15 HTML pages for broken local resources, anchors, mobile viewport declarations and Mini Brick checkout links. It also checks JavaScript syntax and verifies that all 237 engine records retain the seven-field research audit. These automated source checks do **not** replace live Cloudflare deployment checks, iPhone browser testing, account-side Payhip listing controls or Cloudflare Workers AI activation.
 
 ## Real-world engine evidence
 
