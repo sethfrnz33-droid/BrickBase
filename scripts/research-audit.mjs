@@ -28,7 +28,7 @@ for(const script of scripts){
 const records=context.window.BRICK_ENGINE_PRESETS;
 const summary=context.window.BRICK_ENGINE_RESEARCH_SUMMARY;
 if(!Array.isArray(records)||records.length!==237)throw Error('Expected exactly 237 named engine records');
-if(context.window.BRICK_ENGINE_ADDENDUM_COUNT!==4)throw Error('Expected four sourced engine addenda to apply');
+if(context.window.BRICK_ENGINE_ADDENDUM_COUNT!==10)throw Error('Expected ten sourced engine addenda to apply');
 const ids=new Set();
 for(const r of records){
  if(ids.has(r.id))throw Error('Duplicate engine id: '+r.id);
