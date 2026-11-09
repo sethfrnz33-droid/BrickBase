@@ -43,3 +43,6 @@ const missing=Object.fromEntries(categories.map(k=>[k,records.filter(r=>r.techni
 console.log('Engine research verified: '+summary.complete+' / '+summary.total+' records with all seven research fields addressed.');
 console.log('Still incomplete: '+(summary.total-summary.complete));
 console.log('Missing evidence by category: '+JSON.stringify(missing));
+
+const almost=records.filter(r=>r.technicalResearch.known===6);
+console.log('One-gap candidates ('+almost.length+'): '+almost.map(r=>r.model+' ['+r.technicalResearch.missing.join(',')+']').join(' | '));
