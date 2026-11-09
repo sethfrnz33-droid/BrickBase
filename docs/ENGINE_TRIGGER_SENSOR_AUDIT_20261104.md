@@ -1,6 +1,6 @@
 # Brick ECU — OEM trigger, sensor and control-method research audit
 
-**Updated: November 4, 2026.** Covers all 237 listed engines. Completion here means **research on OEM control and sensor methods**, NOT a physically tested Brick ECU installation, harness, tune or dyno run. A documented blocker or requirement for an alternative interface is a valid researched conclusion; this ledger never equates a generic decoder name to proven original wheel geometry.
+**Historical snapshot: November 4, 2026.** For the newer 33/237 coverage snapshot and ten source-backed additions, see [November 8 research addendum](ENGINE_RESEARCH_ADDENDUM_20261108.md) or the [live research status](research-status.html). Covers all 237 listed engines as of November 4. Completion here means **research on OEM control and sensor methods**, NOT a physically tested Brick ECU installation, harness, tune or dyno run. A documented blocker or requirement for an alternative interface is a valid researched conclusion; this ledger never equates a generic decoder name to proven original wheel geometry.
 
 ## Current sourced research
 
