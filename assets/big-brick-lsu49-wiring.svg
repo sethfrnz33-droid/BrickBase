@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1500 790" role="img" aria-labelledby="t d">
+<title id="t">Big Brick — Bosch LSU 4.9 wiring</title><desc id="d">Big Brick ECU connector and Bosch LSU 4.9 six-pin sensor connector, illustrated with six color-coded wire functions and a warning to check connector orientation.</desc>
+<defs>
+<linearGradient id="panel" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#182e40"/><stop offset="1" stop-color="#0b1820"/></linearGradient>
+<linearGradient id="plug" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#515864"/><stop offset=".4" stop-color="#20252e"/><stop offset="1" stop-color="#090e13"/></linearGradient>
+<filter id="shade"><feDropShadow dx="0" dy="7" stdDeviation="8" flood-opacity=".45"/></filter>
+<style>text{font-family:Arial,Helvetica,sans-serif} .head{fill:#f4f7fc;font-size:49px;font-weight:750}.sub{fill:#c6d7e2;font-size:23px}.key{fill:#f8fafc;font-size:24px;font-weight:700}.detail{fill:#d0deea;font-size:21px}.pin{fill:#fff;font-size:23px;font-weight:800;paint-order:stroke;stroke:#090c10;stroke-width:3px}.line{fill:none;stroke-width:8;stroke-linecap:round;stroke-linejoin:round}.note{fill:#fff;font-size:25px;font-weight:700}.small{fill:#dbe5ee;font-size:21px}</style>
+</defs>
+<image href="../assets/big-brick-121-connector.webp" x="60" y="24" width="1320" height="310"/>
+<rect x="550" y="345" rx="23" width="900" height="113" fill="url(#panel)" stroke="#2f94db" stroke-width="4"/>
+<text x="590" y="391" class="head">Bosch LSU 4.9 wiring</text>
+<text x="590" y="432" class="sub">Big Brick ECU · One wideband sensor per controller</text>
+<g filter="url(#shade)">
+<path d="M222 542 C186 575 182 645 224 718 L378 751 Q430 746 453 704 L452 572 Q422 531 360 525Z" fill="url(#plug)" stroke="#7c858a" stroke-width="5"/>
+<ellipse cx="327" cy="546" rx="123" ry="74" fill="#121519" stroke="#b4bdc2" stroke-width="8"/>
+<ellipse cx="327" cy="543" rx="101" ry="54" fill="#07090b" stroke="#62666a" stroke-width="4"/>
+<circle cx="271" cy="538" r="18" fill="#050609" stroke="#454d54" stroke-width="4"/><circle cx="325" cy="512" r="18" fill="#050609" stroke="#454d54" stroke-width="4"/><circle cx="382" cy="538" r="18" fill="#050609" stroke="#454d54" stroke-width="4"/>
+<circle cx="271" cy="581" r="18" fill="#050609" stroke="#454d54" stroke-width="4"/><circle cx="327" cy="581" r="18" fill="#050609" stroke="#454d54" stroke-width="4"/><circle cx="382" cy="581" r="18" fill="#050609" stroke="#454d54" stroke-width="4"/>
+<text x="251" y="602" fill="#ffc839" font-size="24" font-weight="bold">2</text><text x="313" y="620" fill="#ffc839" font-size="24" font-weight="bold">4</text><text x="376" y="602" fill="#ffc839" font-size="24" font-weight="bold">6</text>
+</g>
+<!-- Six vertical wire paths, ordered by connector face at the selected wideband block -->
+<path class="line" stroke="#ffdc20" d="M348 205 V490 L271 538"/>
+<path class="line" stroke="#ea3337" d="M370 229 V490 L271 581"/>
+<path class="line" stroke="#1949ff" d="M393 205 V477 L325 512"/>
+<path class="line" stroke="#f2f5f9" d="M415 229 V470 L327 581"/>
+<path class="line" stroke="#15d34b" d="M438 205 V481 L382 538"/>
+<path class="line" stroke="#0d0d11" d="M460 229 V472 L382 581"/>
+<g><circle cx="348" cy="205" r="9" fill="#ffdc20"/><circle cx="370" cy="229" r="9" fill="#ea3337"/><circle cx="393" cy="205" r="9" fill="#1949ff"/><circle cx="415" cy="229" r="9" fill="#f2f5f9"/><circle cx="438" cy="205" r="9" fill="#15d34b"/><circle cx="460" cy="229" r="9" fill="#0d0d11" stroke="#f5f5f5"/></g>
+<rect x="550" y="472" width="565" height="276" rx="19" fill="#101a22" stroke="#3686c4" stroke-width="3"/>
+<g font-size="22" font-weight="700">
+<rect x="572" y="495" width="34" height="23" rx="5" fill="#1949ff"/><text class="key" x="621" y="516">H+ · Pin 4</text><text class="detail" x="851" y="516">Heater positive</text>
+<rect x="572" y="537" width="34" height="23" rx="5" fill="#f2f5f9"/><text class="key" x="621" y="558">H− · Pin 3</text><text class="detail" x="851" y="558">Heater negative</text>
+<rect x="572" y="579" width="34" height="23" rx="5" fill="#15d34b"/><text class="key" x="621" y="600">Rcal · Pin 5</text><text class="detail" x="851" y="600">Trim resistor</text>
+<rect x="572" y="621" width="34" height="23" rx="5" fill="#ea3337"/><text class="key" x="621" y="642">IP · Pin 1</text><text class="detail" x="851" y="642">Pump current</text>
+<rect x="572" y="663" width="34" height="23" rx="5" fill="#ffdc20"/><text class="key" x="621" y="684">VM · Pin 2</text><text class="detail" x="851" y="684">Virtual ground</text>
+<rect x="572" y="705" width="34" height="23" rx="5" fill="#020609" stroke="#e1e9f2"/><text class="key" x="621" y="726">UN · Pin 6</text><text class="detail" x="851" y="726">Nernst voltage</text>
+</g>
+<rect x="1130" y="484" width="320" height="264" rx="20" fill="#101a22" stroke="#3686c4" stroke-width="3"/>
+<path d="M1165 509h47l23 41h-94z" fill="#f0d42f" stroke="#151515" stroke-width="3"/><text x="1186" y="543" fill="#101010" font-size="32" font-weight="800">!</text>
+<text class="note" x="1255" y="537">IMPORTANT</text>
+<text class="small" x="1152" y="594">Check LSU 4.9 sensor</text>
+<text class="small" x="1152" y="624">connector orientation.</text>
+<text class="small" x="1152" y="654">Match the molded pin</text>
+<text class="small" x="1152" y="684">numbers and wire positions</text>
+<text class="small" x="1152" y="714">to the reference shown.</text>
+</svg>
