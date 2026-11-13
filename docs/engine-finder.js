@@ -272,7 +272,7 @@
     found.slice(0,shown).forEach(e=>{
       const row=elm("button","ef-result"+(e.id===selected?" selected":""),"");
       row.type="button";row.setAttribute("aria-pressed",String(e.id===selected));
-      row.append(elm("span","ef-result-name",e.model),elm("span","ef-result-family",e.make+" · "+e.family),elm("span","ef-result-trigger",e.technicalResearch?.crank||e.crank),elm("span","ef-result-ratings","Big "+(e.confidenceV2?.big?.score??e.confidence?.big??0)+"/100   ·   Mini "+(e.confidenceV2?.mini?.score??e.confidence?.mini??0)+"/100"),elm("span","ef-mini-status",e.technicalResearch?.stageLabel||statusText[e.level]));
+      row.append(elm("span","ef-result-name",e.model),elm("span","ef-result-family",e.make+" · "+e.family),elm("span","ef-result-trigger",e.technicalResearch?.crank||e.crank),elm("span","ef-result-ratings","Big "+(e.confidenceV2?.big?.score??e.confidence?.big??0)+"/100"),elm("span","ef-mini-status",e.technicalResearch?.stageLabel||statusText[e.level]));
       row.addEventListener("click",()=>choose(e.id,true));
       frag.append(row);
     });
