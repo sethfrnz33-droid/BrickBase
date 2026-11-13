@@ -11,10 +11,10 @@
 .map-scroll{overflow-x:auto;max-width:100%;border:1px solid #3b5643;background:#030705;border-radius:6px;margin:12px 0;padding:8px;scrollbar-color:#537b5e #13231a}
 .connector{display:block;width:100%;min-width:1050px;height:auto;touch-action:pan-x}
 .connector .shell{fill:#15231a;stroke:#73917b;stroke-width:3}
-.connector .hole{stroke-width:2.3;fill:rgba(5,15,9,.67);cursor:pointer;outline:none}
+.connector .hole{stroke-width:1.8;fill:rgba(5,15,9,.7);cursor:pointer;outline:none}
 .connector .hole:focus,.connector .hole.selected{stroke:#fff8bc;stroke-width:4;fill:#3b503d}
-.connector .hole:hover{fill:#3d5843}
-.connector .num{pointer-events:none;font:800 12px ui-monospace,monospace;fill:#fff;stroke:#08130b;stroke-width:2.8px;paint-order:stroke fill;text-anchor:middle;dominant-baseline:middle}
+.connector .hole:hover{fill:#3d5843}.connector g:focus-visible .hole{stroke:#fff8bc;stroke-width:3.5}.connector g[data-pin="1"] .num,.connector g[data-pin="2"] .num,.connector g[data-pin="3"] .num,.connector g[data-pin="4"] .num,.connector g[data-pin="5"] .num,.connector g[data-pin="114"] .num,.connector g[data-pin="115"] .num,.connector g[data-pin="116"] .num,.connector g[data-pin="117"] .num,.connector g[data-pin="118"] .num,.connector g[data-pin="119"] .num,.connector g[data-pin="120"] .num,.connector g[data-pin="121"] .num{font-size:13px}
+.connector .num{pointer-events:none;font:800 10.5px ui-monospace,monospace;fill:#fff;stroke:#08130b;stroke-width:2.8px;paint-order:stroke fill;text-anchor:middle;dominant-baseline:middle}
 .connector .label{display:none;pointer-events:none;font:8.5px ui-monospace,monospace;fill:#d3e3d3;text-anchor:middle;dominant-baseline:middle}
 .legend{display:flex;flex-wrap:wrap;gap:7px 15px;margin:14px 0}
 .legend span{display:flex;align-items:center;gap:7px;color:#b1c6b4;font:12px ui-monospace,monospace}
@@ -37,8 +37,8 @@
 <main class="pinout" id="main"><div class="eyebrow">BIG BRICK · 121-PIN · 1746979-1</div><h1>Connector pinout</h1>
 <p class="intro">Select a cavity on your connector photo or search the pin list below. The cavity numbering follows the rusEFI VAG connector-face layout; each signal name is from your Big Brick design.</p>
 <div class="notice"><strong>Pre-release Big Brick assignments.</strong> Pin numbers follow the Hellen 121 VAG connector-face layout; signal names are from your Big Brick footprint, not Hellen. Confirm signals against the final schematic before wiring.</div>
-<div class="map-scroll"><svg id="connector" class="connector" viewBox="0 0 1350 309" role="group" aria-label="Actual Big Brick 121-pin connector face with interactive cavity overlay">
-<image href="../assets/big-brick-121-connector.webp" width="1350" height="309" preserveAspectRatio="none"/>
+<div class="map-scroll"><svg id="connector" class="connector" viewBox="0 0 1315 309" role="group" aria-label="Actual Big Brick 121-pin connector face with interactive cavity overlay">
+<image href="../assets/big-brick-121-connector.webp" width="1315" height="309" preserveAspectRatio="none"/>
 <g id="cavities"></g></svg></div><div class="maptools"><p>Tap a numbered cavity · Scroll horizontally on mobile</p><a href="#lookup">Jump to pin lookup</a></div><div class="legend" id="legend"></div>
 <div class="selection" id="selection" aria-live="polite">Select a cavity to view its assignment.</div><h2 id="lookup">Pin lookup</h2>
 <div class="filters"><input id="search" type="search" placeholder="Pin or signal (e.g. CAN1, COIL4)" aria-label="Search connector pins"><select id="groupFilter" aria-label="Filter by pin function"><option value="">All groups</option></select><button id="clearFilters" type="button">Clear</button><span class="muted" id="visible"></span></div>
@@ -51,27 +51,37 @@ const colors={"ground":"#96a0ad","power":"#f29b81","supply":"#79cdaa","analog":"
 const groups={ground:"Ground",power:"Power",supply:"5V sensor",analog:"Analog input",digital:"Digital / VR",can:"CAN",wideband:"Wideband",ignition:"Ignition",low:"Low-side",high:"High-side",bridge:"H-bridge",knock:"Knock",other:"Unverified"};
 const byNumber=new Map(data.map(x=>[x.n,x]));const svg=document.getElementById("cavities");const ns="http://www.w3.org/2000/svg";let current=null;
 const el=(name,attrs,text)=>{const z=document.createElementNS(ns,name);Object.entries(attrs).forEach(([k,v])=>z.setAttribute(k,v));if(text!==undefined)z.textContent=text;return z};
-function circle(n,x,y,r=9){const item=byNumber.get(n),g=el("g",{tabindex:"0",role:"button","aria-label":"Pin "+n+" "+item.label,"data-pin":n});const c=el("circle",{cx:x,cy:y,r,stroke:colors[item.type],class:"hole"});const number=el("text",{x,y:y+.5,class:"num"},String(n));g.append(c,number);g.addEventListener("click",()=>choose(n));g.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();choose(n)}});g.append(el("title",{},"Pin "+n+" — "+item.label));svg.appendChild(g)}
-function line(nums,x0,x1,y,r=9){nums.forEach((n,i)=>circle(n,x0+(x1-x0)*(nums.length===1?.5:i/(nums.length-1)),y,r))}
-// Exact cavity numbering follows rusEFI Hellen 121 VAG main.yaml connector-face coordinates.
-// Positions are scaled to the customer's 1350x309 photo; signals remain Big Brick-specific.
-// Left section: rows in top-to-bottom order 6-24, 25-43, 44-62, 63-81.
-// In the connector FACE view, these groups run right-to-left.
-circle(4,153,113,15);circle(5,203,113,15);
-circle(3,178,158,15);
-circle(1,153,204,15);circle(2,203,204,15);
-line(Array.from({length:19},(_,i)=>24-i),273,682,110,9);
-line(Array.from({length:19},(_,i)=>43-i),273,682,133,9);
-line(Array.from({length:19},(_,i)=>62-i),273,682,181,9);
-line(Array.from({length:19},(_,i)=>81-i),273,682,205,9);
-// Right section: same VAG connector-face numbering, not mirrored PCB pad order.
-line(Array.from({length:8},(_,i)=>106+i),814,987,110,9);
-line(Array.from({length:8},(_,i)=>98+i),814,987,133,9);
-line(Array.from({length:8},(_,i)=>90+i),814,987,181,9);
-line(Array.from({length:8},(_,i)=>82+i),814,987,205,9);
-circle(119,1055,113,15);circle(120,1105,113,15);circle(121,1156,113,15);
-circle(117,1081,158,15);circle(118,1134,158,15);
-circle(114,1055,204,15);circle(115,1105,204,15);circle(116,1156,204,15);
+// Cavity centers measured directly from the original 1315 x 309 connector photograph.
+// The image and SVG both use precisely the same 1315 x 309 coordinate space.
+function circle(n,x,y,r=9){
+  const item=byNumber.get(n),g=el("g",{tabindex:"0",role:"button","aria-label":"Pin "+n+" "+item.label,"data-pin":n});
+  const c=el("circle",{cx:x,cy:y,r,stroke:colors[item.type],class:"hole"});
+  g.append(c,el("text",{x,y,class:"num"},String(n)));
+  g.addEventListener("click",()=>choose(n));
+  g.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();choose(n)}});
+  g.append(el("title",{},"Pin "+n+" — "+item.label));
+  svg.appendChild(g);
+}
+const leftX=[268,291,314,337,359,382,405,428,451,474,496,519,542,565,588,611,634,656,679];
+const rightX=[823,846,869,892,915,938,961,984];
+const rows=[
+  {numbers:Array.from({length:19},(_,i)=>24-i),xs:leftX,y:110},
+  {numbers:Array.from({length:19},(_,i)=>43-i),xs:leftX,y:134},
+  {numbers:Array.from({length:19},(_,i)=>62-i),xs:leftX,y:182},
+  {numbers:Array.from({length:19},(_,i)=>81-i),xs:leftX,y:205},
+  {numbers:Array.from({length:8},(_,i)=>106+i),xs:rightX,y:110},
+  {numbers:Array.from({length:8},(_,i)=>98+i),xs:rightX,y:134},
+  {numbers:Array.from({length:8},(_,i)=>90+i),xs:rightX,y:182},
+  {numbers:Array.from({length:8},(_,i)=>82+i),xs:rightX,y:205}
+];
+for(const row of rows)row.numbers.forEach((n,i)=>circle(n,row.xs[i],row.y,9));
+const mainPower=[
+  [4,147,113],[5,199,113],[3,173,159],[1,147,203],[2,199,203],
+  [119,1055,113],[120,1107,113],[121,1159,113],
+  [117,1081,159],[118,1134,159],
+  [114,1055,204],[115,1107,204],[116,1159,204]
+];
+for(const [n,x,y] of mainPower)circle(n,x,y,15);
 const legend=document.getElementById("legend");for(const [key,title] of Object.entries(groups)){const s=document.createElement("span"),i=document.createElement("i");i.style.background=colors[key];s.append(i,document.createTextNode(title));legend.append(s)}
 const filter=document.getElementById("groupFilter");Object.entries(groups).forEach(([k,v])=>{const o=document.createElement("option");o.value=k;o.textContent=v;filter.append(o)});
 const rows=document.getElementById("pinRows"),search=document.getElementById("search");
