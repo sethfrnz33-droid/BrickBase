@@ -28,6 +28,8 @@
 .pinout th,.pinout td{padding:11px 13px;border-bottom:1px solid #314b38;text-align:left}
 .pinout th{background:#173020;font:700 12px ui-monospace,monospace;color:#dceada}
 .pinout td{font:14px system-ui;color:#c4d8c6}
+.pin-tooltip{position:fixed;z-index:10000;pointer-events:none;display:none;max-width:min(260px,85vw);padding:10px 13px;border:1px solid #8fbd97;border-radius:5px;background:#101f17;color:#eef8ee;box-shadow:0 10px 32px #000b;font:13px/1.45 system-ui,-apple-system,sans-serif}
+.pin-tooltip.visible{display:block}.pin-tooltip strong{display:block;font:700 15px ui-monospace,monospace;color:#fff}.pin-tooltip span{display:block;color:#a9c6b1;margin-top:3px}.pin-tooltip em{font-style:normal;color:#e3c591}
 .pinout tr[data-pin]{cursor:pointer}.pinout tr[data-pin]:hover,.pinout tr.active{background:#26412a}
 .pinout a{color:#b6e8bd}.muted{color:#a2b5a4;font-size:12px}
 @media(max-width:600px){.pinout{padding:24px 12px 55px}.map-scroll{padding:5px;margin-inline:-5px}.filters input{width:100%;min-width:100%}.filters select{min-width:0;flex:1}.pinout h1{margin-bottom:8px}.notice{margin:14px 0}}
@@ -39,7 +41,7 @@
 <div class="notice"><strong>Pre-release Big Brick assignments.</strong> Pin numbers follow the Hellen 121 VAG connector-face layout; signal names are from your Big Brick footprint, not Hellen. Confirm signals against the final schematic before wiring.</div>
 <div class="map-scroll"><svg id="connector" class="connector" viewBox="0 0 1315 309" role="group" aria-label="Actual Big Brick 121-pin connector face with interactive cavity overlay">
 <image href="../assets/big-brick-121-connector.webp" width="1315" height="309" preserveAspectRatio="none"/>
-<g id="cavities"></g></svg></div><div class="maptools"><p>Tap a numbered cavity · Scroll horizontally on mobile</p><a href="#lookup">Jump to pin lookup</a></div><div class="legend" id="legend"></div>
+<g id="cavities"></g></svg></div><div class="maptools"><p>Tap a numbered cavity · Scroll horizontally on mobile</p><a href="#lookup">Jump to pin lookup</a></div><div class="legend" id="legend"></div><div id="pinTooltip" class="pin-tooltip" role="tooltip" aria-hidden="true"></div>
 <div class="selection" id="selection" aria-live="polite">Select a cavity to view its assignment.</div><h2 id="lookup">Pin lookup</h2>
 <div class="filters"><input id="search" type="search" placeholder="Pin or signal (e.g. CAN1, COIL4)" aria-label="Search connector pins"><select id="groupFilter" aria-label="Filter by pin function"><option value="">All groups</option></select><button id="clearFilters" type="button">Clear</button><span class="muted" id="visible"></span></div>
 <div class="table-scroll"><table><thead><tr><th>Pin</th><th>Signal</th><th>Function</th></tr></thead><tbody id="pinRows"></tbody></table></div>
@@ -58,8 +60,12 @@ function circle(n,x,y,r=9){
   const c=el("circle",{cx:x,cy:y,r,stroke:colors[item.type],class:"hole"});
   g.append(c,el("text",{x,y,class:"num"},String(n)));
   g.addEventListener("click",()=>choose(n));
+  g.addEventListener("pointerenter",ev=>showTip(n,ev));
+  g.addEventListener("pointermove",ev=>moveTip(ev));
+  g.addEventListener("pointerleave",hideTip);
+  g.addEventListener("focus",()=>showTip(n,null,g));
+  g.addEventListener("blur",hideTip);
   g.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();choose(n)}});
-  g.append(el("title",{},"Pin "+n+" — "+item.label));
   svg.appendChild(g);
 }
 const leftX=[268,291,314,337,359,382,405,428,451,474,496,519,542,565,588,611,634,656,679];
@@ -85,7 +91,60 @@ for(const [n,x,y] of mainPower)circle(n,x,y,15);
 const legend=document.getElementById("legend");for(const [key,title] of Object.entries(groups)){const s=document.createElement("span"),i=document.createElement("i");i.style.background=colors[key];s.append(i,document.createTextNode(title));legend.append(s)}
 const filter=document.getElementById("groupFilter");Object.entries(groups).forEach(([k,v])=>{const o=document.createElement("option");o.value=k;o.textContent=v;filter.append(o)});
 const rows=document.getElementById("pinRows"),search=document.getElementById("search");
-function choose(n){current=n;const p=byNumber.get(n);document.getElementById("selection").textContent="PIN "+n+" — "+p.label+" · "+groups[p.type];document.querySelectorAll("[data-pin]").forEach(e=>e.classList.toggle("active",Number(e.dataset.pin)===n));document.querySelectorAll("#cavities .hole").forEach(e=>e.classList.remove("selected"));const g=document.querySelector('#cavities [data-pin="'+n+'"]');if(g){g.querySelector(".hole").classList.add("selected")}const row=document.querySelector('#pinRows [data-pin="'+n+'"]');if(row)row.scrollIntoView({behavior:"smooth",block:"nearest"})}
-function redraw(){const q=search.value.toLowerCase().trim(),f=filter.value;rows.replaceChildren();let count=0;data.forEach(p=>{if(f&&p.type!==f)return;if(q&&!(String(p.n).includes(q)||p.label.toLowerCase().includes(q)||groups[p.type].toLowerCase().includes(q)))return;count++;const tr=document.createElement("tr");tr.dataset.pin=p.n;if(current===p.n)tr.classList.add("active");[p.n,p.label,groups[p.type]].forEach(v=>{const td=document.createElement("td");td.textContent=v;tr.append(td)});tr.onclick=()=>choose(p.n);rows.append(tr)});document.getElementById("visible").textContent=count+" of 121 pins"}
+const tooltip=document.getElementById("pinTooltip");
+function moveTip(ev){
+  if(!tooltip.classList.contains("visible"))return;
+  const w=tooltip.offsetWidth,h=tooltip.offsetHeight;
+  const x=Math.min(ev.clientX+18,window.innerWidth-w-8);
+  const y=(ev.clientY+18+h>window.innerHeight)?Math.max(8,ev.clientY-h-14):ev.clientY+18;
+  tooltip.style.left=Math.max(8,x)+"px";
+  tooltip.style.top=Math.max(8,y)+"px";
+}
+function showTip(n,ev,node){
+  const p=byNumber.get(n);if(!p)return;
+  tooltip.replaceChildren();
+  const heading=document.createElement("strong");heading.textContent="PIN "+n+" · "+p.label;
+  const detail=document.createElement("span");detail.textContent=groups[p.type];
+  tooltip.append(heading,detail);
+  if(p.label==="UNVERIFIED"){const caution=document.createElement("em");caution.textContent="Assignment not yet confirmed";tooltip.append(caution)}
+  tooltip.classList.add("visible");tooltip.setAttribute("aria-hidden","false");
+  if(ev&&ev.clientX!==undefined){moveTip(ev)}
+  else if(node){const b=node.getBoundingClientRect();moveTip({clientX:b.left+b.width/2,clientY:b.bottom})}
+}
+function hideTip(){tooltip.classList.remove("visible");tooltip.setAttribute("aria-hidden","true")}
+function choose(n){
+  current=n;
+  const p=byNumber.get(n);if(!p)return;
+  document.getElementById("selection").textContent="PIN "+n+" — "+p.label+" · "+groups[p.type];
+  document.querySelectorAll("#cavities .hole").forEach(e=>e.classList.remove("selected"));
+  const g=document.querySelector('#cavities [data-pin="'+n+'"]');
+  if(g)g.querySelector(".hole").classList.add("selected");
+  // Do not scroll the page: put the selected pin at the top of the lookup instead.
+  redraw();
+  const tableViewport=document.querySelector(".table-scroll");
+  if(tableViewport)tableViewport.scrollTop=0;
+}
+function redraw(){
+  const q=search.value.toLowerCase().trim(),f=filter.value;
+  rows.replaceChildren();
+  let count=0;
+  const matches=p=>!((f&&p.type!==f)||(q&&!(String(p.n).includes(q)||p.label.toLowerCase().includes(q)||groups[p.type].toLowerCase().includes(q))));
+  const displayed=data.filter(matches);
+  // Keep the selected pin visible as the first entry even when a filter is active.
+  if(current!==null){
+    const selected=byNumber.get(current);
+    const index=displayed.findIndex(p=>p.n===current);
+    if(index>=0)displayed.splice(index,1);
+    if(selected)displayed.unshift(selected);
+  }
+  displayed.forEach(p=>{
+    count++;
+    const tr=document.createElement("tr");tr.dataset.pin=p.n;
+    if(current===p.n)tr.classList.add("active");
+    [p.n,p.label,groups[p.type]].forEach(v=>{const td=document.createElement("td");td.textContent=v;tr.append(td)});
+    tr.onclick=()=>choose(p.n);rows.append(tr);
+  });
+  document.getElementById("visible").textContent=count+" of 121 pins";
+}
 search.addEventListener("input",redraw);filter.addEventListener("change",redraw);document.getElementById("clearFilters").addEventListener("click",()=>{search.value="";filter.value="";redraw();search.focus()});redraw();
 </script></body></html>
