@@ -35,8 +35,8 @@
 <body class="terminal-home"><a class="skip" href="#main">Skip to content</a>
 <header class="top"><nav class="nav wrap"><a href="../index.html" class="brand">BRICK<strong>ECU</strong></a><button class="menu-toggle" type="button" aria-controls="main-links" aria-expanded="false">Menu</button><div id="main-links" class="navlinks"><a href="../index.html">Home</a><a href="../products/big-brick.html">Big Brick</a><a href="big-brick.html">Specifications</a><a href="downloads.html">Downloads</a><a href="index.html">Documentation</a></div></nav></header>
 <main class="pinout" id="main"><div class="eyebrow">BIG BRICK · 121-PIN · 1746979-1</div><h1>Connector pinout</h1>
-<p class="intro">Select a cavity on the actual connector photo to see its function, or find a signal using the searchable pin list below.</p>
-<div class="notice"><strong>Pre-release pinout.</strong> Connector-face orientation has not been independently verified against the PCB footprint. Do not use this preview for vehicle wiring until the final pin map is validated.</div>
+<p class="intro">Select a cavity on your connector photo or search the pin list below. The cavity numbering follows the rusEFI VAG connector-face layout; each signal name is from your Big Brick design.</p>
+<div class="notice"><strong>Pre-release Big Brick assignments.</strong> Pin numbers follow the Hellen 121 VAG connector-face layout; signal names are from your Big Brick footprint, not Hellen. Confirm signals against the final schematic before wiring.</div>
 <div class="map-scroll"><svg id="connector" class="connector" viewBox="0 0 1350 309" role="group" aria-label="Actual Big Brick 121-pin connector face with interactive cavity overlay">
 <image href="../assets/big-brick-121-connector.webp" width="1350" height="309" preserveAspectRatio="none"/>
 <g id="cavities"></g></svg></div><div class="maptools"><p>Tap a numbered cavity · Scroll horizontally on mobile</p><a href="#lookup">Jump to pin lookup</a></div><div class="legend" id="legend"></div>
@@ -53,18 +53,25 @@ const byNumber=new Map(data.map(x=>[x.n,x]));const svg=document.getElementById("
 const el=(name,attrs,text)=>{const z=document.createElementNS(ns,name);Object.entries(attrs).forEach(([k,v])=>z.setAttribute(k,v));if(text!==undefined)z.textContent=text;return z};
 function circle(n,x,y,r=9){const item=byNumber.get(n),g=el("g",{tabindex:"0",role:"button","aria-label":"Pin "+n+" "+item.label,"data-pin":n});const c=el("circle",{cx:x,cy:y,r,stroke:colors[item.type],class:"hole"});const number=el("text",{x,y:y+.5,class:"num"},String(n));g.append(c,number);g.addEventListener("click",()=>choose(n));g.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();choose(n)}});g.append(el("title",{},"Pin "+n+" — "+item.label));svg.appendChild(g)}
 function line(nums,x0,x1,y,r=9){nums.forEach((n,i)=>circle(n,x0+(x1-x0)*(nums.length===1?.5:i/(nums.length-1)),y,r))}
-circle(2,153,114,16);circle(1,202,114,16);circle(3,178,159,16);circle(5,153,204,16);circle(4,202,204,16);
-line(Array.from({length:19},(_,i)=>63+i),273,682,109,9);
-line(Array.from({length:19},(_,i)=>44+i),273,682,133,9);
-line(Array.from({length:19},(_,i)=>25+i),273,682,181,9);
-line(Array.from({length:19},(_,i)=>6+i),273,682,205,9);
-line(Array.from({length:8},(_,i)=>89-i),813,986,109,9);
-line(Array.from({length:8},(_,i)=>97-i),813,986,133,9);
-line(Array.from({length:8},(_,i)=>105-i),813,986,181,9);
-line(Array.from({length:8},(_,i)=>113-i),813,986,205,9);
-circle(116,1054,114,15);circle(115,1105,114,15);circle(114,1156,114,15);
-circle(118,1082,159,15);circle(117,1135,159,15);
-circle(121,1054,205,15);circle(120,1105,205,15);circle(119,1156,205,15);
+// Exact cavity numbering follows rusEFI Hellen 121 VAG main.yaml connector-face coordinates.
+// Positions are scaled to the customer's 1350x309 photo; signals remain Big Brick-specific.
+// Left section: rows in top-to-bottom order 6-24, 25-43, 44-62, 63-81.
+// In the connector FACE view, these groups run right-to-left.
+circle(4,153,113,15);circle(5,203,113,15);
+circle(3,178,158,15);
+circle(1,153,204,15);circle(2,203,204,15);
+line(Array.from({length:19},(_,i)=>24-i),273,682,110,9);
+line(Array.from({length:19},(_,i)=>43-i),273,682,133,9);
+line(Array.from({length:19},(_,i)=>62-i),273,682,181,9);
+line(Array.from({length:19},(_,i)=>81-i),273,682,205,9);
+// Right section: same VAG connector-face numbering, not mirrored PCB pad order.
+line(Array.from({length:8},(_,i)=>106+i),814,987,110,9);
+line(Array.from({length:8},(_,i)=>98+i),814,987,133,9);
+line(Array.from({length:8},(_,i)=>90+i),814,987,181,9);
+line(Array.from({length:8},(_,i)=>82+i),814,987,205,9);
+circle(119,1055,113,15);circle(120,1105,113,15);circle(121,1156,113,15);
+circle(117,1081,158,15);circle(118,1134,158,15);
+circle(114,1055,204,15);circle(115,1105,204,15);circle(116,1156,204,15);
 const legend=document.getElementById("legend");for(const [key,title] of Object.entries(groups)){const s=document.createElement("span"),i=document.createElement("i");i.style.background=colors[key];s.append(i,document.createTextNode(title));legend.append(s)}
 const filter=document.getElementById("groupFilter");Object.entries(groups).forEach(([k,v])=>{const o=document.createElement("option");o.value=k;o.textContent=v;filter.append(o)});
 const rows=document.getElementById("pinRows"),search=document.getElementById("search");
