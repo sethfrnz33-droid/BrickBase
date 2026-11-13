@@ -1,6 +1,6 @@
 # Brick ECU — Website and technical documentation
 
-Public website source for **Brick ECU**: Big Brick is offered for purchase; Mini Brick is in development with no checkout or announced launch date.
+Public website for the 121-pin Big Brick ECU only. Base C$699; IGBT option +C$100; onboard SD option +C$50. Previous 94-pin wiring references are retired.
 
 ## Site structure
 
@@ -9,12 +9,12 @@ The storefront and the technical manuals are separate static pages. No framework
 | Route | Purpose |
 | --- | --- |
 | `/index.html` | Product overview and link to Big Brick ordering only |
-| `/products/mini-brick.html` | Mini Brick in-development preview and planned specifications |
+| `[retired Mini Brick path]` | Mini Brick in-development preview and planned specifications |
 | `/products/big-brick.html` | Big Brick sales page |
 | `/docs/index.html` | Technical documentation index |
 | `/docs/big-brick.html` | Big Brick hardware specifications |
-| `/docs/mini-brick.html` | Mini Brick hardware specifications |
-| `/docs/big-brick-pinout.html` | Interactive 94-position A/B/C pinout |
+| `[retired Mini Brick documentation]` | Mini Brick hardware specifications |
+| `/docs/big-brick-pinout.html` | 121-pin wiring status (cavity assignments pending) |
 | `/docs/research-status.html` | Field-by-field engine research progress and missing-evidence filters |
 | `/docs/compatibility.html` | Cascading text-only engine finder with 237 named/pattern/research entries across 22 manufacturers |
 | `/docs/visual-library.html` | Original full-size Big Brick connector A/B/C posters only |
