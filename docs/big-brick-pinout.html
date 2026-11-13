@@ -64,7 +64,7 @@ function circle(n,x,y,r=9){
 }
 const leftX=[268,291,314,337,359,382,405,428,451,474,496,519,542,565,588,611,634,656,679];
 const rightX=[823,846,869,892,915,938,961,984];
-const rows=[
+const cavityRows=[
   {numbers:Array.from({length:19},(_,i)=>24-i),xs:leftX,y:110},
   {numbers:Array.from({length:19},(_,i)=>43-i),xs:leftX,y:134},
   {numbers:Array.from({length:19},(_,i)=>62-i),xs:leftX,y:182},
@@ -74,7 +74,7 @@ const rows=[
   {numbers:Array.from({length:8},(_,i)=>90+i),xs:rightX,y:182},
   {numbers:Array.from({length:8},(_,i)=>82+i),xs:rightX,y:205}
 ];
-for(const row of rows)row.numbers.forEach((n,i)=>circle(n,row.xs[i],row.y,9));
+for(const row of cavityRows)row.numbers.forEach((n,i)=>circle(n,row.xs[i],row.y,9));
 const mainPower=[
   [4,147,113],[5,199,113],[3,173,159],[1,147,203],[2,199,203],
   [119,1055,113],[120,1107,113],[121,1159,113],
