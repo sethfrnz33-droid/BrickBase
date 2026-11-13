@@ -3,26 +3,26 @@
 <title>Big Brick 121-pin ECU pinout | Brick ECU</title><meta name="description" content="Interactive Big Brick 121-pin connector pin map with searchable, color coded input and output assignments.">
 <link rel="stylesheet" href="../site.css"><link rel="stylesheet" href="../field-console.css">
 <style>
-.pinout{max-width:1420px;margin:auto;padding:35px 20px 90px;color:#dceadd}
+.pinout{max-width:1320px;margin:auto;padding:34px 20px 80px;color:#dceadd}
 .pinout h1{font-size:clamp(2rem,5vw,3.5rem);margin:5px 0 10px}
 .pinout p{color:#a8c2ad;line-height:1.6}.intro{max-width:850px}
-.notice{border-left:3px solid #f1b45d;background:#231f13;padding:15px 18px;margin:22px 0;color:#eadab5;font-size:.9rem}
+.notice{border-left:2px solid #bba272;background:#1b2119;padding:12px 16px;margin:18px 0;color:#d7d1bc;font-size:.88rem;line-height:1.55}
 .eyebrow{color:#a4dfac;font:700 .78rem ui-monospace,monospace;letter-spacing:.1em}
-.map-scroll{overflow-x:auto;max-width:100%;border:1px solid #3b5643;background:#09150d;border-radius:7px;margin:20px 0;padding:16px}
-.connector{display:block;width:100%;min-width:1000px;height:auto;touch-action:manipulation}
+.map-scroll{overflow-x:auto;max-width:100%;border:1px solid #3b5643;background:#030705;border-radius:6px;margin:12px 0;padding:8px;scrollbar-color:#537b5e #13231a}
+.connector{display:block;width:100%;min-width:1050px;height:auto;touch-action:pan-x}
 .connector .shell{fill:#15231a;stroke:#73917b;stroke-width:3}
-.connector .hole{stroke-width:2.6;fill:rgba(15,31,19,.44);cursor:pointer;outline:none}
+.connector .hole{stroke-width:2.3;fill:rgba(5,15,9,.67);cursor:pointer;outline:none}
 .connector .hole:focus,.connector .hole.selected{stroke:#fff8bc;stroke-width:4;fill:#3b503d}
 .connector .hole:hover{fill:#3d5843}
-.connector .num{pointer-events:none;font:700 8.5px ui-monospace,monospace;fill:#fff;text-anchor:middle;dominant-baseline:middle}
+.connector .num{pointer-events:none;font:800 12px ui-monospace,monospace;fill:#fff;stroke:#08130b;stroke-width:2.8px;paint-order:stroke fill;text-anchor:middle;dominant-baseline:middle}
 .connector .label{display:none;pointer-events:none;font:8.5px ui-monospace,monospace;fill:#d3e3d3;text-anchor:middle;dominant-baseline:middle}
-.legend{display:flex;flex-wrap:wrap;gap:10px 16px;margin:22px 0}
+.legend{display:flex;flex-wrap:wrap;gap:7px 15px;margin:14px 0}
 .legend span{display:flex;align-items:center;gap:7px;color:#b1c6b4;font:12px ui-monospace,monospace}
 .legend i{width:12px;height:12px;border-radius:50%;display:block}
-.selection{border:1px solid #45664b;background:#182b1d;padding:16px;margin:25px 0;color:#e6f5e8}
+.selection{border:1px solid #45664b;background:#182b1d;padding:14px 16px;margin:16px 0 25px;color:#e6f5e8;font:600 15px ui-monospace,monospace}
 .filters{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:14px}
 .filters input,.filters select{background:#13261a;color:#e1eee0;border:1px solid #5b7762;padding:12px;border-radius:4px;font-size:15px;min-width:210px}
-.filters input{flex:1}
+.filters input{flex:1}.filters button{background:#193322;border:1px solid #54745b;color:#d8e9dc;padding:12px 16px;border-radius:4px}.filters input:focus,.filters select:focus,.filters button:focus{outline:2px solid #a3d6ac;outline-offset:2px}.maptools{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin:6px 0}.maptools p{margin:0;font-size:12px}.pinout h2{margin:26px 0 12px;font-size:1.15rem}.table-scroll{max-height:560px;overflow:auto}.pinout th{position:sticky;top:0;z-index:1}
 .table-scroll{overflow:auto;border:1px solid #37503c}
 .pinout table{border-collapse:collapse;width:100%;min-width:550px}
 .pinout th,.pinout td{padding:11px 13px;border-bottom:1px solid #314b38;text-align:left}
@@ -30,18 +30,18 @@
 .pinout td{font:14px system-ui;color:#c4d8c6}
 .pinout tr[data-pin]{cursor:pointer}.pinout tr[data-pin]:hover,.pinout tr.active{background:#26412a}
 .pinout a{color:#b6e8bd}.muted{color:#a2b5a4;font-size:12px}
-@media(max-width:600px){.pinout{padding:24px 12px 55px}.map-scroll{padding:8px}.filters input,.filters select{width:100%}}
+@media(max-width:600px){.pinout{padding:24px 12px 55px}.map-scroll{padding:5px;margin-inline:-5px}.filters input{width:100%;min-width:100%}.filters select{min-width:0;flex:1}.pinout h1{margin-bottom:8px}.notice{margin:14px 0}}
 </style></head>
 <body class="terminal-home"><a class="skip" href="#main">Skip to content</a>
 <header class="top"><nav class="nav wrap"><a href="../index.html" class="brand">BRICK<strong>ECU</strong></a><button class="menu-toggle" type="button" aria-controls="main-links" aria-expanded="false">Menu</button><div id="main-links" class="navlinks"><a href="../index.html">Home</a><a href="../products/big-brick.html">Big Brick</a><a href="big-brick.html">Specifications</a><a href="downloads.html">Downloads</a><a href="index.html">Documentation</a></div></nav></header>
 <main class="pinout" id="main"><div class="eyebrow">BIG BRICK · 121-PIN · 1746979-1</div><h1>Connector pinout</h1>
-<p class="intro">Click a connector cavity to identify its function, or search the pin table below. The photograph is the exact connector face supplied for Big Brick, with an interactive signal overlay based on the supplied footprint screenshots. The unrelated rusEFI Hellen assignments are not used.</p>
-<div class="notice"><strong>Pre-release pinout:</strong> The image shows the connector face while the source pin numbers came from PCB footprint screenshots; the face-to-footprint orientation is not independently validated. Pin labels marked UNVERIFIED are intentionally withheld. Confirm the final electrical assignments and connector orientation against the production documentation before wiring a vehicle.</div>
-<div class="legend" id="legend"></div><div class="map-scroll"><svg id="connector" class="connector" viewBox="0 0 1350 309" role="group" aria-label="Actual Big Brick 121-pin connector face with interactive cavity overlay">
+<p class="intro">Select a cavity on the actual connector photo to see its function, or find a signal using the searchable pin list below.</p>
+<div class="notice"><strong>Pre-release pinout.</strong> Connector-face orientation has not been independently verified against the PCB footprint. Do not use this preview for vehicle wiring until the final pin map is validated.</div>
+<div class="map-scroll"><svg id="connector" class="connector" viewBox="0 0 1350 309" role="group" aria-label="Actual Big Brick 121-pin connector face with interactive cavity overlay">
 <image href="../assets/big-brick-121-connector.webp" width="1350" height="309" preserveAspectRatio="none"/>
-<g id="cavities"></g></svg></div><p class="muted">Tap a pin for details. Zoom or scroll horizontally on smaller screens. This is your actual connector photo with interactive markers. Confirm cavity numbering and electrical assignment against the physical connector before harness fabrication.</p>
-<div class="selection" id="selection" aria-live="polite">Select a pin to view its function.</div>
-<div class="filters"><input id="search" type="search" placeholder="Search pin number, signal, CAN, ignition..." aria-label="Search connector pins"><select id="groupFilter" aria-label="Filter by pin function"><option value="">All groups</option></select><span class="muted" id="visible"></span></div>
+<g id="cavities"></g></svg></div><div class="maptools"><p>Tap a numbered cavity · Scroll horizontally on mobile</p><a href="#lookup">Jump to pin lookup</a></div><div class="legend" id="legend"></div>
+<div class="selection" id="selection" aria-live="polite">Select a cavity to view its assignment.</div><h2 id="lookup">Pin lookup</h2>
+<div class="filters"><input id="search" type="search" placeholder="Pin or signal (e.g. CAN1, COIL4)" aria-label="Search connector pins"><select id="groupFilter" aria-label="Filter by pin function"><option value="">All groups</option></select><button id="clearFilters" type="button">Clear</button><span class="muted" id="visible"></span></div>
 <div class="table-scroll"><table><thead><tr><th>Pin</th><th>Signal</th><th>Function</th></tr></thead><tbody id="pinRows"></tbody></table></div>
 <p class="muted">Optional C1–C8 IGBT driver outputs operate in parallel with eight corresponding smart-ignition signals; the smart-ignition pins are not repurposed.</p>
 </main><footer class="footer"><div class="wrap footer-inner"><div><a href="../index.html" class="brand">BRICK<strong>ECU</strong></a><p class="muted">Big Brick ECU · Built to order</p></div><div><a href="index.html">Documentation</a> · <a href="../terms.html">Terms</a></div></div></footer><script src="../site.js"></script>
@@ -63,12 +63,12 @@ line(Array.from({length:8},(_,i)=>97-i),813,986,133,9);
 line(Array.from({length:8},(_,i)=>105-i),813,986,181,9);
 line(Array.from({length:8},(_,i)=>113-i),813,986,205,9);
 circle(116,1054,114,15);circle(115,1105,114,15);circle(114,1156,114,15);
-circle(118,1054,159,15);circle(117,1105,159,15);
+circle(118,1082,159,15);circle(117,1135,159,15);
 circle(121,1054,205,15);circle(120,1105,205,15);circle(119,1156,205,15);
 const legend=document.getElementById("legend");for(const [key,title] of Object.entries(groups)){const s=document.createElement("span"),i=document.createElement("i");i.style.background=colors[key];s.append(i,document.createTextNode(title));legend.append(s)}
 const filter=document.getElementById("groupFilter");Object.entries(groups).forEach(([k,v])=>{const o=document.createElement("option");o.value=k;o.textContent=v;filter.append(o)});
 const rows=document.getElementById("pinRows"),search=document.getElementById("search");
 function choose(n){current=n;const p=byNumber.get(n);document.getElementById("selection").textContent="PIN "+n+" — "+p.label+" · "+groups[p.type];document.querySelectorAll("[data-pin]").forEach(e=>e.classList.toggle("active",Number(e.dataset.pin)===n));document.querySelectorAll("#cavities .hole").forEach(e=>e.classList.remove("selected"));const g=document.querySelector('#cavities [data-pin="'+n+'"]');if(g){g.querySelector(".hole").classList.add("selected")}const row=document.querySelector('#pinRows [data-pin="'+n+'"]');if(row)row.scrollIntoView({behavior:"smooth",block:"nearest"})}
 function redraw(){const q=search.value.toLowerCase().trim(),f=filter.value;rows.replaceChildren();let count=0;data.forEach(p=>{if(f&&p.type!==f)return;if(q&&!(String(p.n).includes(q)||p.label.toLowerCase().includes(q)||groups[p.type].toLowerCase().includes(q)))return;count++;const tr=document.createElement("tr");tr.dataset.pin=p.n;if(current===p.n)tr.classList.add("active");[p.n,p.label,groups[p.type]].forEach(v=>{const td=document.createElement("td");td.textContent=v;tr.append(td)});tr.onclick=()=>choose(p.n);rows.append(tr)});document.getElementById("visible").textContent=count+" of 121 pins"}
-search.addEventListener("input",redraw);filter.addEventListener("change",redraw);redraw();
+search.addEventListener("input",redraw);filter.addEventListener("change",redraw);document.getElementById("clearFilters").addEventListener("click",()=>{search.value="";filter.value="";redraw();search.focus()});redraw();
 </script></body></html>
