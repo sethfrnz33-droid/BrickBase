@@ -35,17 +35,17 @@ function localAnswer(question){
    return {answer:"Standard high-impedance (>8 Ω) port injectors are natively supported on Brick ECU. Low-impedance injectors need suitable current limiting. For the injector count and output assignments, check the ECU specification and the Engine Finder.",sources:[{title:"Engine Finder",url:"/docs/compatibility.html"},{title:"Big Brick technical specs",url:"/docs/big-brick.html"}]};
  }
  if(/pinout|connector|harness|cavity|wiring|wire|can bus|ground|vr sensor|hall sensor/.test(q)){
-   return {answer:"The Big Brick 94-pin lookup identifies the documented connector assignments. Verify connector orientation, exact ECU hardware revision, OEM sensor wiring and electrical loads before installation. I can't confirm a wiring connection from a chat question alone.",sources:[{title:"Big Brick pinout",url:"/docs/big-brick-pinout.html"},{title:"Installation planning",url:"/docs/planning.html"}]};
+   return {answer:"The previous 94-pin pinout is retired. Do not reuse it on the new 121-pin Big Brick. New cavity assignments are not published yet.",sources:[{title:"Big Brick pinout",url:"/docs/big-brick-pinout.html"},{title:"Installation planning",url:"/docs/planning.html"}]};
  }
  if(/tuner|tuning|afr|fuel map|ve table|spark|ignition map|dwell|wideband|auto.?tune|fuel trim|idle|dbw/.test(q)){
-   return {answer:"Big Brick works with TunerStudio; the registered edition provides additional tuning tools. Big Brick has an onboard LSU 4.9 wideband controller. For safe calibration, use the relevant manuals and qualified tuning help rather than guessed fuel or ignition values.",sources:[{title:"Tuning and Wi-Fi",url:"/docs/software.html"},{title:"Downloads",url:"/docs/downloads.html"}]};
+   return {answer:"Big Brick provides Wi-Fi tuning via an onboard ESP32 connected by CAN and USB, and includes two onboard wideband controllers. For safe calibration, use the relevant manuals and qualified tuning help rather than guessed fuel or ignition values.",sources:[{title:"Tuning and Wi-Fi",url:"/docs/software.html"},{title:"Downloads",url:"/docs/downloads.html"}]};
  }
  if(/warranty|return|refund|shipping|ship|purchase|buy|cost|price|delivery|order|contact|support/.test(q)){
-   return {answer:"Big Brick is available to order for CAD $1,200, including shipping and the mating connector kit; allow up to four weeks before dispatch plus transit. The Big Brick purchase carries the published limited warranty; see the ordering and safety terms.",sources:[{title:"Ordering, warranty and safety",url:"/terms.html"}]};
+   return {answer:"Big Brick starts at CAD $699, with optional eight IGBT coil drivers (+$100) and onboard 256 MB logging (+$50). Build to order with an up-to-three-week target, subject to availability and transit. Checkout is not yet active.",sources:[{title:"Ordering, warranty and safety",url:"/terms.html"}]};
  }
 
  if(/big|proteus|v8|eight.cylinder|twelve.cylinder/.test(q)){
-   return {answer:"Big Brick provides up to eight-cylinder sequential fuel and spark, 16 low-side outputs (including six IGBT-capable ignition channels), 12 separate 5 V smart-coil outputs, integrated LSU 4.9 wideband, knock sensing and Wi-Fi. Check output allocation against your engine's actual hardware.",sources:[{title:"Big Brick hardware",url:"/products/big-brick.html"},{title:"Big Brick pinout",url:"/docs/big-brick-pinout.html"}]};
+   return {answer:"The current 121-pin Big Brick has 16 dedicated 2 A low-side outputs, 12 smart ignition outputs, 4 dedicated 2 A high-sides, 2 H-bridges, 2 CAN buses and 2 wideband controllers. Eight ignition signals simultaneously drive optional IGBTs without repurposing pins.",sources:[{title:"Big Brick hardware",url:"/products/big-brick.html"},{title:"Big Brick pinout",url:"/docs/big-brick-pinout.html"}]};
  }
  if(/vq35|gen.iv|\bls\d|engine|trigger|crank|cam|compatib|supported/.test(q)){
    return {answer:"The developer reports running VQ35DE and a Gen IV LS engine successfully on Big Brick. The exact LS engine code wasn't recorded, and a family-level example isn't proof of every variant. Use the Engine Finder for engine-specific trigger and sensor references.",sources:[{title:"Engine Finder",url:"/docs/compatibility.html"}]};
