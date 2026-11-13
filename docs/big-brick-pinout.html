@@ -39,7 +39,7 @@
 .wire-guide h2{font-size:1.35rem;margin:8px 0}
 .wire-guide h3{font-size:1rem;margin:18px 0 8px;color:#e0efdf}
 .wire-guide p{max-width:1000px}
-.guide-layout{display:grid;grid-template-columns:minmax(235px,360px) minmax(0,1fr);gap:19px;align-items:start;margin:18px 0}
+.guide-layout{display:block;margin:18px 0}.lsu-diagram{margin:16px 0 25px;max-width:100%;}.lsu-diagram object{display:block;width:100%;aspect-ratio:1500 / 790;border:1px solid #34583f;border-radius:5px;background:#07130d}.lsu-diagram figcaption{font-size:12px;line-height:1.65;color:#b6cdb8;margin-top:10px}
 .guide-photo{border:1px solid #45624b;border-radius:4px;background:#101d14;padding:12px}
 .guide-photo img{display:block;width:100%;height:auto;max-width:400px;margin:auto;border-radius:3px}
 .guide-photo figcaption{font-size:12px;color:#b7c9b8;line-height:1.6;margin:10px 0 0}
@@ -51,13 +51,13 @@
 .guide-table td:first-child{font-weight:700}
 .guide-notes{margin:16px 0;padding:13px 15px;border:1px solid #3a5741;background:#14261a;font-size:13px;color:#c5dfca}
 .guide-notes strong{color:#eef8ef}
-@media(max-width:840px){.guide-layout{grid-template-columns:1fr}.guide-photo{max-width:460px}.guide-table{min-width:500px}}
+@media(max-width:840px){.guide-table{min-width:500px}}
 </style></head>
 <body class="terminal-home"><a class="skip" href="#main">Skip to content</a>
 <header class="top"><nav class="nav wrap"><a href="../index.html" class="brand">BRICK<strong>ECU</strong></a><button class="menu-toggle" type="button" aria-controls="main-links" aria-expanded="false">Menu</button><div id="main-links" class="navlinks"><a href="../index.html">Home</a><a href="../products/big-brick.html">Big Brick</a><a href="big-brick.html">Specifications</a><a href="downloads.html">Downloads</a><a href="index.html">Documentation</a></div></nav></header>
 <main class="pinout" id="main"><div class="eyebrow">BIG BRICK · 121-PIN · 1746979-1</div><h1>Connector pinout</h1>
 <p class="intro">Select a cavity on your connector photo or search the pin list below. The cavity numbering follows the rusEFI VAG connector-face layout; each signal name is from your Big Brick design. See the <a href="#lsu-wiring">LSU 4.9 wiring guide</a> and <a href="#ground-wiring">power/sensor ground notes</a> below.</p>
-<div class="notice"><strong>Pre-release Big Brick assignments.</strong> Pin numbers follow the Hellen 121 VAG connector-face layout; signal names are from your Big Brick footprint, not Hellen. Confirm signals against the final schematic before wiring.</div>
+<div class="notice"><strong>Wiring reference.</strong> Confirm cavity numbering, connector orientation and signal assignments against the final ECU schematic before connecting a harness.</div>
 <div class="map-scroll"><svg id="connector" class="connector" viewBox="0 0 1315 309" role="group" aria-label="Actual Big Brick 121-pin connector face with interactive cavity overlay">
 <image href="../assets/big-brick-121-connector.webp" width="1315" height="309" preserveAspectRatio="none"/>
 <g id="cavities"></g></svg></div><div class="maptools"><p>Tap a numbered cavity · Scroll horizontally on mobile</p><a href="#lookup">Jump to pin lookup</a></div><div class="legend" id="legend"></div><div id="pinTooltip" class="pin-tooltip" role="tooltip" aria-hidden="true"></div>
@@ -66,11 +66,13 @@
 <div class="table-scroll"><table><thead><tr><th>Pin</th><th>Signal</th><th>Function</th></tr></thead><tbody id="pinRows"></tbody></table></div>
 <section class="wire-guide" id="lsu-wiring">
 <h2>Bosch LSU 4.9 · sensor wiring</h2>
-<p>Each onboard wideband controller connects to its own six-terminal Bosch LSU 4.9 sensor. The table maps the Bosch sensor connector pin number to the Big Brick 121-pin ECU connector, and lists commonly used Bosch alternate signal names.</p>
-<div class="guide-layout"><figure class="guide-photo">
-<img src="https://europe1.discourse-cdn.com/flex013/uploads/ecumaster/original/2X/e/ef957c3b2a7cbe42306e945f5858decb9345c641.jpeg" alt="Bosch LSU 4.9 six-pin connector face numbered 1 through 6, with pump current, virtual ground, heater, trim resistor and Nernst voltage connections" loading="lazy" referrerpolicy="no-referrer">
-<figcaption>LSU 4.9 connector-face diagram, hosted by the <a href="https://community.ecumaster.com/t/wbo-heater-12v-fused/5722" target="_blank" rel="noopener noreferrer">Ecumaster community</a>. Match the connector's molded pin numbers, not just the drawing's orientation. <a href="https://www.bosch-motorsport.com/content/downloads/Raceparts/en-GB/51865867208058251.html" target="_blank" rel="noopener noreferrer">Bosch's official signal definitions</a>.</figcaption>
-</figure><div class="guide-data"><div class="table-scroll"><table class="guide-table">
+<p>Each onboard wideband controller uses a dedicated six-terminal LSU 4.9 sensor. Follow the color-coded signal guide and confirm the exact Big Brick cavity numbers in the table below.</p>
+<figure class="lsu-diagram">
+<object data="../assets/big-brick-lsu49-wiring.svg" type="image/svg+xml" aria-label="Big Brick ECU to Bosch LSU 4.9 color-coded sensor wiring illustration" loading="lazy">
+<a href="../assets/big-brick-lsu49-wiring.svg">Open LSU 4.9 wiring diagram</a>
+</object>
+<figcaption>LSU 4.9 sensor connector wiring. Check the molded connector numbers and orientation before connecting. The illustration shows signal functions; use the ECU pin-number table below for exact Big Brick cavity assignments.</figcaption>
+</figure><div class="guide-layout"><div class="guide-data"><div class="table-scroll"><table class="guide-table">
 <thead><tr><th>LSU pin</th><th>Function / Bosch aliases</th><th>WB1 ECU pin</th><th>WB2 ECU pin</th></tr></thead>
 <tbody>
 <tr><td>1</td><td>Pump current · IP / APE / I<sub>p</sub></td><td>81 · LSU IP1</td><td>78 · LSU IP2</td></tr>
