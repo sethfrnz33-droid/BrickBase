@@ -9,13 +9,13 @@
 .notice{border-left:3px solid #f1b45d;background:#231f13;padding:15px 18px;margin:22px 0;color:#eadab5;font-size:.9rem}
 .eyebrow{color:#a4dfac;font:700 .78rem ui-monospace,monospace;letter-spacing:.1em}
 .map-scroll{overflow-x:auto;max-width:100%;border:1px solid #3b5643;background:#09150d;border-radius:7px;margin:20px 0;padding:16px}
-.connector{display:block;width:100%;min-width:960px;height:auto;touch-action:manipulation}
+.connector{display:block;width:100%;min-width:1000px;height:auto;touch-action:manipulation}
 .connector .shell{fill:#15231a;stroke:#73917b;stroke-width:3}
-.connector .hole{stroke-width:2.2;fill:#223426;cursor:pointer;outline:none}
+.connector .hole{stroke-width:2.6;fill:rgba(15,31,19,.44);cursor:pointer;outline:none}
 .connector .hole:focus,.connector .hole.selected{stroke:#fff8bc;stroke-width:4;fill:#3b503d}
 .connector .hole:hover{fill:#3d5843}
-.connector .num{pointer-events:none;font:600 12px ui-monospace,monospace;fill:#fff;text-anchor:middle;dominant-baseline:middle}
-.connector .label{pointer-events:none;font:8.5px ui-monospace,monospace;fill:#d3e3d3;text-anchor:middle;dominant-baseline:middle}
+.connector .num{pointer-events:none;font:700 8.5px ui-monospace,monospace;fill:#fff;text-anchor:middle;dominant-baseline:middle}
+.connector .label{display:none;pointer-events:none;font:8.5px ui-monospace,monospace;fill:#d3e3d3;text-anchor:middle;dominant-baseline:middle}
 .legend{display:flex;flex-wrap:wrap;gap:10px 16px;margin:22px 0}
 .legend span{display:flex;align-items:center;gap:7px;color:#b1c6b4;font:12px ui-monospace,monospace}
 .legend i{width:12px;height:12px;border-radius:50%;display:block}
@@ -35,16 +35,11 @@
 <body class="terminal-home"><a class="skip" href="#main">Skip to content</a>
 <header class="top"><nav class="nav wrap"><a href="../index.html" class="brand">BRICK<strong>ECU</strong></a><button class="menu-toggle" type="button" aria-controls="main-links" aria-expanded="false">Menu</button><div id="main-links" class="navlinks"><a href="../index.html">Home</a><a href="../products/big-brick.html">Big Brick</a><a href="big-brick.html">Specifications</a><a href="downloads.html">Downloads</a><a href="index.html">Documentation</a></div></nav></header>
 <main class="pinout" id="main"><div class="eyebrow">BIG BRICK · 121-PIN · 1746979-1</div><h1>Connector pinout</h1>
-<p class="intro">Click a connector cavity to identify its function, or search the pin table below. The layout follows the physical pin groups shown in the supplied 1746979-1 footprint screenshots, not the unrelated rusEFI Hellen signal assignments.</p>
-<div class="notice"><strong>Pre-release pinout:</strong> This diagram follows the supplied PCB footprint view, not the mating-harness face view. Pin labels marked UNVERIFIED are intentionally withheld. Confirm the final electrical assignments and connector orientation against the production documentation before wiring a vehicle.</div>
-<div class="legend" id="legend"></div><div class="map-scroll"><svg id="connector" class="connector" viewBox="0 0 1350 680" role="group" aria-label="Interactive 121 pin Big Brick connector diagram">
-<rect class="shell" x="7" y="8" rx="30" width="1336" height="660"/>
-<path d="M630 20v640" stroke="#52745c" stroke-width="2" stroke-dasharray="7 7"/>
-<text x="26" y="46" fill="#b1dab9" font-size="15" font-family="monospace">1746979-1 · PCB FOOTPRINT VIEW</text>
-<text x="37" y="90" fill="#72977b" font-size="13" font-family="monospace">POWER + INPUTS</text>
-<text x="680" y="90" fill="#72977b" font-size="13" font-family="monospace">OUTPUTS</text>
-<g id="cavities"></g>
-</svg></div><p class="muted">Tap a pin for details. Zoom or scroll horizontally on smaller screens. This is an interactive reference drawing; cavity placement should be cross-checked against the physical connector before harness fabrication.</p>
+<p class="intro">Click a connector cavity to identify its function, or search the pin table below. The photograph is the exact connector face supplied for Big Brick, with an interactive signal overlay based on the supplied footprint screenshots. The unrelated rusEFI Hellen assignments are not used.</p>
+<div class="notice"><strong>Pre-release pinout:</strong> The image shows the connector face while the source pin numbers came from PCB footprint screenshots; the face-to-footprint orientation is not independently validated. Pin labels marked UNVERIFIED are intentionally withheld. Confirm the final electrical assignments and connector orientation against the production documentation before wiring a vehicle.</div>
+<div class="legend" id="legend"></div><div class="map-scroll"><svg id="connector" class="connector" viewBox="0 0 1350 309" role="group" aria-label="Actual Big Brick 121-pin connector face with interactive cavity overlay">
+<image href="../assets/big-brick-121-connector.webp" width="1350" height="309" preserveAspectRatio="none"/>
+<g id="cavities"></g></svg></div><p class="muted">Tap a pin for details. Zoom or scroll horizontally on smaller screens. This is your actual connector photo with interactive markers. Confirm cavity numbering and electrical assignment against the physical connector before harness fabrication.</p>
 <div class="selection" id="selection" aria-live="polite">Select a pin to view its function.</div>
 <div class="filters"><input id="search" type="search" placeholder="Search pin number, signal, CAN, ignition..." aria-label="Search connector pins"><select id="groupFilter" aria-label="Filter by pin function"><option value="">All groups</option></select><span class="muted" id="visible"></span></div>
 <div class="table-scroll"><table><thead><tr><th>Pin</th><th>Signal</th><th>Function</th></tr></thead><tbody id="pinRows"></tbody></table></div>
@@ -56,18 +51,20 @@ const colors={"ground":"#96a0ad","power":"#f29b81","supply":"#79cdaa","analog":"
 const groups={ground:"Ground",power:"Power",supply:"5V sensor",analog:"Analog input",digital:"Digital / VR",can:"CAN",wideband:"Wideband",ignition:"Ignition",low:"Low-side",high:"High-side",bridge:"H-bridge",knock:"Knock",other:"Unverified"};
 const byNumber=new Map(data.map(x=>[x.n,x]));const svg=document.getElementById("cavities");const ns="http://www.w3.org/2000/svg";let current=null;
 const el=(name,attrs,text)=>{const z=document.createElementNS(ns,name);Object.entries(attrs).forEach(([k,v])=>z.setAttribute(k,v));if(text!==undefined)z.textContent=text;return z};
-function circle(n,x,y,r=16){const item=byNumber.get(n),g=el("g",{tabindex:"0",role:"button","aria-label":"Pin "+n+" "+item.label,"data-pin":n});const c=el("circle",{cx:x,cy:y,r,stroke:colors[item.type],class:"hole"});g.append(c,el("text",{x,y:y-5,class:"num"},String(n)),el("text",{x,y:y+9,class:"label"},item.label.length>9?item.label.slice(0,9):item.label));g.addEventListener("click",()=>choose(n));g.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();choose(n)}});svg.appendChild(g)}
-function line(nums,x0,x1,y,r=15){nums.forEach((n,i)=>circle(n,x0+(x1-x0)*(nums.length===1?0.5:i/(nums.length-1)),y,r))}
-line([2,1],90,245,128,31);circle(3,170,215,31);line([5,4],90,245,302,31);
-line(Array.from({length:19},(_,i)=>24-i),25,602,390,14);
-line(Array.from({length:19},(_,i)=>43-i),25,602,440,14);
-line(Array.from({length:19},(_,i)=>62-i),25,602,520,14);
-line(Array.from({length:19},(_,i)=>81-i),25,602,570,14);
-line([116,115,114],705,1190,125,28);line([118,117],825,1070,215,28);line([121,120,119],705,1190,302,28);
-line(Array.from({length:8},(_,i)=>89-i),675,1304,390,24);
-line(Array.from({length:8},(_,i)=>97-i),675,1304,445,24);
-line(Array.from({length:8},(_,i)=>105-i),675,1304,525,24);
-line(Array.from({length:8},(_,i)=>113-i),675,1304,585,24);
+function circle(n,x,y,r=9){const item=byNumber.get(n),g=el("g",{tabindex:"0",role:"button","aria-label":"Pin "+n+" "+item.label,"data-pin":n});const c=el("circle",{cx:x,cy:y,r,stroke:colors[item.type],class:"hole"});const number=el("text",{x,y:y+.5,class:"num"},String(n));g.append(c,number);g.addEventListener("click",()=>choose(n));g.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();choose(n)}});g.append(el("title",{},"Pin "+n+" — "+item.label));svg.appendChild(g)}
+function line(nums,x0,x1,y,r=9){nums.forEach((n,i)=>circle(n,x0+(x1-x0)*(nums.length===1?.5:i/(nums.length-1)),y,r))}
+circle(2,153,114,16);circle(1,202,114,16);circle(3,178,159,16);circle(5,153,204,16);circle(4,202,204,16);
+line(Array.from({length:19},(_,i)=>63+i),273,682,109,9);
+line(Array.from({length:19},(_,i)=>44+i),273,682,133,9);
+line(Array.from({length:19},(_,i)=>25+i),273,682,181,9);
+line(Array.from({length:19},(_,i)=>6+i),273,682,205,9);
+line(Array.from({length:8},(_,i)=>89-i),813,986,109,9);
+line(Array.from({length:8},(_,i)=>97-i),813,986,133,9);
+line(Array.from({length:8},(_,i)=>105-i),813,986,181,9);
+line(Array.from({length:8},(_,i)=>113-i),813,986,205,9);
+circle(116,1054,114,15);circle(115,1105,114,15);circle(114,1156,114,15);
+circle(118,1054,159,15);circle(117,1105,159,15);
+circle(121,1054,205,15);circle(120,1105,205,15);circle(119,1156,205,15);
 const legend=document.getElementById("legend");for(const [key,title] of Object.entries(groups)){const s=document.createElement("span"),i=document.createElement("i");i.style.background=colors[key];s.append(i,document.createTextNode(title));legend.append(s)}
 const filter=document.getElementById("groupFilter");Object.entries(groups).forEach(([k,v])=>{const o=document.createElement("option");o.value=k;o.textContent=v;filter.append(o)});
 const rows=document.getElementById("pinRows"),search=document.getElementById("search");
