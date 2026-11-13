@@ -70,7 +70,7 @@
     const v=e.confidenceV2,wrap=elm("section","ef-layered ef-fit-view");
     if(!v)return wrap;
     wrap.append(elm("h4",null,"Hardware fit"));
-    wrap.append(elm("p","ef-layer-intro","Compare Big and Mini at a glance. Open a category for engine-specific details and references."));
+    wrap.append(elm("p","ef-layer-intro","Review Big Brick hardware fit by category, with engine-specific evidence and references."));
     const d=v.model||{};
     const quick=elm("dl","ef-fit-facts");
     quick.append(
@@ -80,14 +80,14 @@
       field("VVT",d.vvtClass==="unknown"?"Details not yet listed":d.vvtClass)
     );
     wrap.append(quick);
-    const list=elm("div","ef-layer-list"),mini=new Map((v.mini?.layers||[]).map(x=>[x.id,x]));
+    const list=elm("div","ef-layer-list");
     for(const b of v.big?.layers||[]){
-      const m=mini.get(b.id)||b,panel=elm("details","ef-layer-item"),summary=elm("summary","ef-layer-summary");
-      summary.append(elm("span","ef-layer-name",b.label),elm("span","ef-layer-chip","Big "+b.score),elm("span","ef-layer-chip","Mini "+m.score));
+      const panel=elm("details","ef-layer-item"),summary=elm("summary","ef-layer-summary");
+      summary.append(elm("span","ef-layer-name",b.label),elm("span","ef-layer-chip","Big Brick "+b.score));
       panel.append(summary);
       const body=elm("div","ef-layer-body");
       const brief=(txt)=>String(txt||"").replace(/\b(NOT|SHARED|FOUR|TWO|ONE)\b/g,x=>x.toLowerCase());
-      for(const [name,x] of [["Big Brick",b],["Mini Brick",m]]){
+      for(const [name,x] of [["Big Brick",b]]){
         const part=elm("div","ef-layer-evidence");
         part.append(elm("strong",null,name+" · "+x.state),elm("p",null,brief(x.detail)));
         if(x.refs?.length){
@@ -151,12 +151,12 @@
   function ecuFit(e){
     if(e.cyl===0)return "Rotary management is not established by matching a crank pattern; dedicated engine synchronization, ignition and injection scheduling require separate verification.";
     if(e.fuel.toLowerCase().includes("direct injection")){
-      return "Factory GDI is not natively validated on Big Brick; external GDI control is untested. Mini Brick has no GDI support.";
+      return "Factory GDI using external control is experimental and has not been validated on Big Brick.";
     }
-    if(e.cyl>8)return "Big Brick: batch fuel/sequential spark may be possible up to 12 cylinders; no engine-specific allocation validated. Mini Brick: not designed for this cylinder count.";
-    if(e.cyl>6)return "Big Brick: channel-count candidate for up to 8-cylinder sequential fuel and spark. Mini Brick: not intended for 8-cylinder sequential builds.";
-    if(e.cyl>4)return "Big Brick: channel-count candidate for sequential fuel/spark. Mini Brick: six-cylinder operation requires a separate wasted-spark and injector-output assessment.";
-    return "Big Brick / Mini Brick: preliminary channel-count candidates only; actual trigger, ignition and sensor integration are untested.";
+    if(e.cyl>8)return "Big Brick: batch fuel/sequential spark may be possible up to 12 cylinders; no engine-specific allocation validated.";
+    if(e.cyl>6)return "Big Brick: channel-count candidate for up to 8-cylinder sequential fuel and spark.";
+    if(e.cyl>4)return "Big Brick: channel-count candidate for sequential fuel and spark.";
+    return "Big Brick: preliminary channel-count candidate only; actual trigger, ignition and sensor integration are untested.";
   }
   function runningSection(e){
     const data=e.runningEvidence||{},wrap=elm("div","ef-running-evidence");
@@ -196,11 +196,11 @@
     const flag=elm("span","ef-level ef-level-"+e.level,e.technicalResearch?.stageLabel||statusText[e.level]);
     top.append(kicker,title,flag);
     const scores=elm("div","ef-scores");
-    scores.append(scoreCard("Big Brick",e.confidenceV2?.big?.score??e.confidence?.big??0),scoreCard("Mini Brick",e.confidenceV2?.mini?.score??e.confidence?.mini??0));
+    scores.append(scoreCard("Big Brick",e.confidenceV2?.big?.score??e.confidence?.big??0));
     const assessment=elm("section","ef-detail-note");
     assessment.append(elm("strong",null,"Control-method hardware assessment"));
     const hardware=elm("dl","ef-specs"),research=e.technicalResearch||{};
-    hardware.append(field("Big Brick",research.bigAssessment||"Control and sensor research pending"),field("Mini Brick",research.miniAssessment||"Control and sensor research pending"));
+    hardware.append(field("Big Brick",research.bigAssessment||"Control and sensor research pending"));
     assessment.append(hardware);
     const scoreDisclaimer=elm("p","ef-score-disclaimer","Hardware-fit scores are a guide, not a reliability percentage. High-impedance port injectors are natively supported.");
     const grid=elm("dl","ef-specs");
@@ -211,7 +211,7 @@
     warning.hidden=e.level!=="blocked";warning.textContent="";
     if(e.level==="blocked"){
       const mod=e.confidenceV2?.model||{};
-      warning.textContent=mod.stockGDI?"WARNING: Factory GDI/high-pressure injector control is not natively validated on Brick ECU. Big external integration is experimental; Mini does not support GDI.":mod.rotary?"WARNING: Rotary fuel and leading/trailing ignition scheduling are not Brick ECU validated.":mod.stockOpticalCAS?"WARNING: Stock high-resolution Nissan optical CAS is not natively verified; an alternative trigger would need independent validation.":"WARNING: rusEFI marks this stock trigger decoder as unsupported/problematic. Do not claim validated compatibility.";
+      warning.textContent=mod.stockGDI?"WARNING: Factory GDI/high-pressure injector control is not natively validated on Brick ECU. External GDI integration is experimental and unvalidated.":mod.rotary?"WARNING: Rotary fuel and leading/trailing ignition scheduling are not Brick ECU validated.":mod.stockOpticalCAS?"WARNING: Stock high-resolution Nissan optical CAS is not natively verified; an alternative trigger would need independent validation.":"WARNING: rusEFI marks this stock trigger decoder as unsupported/problematic. Do not claim validated compatibility.";
     }
     const refs=elm("p","ef-sources");
     const a=elm("a",null,"rusEFI trigger reference");a.href=source;a.target="_blank";a.rel="noopener noreferrer";
@@ -225,7 +225,7 @@
     const integration=elm("section","ef-research");
     integration.append(elm("h4",null,"Engine management and wiring research"));
     const int=e.integration||{},d=elm("dl","ef-specs"),hw=e.confidenceV2?.model||{};
-    const inj=hw.stockGDI?"Factory direct injection uses specialist high-pressure control. Big Brick external GDI integration is experimental; Mini does not have GDI software.":hw.injectorZ==="low"?"Original low-impedance injectors require appropriate current limiting"+(hw.factoryResistorPack===true?" (factory resistor pack is documented).":"; confirm the original resistor arrangement."):"Standard high-impedance (>8 Ω) port injectors work directly with Brick saturated injector outputs. No peak-and-hold controller is required.";
+    const inj=hw.stockGDI?"Factory direct injection uses specialist high-pressure control. Big Brick external GDI integration is experimental and unvalidated.":hw.injectorZ==="low"?"Original low-impedance injectors require appropriate current limiting"+(hw.factoryResistorPack===true?" (factory resistor pack is documented).":"; confirm the original resistor arrangement."):"Standard high-impedance (>8 Ω) port injectors work directly with Brick saturated injector outputs. No peak-and-hold controller is required.";
     const coil=hw.coilType==="smart"?"Factory smart coils have built-in power stages.":hw.coilType==="dumb"?"Factory passive coils need high-current ignition stages (six native IGBT-capable outputs on Big Brick).":hw.coilType==="external-multi"?"Factory coils use an external ignition module.":hw.coilType==="external-single"?"Distributor/single coil uses an external or integral igniter.":int.ignition;
     d.append(field("Crank / cam sensors",int.sensors),field("Ignition",coil),field("Injectors",inj),field("VVT / throttle / auxiliaries",int.actuators));
     integration.append(d);
