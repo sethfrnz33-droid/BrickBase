@@ -1,34 +1,7 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080b0d">
-<title>Wiring examples | Big Brick ECU</title><meta name="description" content="Big Brick ECU 121-pin wiring illustrations for injectors, smart ignition and IGBT coils, Hall and VR crank sensors, knock sensors, and electronic throttle.">
-<link rel="stylesheet" href="../site.css"><link rel="stylesheet" href="../field-console.css">
-<style>
-.wiring{max-width:1250px;margin:0 auto;padding:42px 22px 88px;color:#e5edf1}
-.wiring h1{font-size:clamp(2rem,5vw,3.35rem);line-height:1.07;margin:12px 0;letter-spacing:-.045em}
-.wiring .intro{color:#b5c3c8;line-height:1.65;max-width:760px}
-.wiring .eyebrow{font:700 .77rem ui-monospace,monospace;letter-spacing:.12em;color:#9cccb8;text-transform:uppercase}
-.wiring-nav{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 34px}
-.wiring-nav a{font:600 .83rem ui-monospace,monospace;text-decoration:none;padding:10px 13px;border:1px solid #34454c;color:#d8e5e8;background:#0d151b;border-radius:4px}
-.wiring-nav a:hover,.wiring-nav a:focus-visible{border-color:#6d9ab1;background:#182732}
-.wiring-example{scroll-margin-top:90px;margin:0 0 38px}
-.wiring-example h2{font-size:clamp(1rem,2vw,1.3rem);margin:0 0 11px;color:#e6eef1;letter-spacing:-.012em}
-.wiring-figure{margin:0;padding:0;border:1px solid #293a44;border-radius:6px;overflow:hidden;background:#04080e}
-.wiring-figure a{display:block;line-height:0}
-.wiring-figure a:focus-visible{outline:3px solid #6bb6db;outline-offset:-3px}
-.wiring-figure img{display:block;width:100%;height:auto;object-fit:contain}
-.wiring-note{margin:28px 0;font-size:.85rem;color:#a8bfc4;line-height:1.65}
-@media(max-width:700px){.wiring{padding:30px 12px 72px}.wiring-nav{gap:6px}.wiring-nav a{font-size:.76rem;padding:8px 10px}.wiring-example{margin-bottom:22px}}
-</style></head><body class="terminal-home"><a href="#main" class="skip">Skip to content</a>
-<header class="top"><nav class="nav wrap" aria-label="Main navigation"><a href="../index.html" class="brand">BRICK<strong>ECU</strong></a><button type="button" class="menu-toggle" aria-controls="main-links" aria-expanded="false">Menu</button><div class="navlinks" id="main-links"><a href="../index.html">Home</a><a href="../products/big-brick.html">Big Brick</a><a href="big-brick.html">Specifications</a><a href="downloads.html">Downloads</a><a href="index.html">Documentation</a></div></nav></header>
-<main class="wiring" id="main"><span class="eyebrow">Big Brick · 121-pin</span><h1>Wiring examples</h1><p><a href="engine-setup.html">New to Big Brick? Follow the illustrated engine setup guide.</a></p><p class="intro">Seven clear wiring references for common sensors and outputs. The numbered pins shown are <strong>examples, not compulsory assignments</strong>: a suitable unused channel of the same electrical type can be configured instead (for example, D1, D4 or D5 for a compatible Hall sensor). Keep each signal on its own assigned pin, use the <a href="big-brick-pinout.html">pinout lookup</a> to confirm function and ratings, and do not interchange different signal types. Select any diagram to view the full-size image.</p>
-<nav class="wiring-nav" aria-label="Wiring diagram topics"><a href="#injectors">Sequential injector</a><a href="#smart-coils">Smart ignition coil</a><a href="#igbt-coils">Dumb coil / IGBT</a><a href="#hall">Hall crank / cam sensor</a><a href="#vr">VR crank / cam sensor</a><a href="#knock">Knock sensor</a><a href="#throttle">Electronic throttle with dual sensors</a></nav>
-<section class="wiring-example" id="injectors"><h2>Sequential injector wiring</h2><figure class="wiring-figure"><a href="../assets/wiring/01-sequential-injectors.webp" target="_blank" rel="noopener noreferrer" aria-label="View full-size Sequential injector wiring image"><img src="../assets/wiring/01-sequential-injectors.webp" width="1672" height="941" alt="Sequential injector wiring — Big Brick ECU 121-pin connector diagram" loading="eager" decoding="async"></a></figure></section>
-<section class="wiring-example" id="smart-coils"><h2>Smart ignition coil wiring</h2><figure class="wiring-figure"><a href="../assets/wiring/02-smart-coils.webp" target="_blank" rel="noopener noreferrer" aria-label="View full-size Smart ignition coil wiring image"><img src="../assets/wiring/02-smart-coils.webp" width="1672" height="941" alt="Smart ignition coil wiring — Big Brick ECU 121-pin connector diagram" loading="lazy" decoding="async"></a></figure></section>
-<section class="wiring-example" id="igbt-coils"><h2>Dumb coil / IGBT wiring</h2><figure class="wiring-figure"><a href="../assets/wiring/03-igbt-dumb-coils.webp" target="_blank" rel="noopener noreferrer" aria-label="View full-size Dumb coil / IGBT wiring image"><img src="../assets/wiring/03-igbt-dumb-coils.webp" width="1672" height="941" alt="Dumb coil / IGBT wiring — Big Brick ECU 121-pin connector diagram" loading="lazy" decoding="async"></a></figure></section>
-<section class="wiring-example" id="hall"><h2>Hall crank / cam sensor</h2><figure class="wiring-figure"><a href="../assets/wiring/04-hall-crank-sensor.webp" target="_blank" rel="noopener noreferrer" aria-label="View full-size Hall crank / cam sensor image"><img src="../assets/wiring/04-hall-crank-sensor.webp" width="1672" height="941" alt="Hall crank / cam sensor — Big Brick ECU 121-pin connector diagram" loading="lazy" decoding="async"></a></figure></section>
-<section class="wiring-example" id="vr"><h2>VR crank / cam sensor</h2><figure class="wiring-figure"><a href="../assets/wiring/05-vr-crank-sensor.webp" target="_blank" rel="noopener noreferrer" aria-label="View full-size VR crank / cam sensor image"><img src="../assets/wiring/05-vr-crank-sensor.webp" width="1672" height="941" alt="VR crank / cam sensor — Big Brick ECU 121-pin connector diagram" loading="lazy" decoding="async"></a></figure></section>
-<section class="wiring-example" id="knock"><h2>Knock sensor wiring</h2><figure class="wiring-figure"><a href="../assets/wiring/06-knock-sensor.webp" target="_blank" rel="noopener noreferrer" aria-label="View full-size Knock sensor wiring image"><img src="../assets/wiring/06-knock-sensor.webp" width="1672" height="941" alt="Knock sensor wiring — Big Brick ECU 121-pin connector diagram" loading="lazy" decoding="async"></a></figure></section>
-<section class="wiring-example" id="throttle"><h2>Electronic throttle with dual sensors</h2><figure class="wiring-figure"><a href="../assets/wiring/07-electronic-throttle.webp" target="_blank" rel="noopener noreferrer" aria-label="View full-size Electronic throttle with dual sensors image"><img src="../assets/wiring/07-electronic-throttle.webp" width="1672" height="941" alt="Electronic throttle with dual sensors — Big Brick ECU 121-pin connector diagram" loading="lazy" decoding="async"></a></figure></section>
-<p class="wiring-note">Illustrative wiring references. Confirm component-specific terminal orientation, fuse and wire sizing, optional driver installation and the finalized ECU schematic before making a harness.</p>
-</main><footer class="footer"><div class="wrap footer-inner"><div><a href="../index.html" class="brand">BRICK<strong>ECU</strong></a></div><div><a href="big-brick-pinout.html">121-pin connector pinout</a> · <a href="index.html">Documentation</a></div></div></footer><script src="../site.js"></script>
-</body></html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Big Brick wiring and setup guide | Brick ECU</title>
+<meta http-equiv="refresh" content="0;url=engine-setup.html">
+<link rel="canonical" href="https://brick-ecu.sethfrnz33.workers.dev/docs/engine-setup.html">
+<script>location.replace('engine-setup.html'+(location.hash||''));</script></head>
+<body style="background:#070c12;color:#e9f1f5;font:16px system-ui;padding:36px"><p>Open the <a href="engine-setup.html" style="color:#83c7f6">Big Brick wiring and setup guide</a>.</p></body></html>
