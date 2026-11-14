@@ -53,9 +53,60 @@
 .engine-guide .option>div{padding-bottom:14px}
 .engine-guide .option .figure{margin:0 0 13px}
 .engine-guide .option p{margin-bottom:10px;font-size:14px}
+
+/* Readability: one editorial reading column, full-size wiring diagrams. */
+.engine-guide{max-width:1540px;padding:36px 28px 100px;font-size:18px}
+.engine-guide h1{max-width:850px;font-size:clamp(2.1rem,5.5vw,4rem);line-height:1.12}
+.engine-guide h2{font-size:clamp(1.7rem,3.2vw,2.3rem);line-height:1.2}
+.engine-guide h3{font-size:1.3rem}
+.engine-guide p{max-width:790px;font-size:18px;line-height:1.68}
+.engine-guide .lede{max-width:780px;font-size:clamp(1.13rem,2vw,1.35rem)}
+.engine-guide .step{padding:48px 0 48px}
+.engine-guide .step-header{display:block;max-width:810px;margin-bottom:28px}
+.engine-guide .step-header>div{max-width:790px}
+.engine-guide .number{display:inline-block;margin:0 0 15px;font-size:19px}
+.engine-guide .jump{max-width:860px;gap:10px 22px;align-items:center}
+.engine-guide .jump a{font-size:14px;padding:9px 1px}
+.engine-guide .figure{width:100%;max-width:none;margin:24px auto 26px;background:#010409}
+.engine-guide .figure img{display:block;width:100%;max-width:none;height:auto}
+.engine-guide .figure figcaption{font-size:16px;line-height:1.55;padding:13px 18px}
+.engine-guide .flow{display:block;max-width:790px;margin:24px 0}
+.engine-guide .flow>div{border:0;border-top:1px solid #344858;padding:17px 0 19px}
+.engine-guide .flow strong{font-size:20px;margin-bottom:5px}
+.engine-guide .flow p{font-size:17px;line-height:1.6}
+.engine-guide .info,.engine-guide .note{max-width:800px;font-size:17px;line-height:1.65}
+.engine-guide .chiprow{max-width:780px;gap:9px}
+.engine-guide .chip{font-size:14px;padding:8px 11px}
+.engine-guide .option{max-width:none}
+.engine-guide .option summary{font-size:1.22rem;max-width:800px;padding:22px 0}
+.engine-guide .option>div{padding-bottom:30px}
+.engine-guide .option p{max-width:790px;font-size:17px;line-height:1.6}
+.engine-guide .option .figure{margin:10px 0 17px}
+.engine-guide .quick-links{max-width:800px}
+.engine-guide .finish{max-width:810px}
+.engine-guide .finish p{font-size:16px}
+@media(max-width:900px){
+ .engine-guide{padding:28px 16px 70px;font-size:17px}
+ .engine-guide p{font-size:17px}
+ .engine-guide .figure{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-color:#52768c #101923}
+ .engine-guide .figure a{display:block;width:max-content;min-width:100%}
+ .engine-guide .figure img{width:1100px;max-width:none}
+ .engine-guide .figure figcaption{font-size:14px;position:sticky;left:0;width:100%;max-width:calc(100vw - 32px)}
+ .engine-guide .jump{gap:7px 17px}
+ .engine-guide .step{padding:32px 0 36px}
+ .engine-guide .step-header{margin-bottom:15px}
+ .engine-guide .step-header h2{font-size:1.7rem}
+ .engine-guide .info,.engine-guide .note,.engine-guide .option p{font-size:16px}
+}
+@media(max-width:450px){
+ .engine-guide{padding:23px 12px 60px}
+ .engine-guide .figure img{width:980px}
+ .engine-guide .figure figcaption{max-width:calc(100vw - 24px)}
+ .engine-guide .jump a{font-size:13px}
+}
 </style></head><body class="terminal-home"><a href="#main" class="skip">Skip to content</a>
 <header class="top"><nav class="nav wrap" aria-label="Main navigation"><a href="../index.html" class="brand">BRICK<strong>ECU</strong></a><button type="button" class="menu-toggle" aria-controls="main-links" aria-expanded="false">Menu</button><div class="navlinks" id="main-links"><a href="/index.html">Home</a><a href="/products/big-brick.html">Big Brick</a><a href="/docs/engine-setup.html">Setup guide</a><a href="/docs/big-brick-pinout.html">Pinout</a><a href="/docs/downloads.html">Downloads</a></div></nav></header>
-<main class="engine-guide" id="main"><span class="eyebrow">Big Brick / Wiring guide</span><h1>Get your engine running.</h1><p class="lede">One guide, in build order. Full-size wiring diagrams, brief explanations, and checks before each next step.</p><p class="note"><strong>Pin numbers are examples:</strong> D1, D4 or D5 may be used for a compatible Hall input when configured accordingly. The same rule applies to other matching free channels, but do not share a pin between different signals. <a href="big-brick-pinout.html">Full connector lookup</a>.</p>
+<main class="engine-guide" id="main"><span class="eyebrow">Big Brick / Wiring guide</span><h1>Get your engine running.</h1><p class="lede">One guide, in build order. Large wiring diagrams, brief explanations, and checks before each next step.</p><p class="subtle">Tap a diagram to open the full-resolution image. On smaller screens, swipe across the diagram to inspect each wire and connector.</p><p class="note"><strong>Pin numbers are examples:</strong> D1, D4 or D5 may be used for a compatible Hall input when configured accordingly. The same rule applies to other matching free channels, but do not share a pin between different signals. <a href="big-brick-pinout.html">Full connector lookup</a>.</p>
 <nav class="jump" aria-label="Jump to setup steps"><a href="#power">01 Power</a><a href="#throttle">02 Throttle &amp; pedal</a><a href="#position">03 Crank &amp; cam</a><a href="#ignition">04 Ignition</a><a href="#injectors">05 Injectors</a><a href="#sensors">06 Sensors</a><a href="#commission">07 First start</a></nav>
 <section class="step" id="power"><div class="step-header"><span class="number">01</span><div><div class="mini">Power and grounding</div><h2>Start with the key switch and main relay.</h2><p>The main relay supplies switched high-current power to the ECU and engine loads. The separate low-current wake feed keeps the ECU alive long enough to finish saving tune changes after the engine stops.</p></div></div>
 <figure class="figure"><img src="../assets/big-brick-121-connector.webp" width="1315" height="309" alt="Actual Big Brick 121-pin ECU connector face used in the power and relay reference" loading="eager" decoding="async"><figcaption>Big Brick connector face. Use the <a href="big-brick-pinout.html">interactive pinout</a> to identify each actual cavity.</figcaption></figure>
