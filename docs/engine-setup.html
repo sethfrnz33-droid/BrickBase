@@ -223,69 +223,7 @@ body.terminal-home{background:#080c10;color:#e9edf0}
 <div class="option" id="switch-inputs">
 <h3>Buttons, clutch switches and brake switches</h3>
 <p>Two common input wiring methods are shown below. Use a momentary or maintained switch depending on the function in ECU software—for example launch control, a clutch switch, a brake switch or another user-enabled feature.</p>
-<figure class="figure switch-figure" aria-label="Big Brick ECU button wiring examples">
-<svg viewBox="0 0 1700 1100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two wiring examples using actual Big Brick ECU connector positions: ground-switched D1 pin 30 to sensor ground pin 31, or plus 12 volt switched to analog-voltage AV1 pin 24">
-<defs>
-  <linearGradient id="swbg" x2="0" y2="1"><stop stop-color="#091623"/><stop offset="1" stop-color="#050b14"/></linearGradient>
-  <linearGradient id="swred" x2="0" y2="1"><stop stop-color="#ff8791"/><stop offset=".5" stop-color="#e13944"/><stop offset="1" stop-color="#8c1a2c"/></linearGradient>
-  <linearGradient id="swmetal" x2="0" y2="1"><stop stop-color="#b3bac3"/><stop offset=".5" stop-color="#424c58"/><stop offset="1" stop-color="#a7afb7"/></linearGradient>
-</defs>
-<rect width="1700" height="1100" fill="url(#swbg)"/>
-<rect x="45" y="45" width="11" height="72" rx="4" fill="#32a8fb"/>
-<g fill="#f2f7fb" font-family="Arial, sans-serif"><text x="85" y="93" font-size="39" font-weight="bold">MOMENTARY BUTTON / SWITCH INPUTS</text><text x="85" y="133" fill="#a2b7c5" font-size="22">BIG BRICK ECU — TWO INPUT WIRING EXAMPLES</text></g>
-<image href="../assets/big-brick-121-connector.webp" x="192" y="185" width="1315" height="309" preserveAspectRatio="xMidYMid meet"/>
-<text x="202" y="521" font-family="Arial,sans-serif" font-size="20" fill="#abc4d3">121-PIN CONNECTOR FACE · CAVITY POSITIONS VERIFIED AGAINST PINOUT</text>
-<path d="M85 541H1610" stroke="#294759" stroke-width="2"/>
-<!-- ECU cavity anchors measured in the 1315 x 309 connector reference, translated +192,+185 -->
-<!-- Ground-switched example: SGND31 at (542,134); D1 30 at (565,134) -->
-<g stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="7">
-<path d="M734 319V596H412V839" stroke="#38d6a6"/>
-<path d="M757 319V627H502V839" stroke="#32a8fb"/>
-<!-- Switched 12V example: AV1 pin 24 at (268,110), routed above the connector -->
-<path d="M460 295V165H1587V743H1260V839" stroke="#ffae4b"/>
-<path d="M1562 835H1350" stroke="#ff626c"/>
-</g>
-<!-- Connector terminal rings: 30,31,24 -->
-<g stroke-width="4" fill="#07111c"><circle cx="734" cy="319" r="11" stroke="#38d6a6"/><circle cx="757" cy="319" r="11" stroke="#32a8fb"/><circle cx="460" cy="295" r="11" stroke="#ffae4b"/></g>
-<g font-family="Arial,sans-serif" font-weight="bold" fill="#f0f6fb">
- <text x="110" y="582" font-size="25">01 — GROUND-SWITCHED INPUT</text>
- <text x="955" y="582" font-size="25">02 — +12 V-SWITCHED INPUT</text>
-</g>
-<!-- realistic shaded switches, isolated with distinct electrical spade contacts -->
-<g>
- <ellipse cx="458" cy="775" rx="105" ry="16" fill="#000" opacity=".5"/>
- <rect x="401" y="777" width="114" height="75" rx="16" fill="#181d23" stroke="#58636d" stroke-width="5"/>
- <rect x="390" y="730" width="137" height="62" rx="20" fill="url(#swmetal)" stroke="#959fa7" stroke-width="4"/>
- <ellipse cx="458" cy="726" rx="76" ry="31" fill="#21252a" stroke="#89929b" stroke-width="4"/>
- <rect x="403" y="660" width="111" height="75" rx="24" fill="url(#swred)" stroke="#f05d66" stroke-width="4"/>
- <ellipse cx="458" cy="661" rx="55" ry="16" fill="#e65d66"/>
- <rect x="402" y="837" width="20" height="40" rx="5" fill="#d9dfe5"/><rect x="492" y="837" width="20" height="40" rx="5" fill="#d9dfe5"/>
- <circle cx="412" cy="839" r="10" fill="#07111c" stroke="#38d6a6" stroke-width="4"/>
- <circle cx="502" cy="839" r="10" fill="#07111c" stroke="#32a8fb" stroke-width="4"/>
-</g>
-<g transform="translate(849,0)">
- <ellipse cx="458" cy="775" rx="105" ry="16" fill="#000" opacity=".5"/>
- <rect x="401" y="777" width="114" height="75" rx="16" fill="#181d23" stroke="#58636d" stroke-width="5"/>
- <rect x="390" y="730" width="137" height="62" rx="20" fill="url(#swmetal)" stroke="#959fa7" stroke-width="4"/>
- <ellipse cx="458" cy="726" rx="76" ry="31" fill="#21252a" stroke="#89929b" stroke-width="4"/>
- <rect x="403" y="660" width="111" height="75" rx="24" fill="url(#swred)" stroke="#f05d66" stroke-width="4"/>
- <ellipse cx="458" cy="661" rx="55" ry="16" fill="#e65d66"/>
- <rect x="402" y="837" width="20" height="40" rx="5" fill="#d9dfe5"/><rect x="492" y="837" width="20" height="40" rx="5" fill="#d9dfe5"/>
- <circle cx="412" cy="839" r="10" fill="#07111c" stroke="#ffae4b" stroke-width="4"/>
- <circle cx="502" cy="839" r="10" fill="#07111c" stroke="#ff626c" stroke-width="4"/>
-</g>
-<g font-family="Arial,sans-serif" font-size="24" fill="#deebf2">
- <text x="100" y="915">D1 · pin 30 → switch → SGND · pin 31</text>
- <text x="955" y="915">Fused +12 V → switch → AV1 · pin 24</text>
- <text x="100" y="962" fill="#adc4d0" font-size="22">D / AT inputs are internally pulled up to 5 V.</text>
- <text x="955" y="962" fill="#adc4d0" font-size="22">AV input is internally pulled down.</text>
- <text x="100" y="995" fill="#adc4d0" font-size="22">Alternative example: AT1 pin 13 instead of D1.</text>
- <text x="955" y="995" fill="#adc4d0" font-size="22">Do not apply +12 V to digital or AT inputs.</text>
-</g>
-<rect x="77" y="1027" width="1545" height="54" rx="7" fill="#17222d" stroke="#435c6e" stroke-width="2"/>
-<text x="98" y="1060" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="#f1cb9f">VERIFY OEM SWITCH POLARITY WITH A MULTIMETER. +12 V ON A D/AT INPUT MAY DAMAGE THE ECU.</text>
-</svg>
-<figcaption>Two switch-input methods using example Big Brick pin assignments. D1 pin 30 and SGND pin 31 for a ground-switched input; or a fused +12 V feed through the switch to AV1 pin 24 for a high-side-switched input. The same ground-switching principle can use a compatible AT input (such as AT1 pin 13).</figcaption></figure>
+<figure class="figure switch-figure"><a href="../assets/wiring/12-button-switch-approved.svg" target="_blank" rel="noopener noreferrer" aria-label="Open the original approved Big Brick switch wiring image full size"><img src="../assets/wiring/12-button-switch-approved.svg" width="2000" height="1390" alt="Original approved Big Brick button wiring image: a ground-switched button between D1 pin 30 and SGND pin 31, and a fused 12 V switched button to AV1 pin 24" loading="lazy" decoding="async"></a><figcaption>Ground-switched: D1 pin 30 to sensor ground pin 31 (or an available analog-temperature input). +12 V-switched: fused switched power through the button to AV1 pin 24. Confirm the actual OEM switch polarity before connection.</figcaption></figure>
 <p><strong>Before connecting an OEM clutch or brake switch:</strong> use a multimeter to determine whether it switches to ground or +12 V, then configure the corresponding input polarity and software function. Many OEM switches switch to ground, but wiring varies. <strong>Never apply 12 V to a digital or analog-temperature input</strong>—doing so may damage it. Only use a correctly rated analog-voltage input for the +12 V method.</p>
 </div></section>
 <section class="step" id="commission"><div class="step-header"><span class="number">08</span><div><div class="mini">Final review</div><h2>Configure, verify, then commission.</h2><p>Load the firmware and TunerStudio configuration appropriate for the installed Big Brick hardware, confirm all assigned inputs and outputs, and follow the engine-specific trigger and fueling requirements.</p></div></div>
