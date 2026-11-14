@@ -3,48 +3,189 @@
 <meta name="description" content="A clear, illustrated Big Brick ECU setup sequence: power and main relay, electronic throttle and pedal, engine position sensors, ignition, injectors, widebands, and first-start checks.">
 <title>Get an engine running | Big Brick ECU</title><link rel="stylesheet" href="../site.css"><link rel="stylesheet" href="../field-console.css">
 <style>
-/* One vertical reading column. No wide grids, horizontal panning or split sections. */
-.engine-guide{box-sizing:border-box;width:min(100% - 36px,880px);max-width:880px;margin:0 auto;padding:35px 0 76px;color:#e5eef4;font:17px/1.65 system-ui,-apple-system,sans-serif}
-.engine-guide *{box-sizing:border-box;min-width:0}
-.engine-guide h1{margin:8px 0 18px;font-size:clamp(2.1rem,5vw,3.25rem);line-height:1.14;letter-spacing:-.035em;color:#f3f8fa}
-.engine-guide h2{margin:7px 0 15px;font-size:clamp(1.55rem,3vw,2rem);line-height:1.25;letter-spacing:-.025em;color:#f0f6fa}
-.engine-guide h3{margin:22px 0 10px;font-size:1.21rem;color:#e5f0f6}
-.engine-guide p{max-width:100%;margin:10px 0 16px;font-size:17px;line-height:1.65;color:#bcd0dd}
-.engine-guide a{color:#a6dfff;text-underline-offset:3px}
-.engine-guide .eyebrow,.engine-guide .mini{display:block;color:#81c2e3;font:700 12px/1.5 ui-monospace,monospace;text-transform:uppercase;letter-spacing:.09em}
-.engine-guide .lede{font-size:19px;color:#cfdfeb}
-.engine-guide .subtle,.engine-guide .note,.engine-guide .info{font-size:16px;line-height:1.6;color:#b7cad5}
-.engine-guide .step{display:block;border-top:1px solid #334451;margin:0;padding:38px 0 42px;scroll-margin-top:80px}
-.engine-guide .step-header{display:block;margin:0 0 19px}
+/* Big Brick workshop manual — one clear vertical column */
+body.terminal-home{background:#080c10;color:#e9edf0}
+.engine-guide{
+  box-sizing:border-box;
+  width:min(880px,calc(100% - 48px));
+  max-width:880px;
+  margin:0 auto;
+  padding:54px 0 108px;
+  color:#e9edf0;
+  font:18px/1.7 system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+.engine-guide *, .engine-guide *::before, .engine-guide *::after{box-sizing:border-box;min-width:0}
+.engine-guide h1,.engine-guide h2,.engine-guide h3{color:#f1f4f6;text-shadow:none}
+.engine-guide h1{
+  max-width:790px;
+  margin:10px 0 19px;
+  font-size:clamp(2.5rem,5vw,4.15rem);
+  font-weight:750;
+  line-height:1.09;
+  letter-spacing:-.052em;
+}
+.engine-guide h2{
+  margin:10px 0 18px;
+  font-size:clamp(1.6rem,3.25vw,2.2rem);
+  font-weight:710;
+  line-height:1.2;
+  letter-spacing:-.033em;
+}
+.engine-guide h3{
+  margin:0 0 14px;
+  color:#dfe7ec;
+  font-size:1.24rem;
+  font-weight:670;
+  letter-spacing:-.015em;
+}
+.engine-guide p{
+  width:100%;
+  max-width:780px;
+  margin:12px 0 22px;
+  color:#bbc8d0;
+  font-size:18px;
+  line-height:1.72;
+}
+.engine-guide p strong{color:#e9eff2;font-weight:700}
+.engine-guide a{color:#a6cee5;text-decoration-color:#5d8297;text-underline-offset:4px}
+.engine-guide a:hover{color:#e5f3fc;text-decoration-color:#b3d9f2}
+.engine-guide .eyebrow,.engine-guide .mini{
+  display:block;
+  width:max-content;
+  max-width:100%;
+  font:700 12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  color:#97afbf;
+}
+.engine-guide>.eyebrow{color:#c3d2db}
+.engine-guide .lede{
+  max-width:740px;
+  margin:0 0 8px;
+  color:#d4dfe6;
+  font-size:clamp(1.12rem,2vw,1.3rem);
+  font-weight:410;
+  line-height:1.55;
+}
+.engine-guide>.subtle{margin:4px 0 16px;color:#879eac;font-size:15px}
+.engine-guide>.note{margin:21px 0 60px;border-left:2px solid #6c899a;padding:3px 0 3px 19px}
+.engine-guide .step{
+  display:block;
+  width:100%;
+  border-top:1px solid #28333b;
+  margin:0;
+  padding:54px 0 65px;
+  scroll-margin-top:95px;
+}
+.engine-guide .step-header{display:block;margin:0 0 28px}
 .engine-guide .step-header>div{display:block}
-.engine-guide .number{display:block;width:max-content;color:#96d6f8;font:700 16px/1.3 ui-monospace,monospace;margin-bottom:12px}
-.engine-guide .figure{display:block;width:100%;max-width:100%;margin:20px 0 22px;border:1px solid #30414d;background:#030609;border-radius:5px;overflow:hidden}
+.engine-guide .step-header p{margin-bottom:0}
+.engine-guide .number{
+  display:block;
+  width:max-content;
+  margin:0 0 22px;
+  padding-bottom:5px;
+  color:#98b3c3;
+  border-bottom:2px solid #5d8197;
+  font:700 18px/1.3 ui-monospace,SFMono-Regular,Consolas,monospace;
+  letter-spacing:.04em;
+}
+.engine-guide .step-header .mini{margin-bottom:10px;color:#8d9fa9}
+.engine-guide .figure{
+  display:block;
+  width:100%;
+  max-width:100%;
+  overflow:hidden;
+  margin:23px 0 28px;
+  border:1px solid #293641;
+  border-radius:3px;
+  background:#020508;
+}
 .engine-guide .figure a{display:block;width:100%;line-height:0}
 .engine-guide .figure img{display:block;width:100%;max-width:100%;height:auto;object-fit:contain}
-.engine-guide .figure figcaption{padding:12px 14px;color:#afc4d0;font-size:14px;line-height:1.5;border-top:1px solid #293946}
-.engine-guide .chiprow{display:block;margin:13px 0 22px}
-.engine-guide .chip{display:block;width:auto;border:0;background:none;padding:3px 0;color:#b8d8e7;font:600 14px/1.5 ui-monospace,monospace}
-.engine-guide .flow,.engine-guide .two,.engine-guide .variants{display:block;width:100%;margin:18px 0}
-.engine-guide .flow>div{display:block;width:100%;border-top:1px solid #273b49;padding:15px 0}
-.engine-guide .flow strong{display:block;color:#e0edf5;font-size:18px;margin:2px 0 5px}
-.engine-guide .flow p{font-size:16px;margin:4px 0 0}
-.engine-guide .option{display:block;width:100%;border-top:1px solid #293d4a;margin:21px 0 32px;padding-top:13px}
-.engine-guide .option .figure{margin:12px 0 15px}
-.engine-guide .option p{margin:10px 0 20px}
-.engine-guide .info{display:block;width:100%;border-left:2px solid #4b87a7;padding:5px 0 5px 14px;margin:19px 0;background:none}
-.engine-guide .note{margin:18px 0}
-.engine-guide .quick-links{display:block;margin:23px 0 0}
-.engine-guide .quick-links a{display:block;width:max-content;max-width:100%;padding:7px 0}
-.engine-guide .finish{border-top:1px solid #31434e;padding:20px 0;margin:0}
-@media(max-width:600px){
- .engine-guide{width:calc(100% - 28px);padding:22px 0 55px;font-size:16px}
- .engine-guide p{font-size:16px}
- .engine-guide .lede{font-size:17px}
- .engine-guide .step{padding:28px 0 31px}
- .engine-guide .figure{margin:15px 0 18px}
- .engine-guide .figure img{width:100%;height:auto}
- .engine-guide .figure figcaption{font-size:13px}
- .engine-guide .info,.engine-guide .note{font-size:15px}
+.engine-guide .figure figcaption{
+  border-top:1px solid #29343c;
+  padding:12px 16px;
+  color:#96acb9;
+  font-size:14px;
+  line-height:1.55;
+}
+.engine-guide .chiprow,.engine-guide .flow,.engine-guide .two,.engine-guide .variants{
+  display:block;
+  width:100%;
+  max-width:100%;
+  margin:20px 0 29px;
+}
+.engine-guide .chiprow{border-top:1px solid #2a3740;margin-top:4px}
+.engine-guide .chip{
+  display:block;
+  padding:8px 0;
+  border:0;
+  border-bottom:1px solid #202c34;
+  background:transparent;
+  color:#b8cbd7;
+  font:600 14px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;
+}
+.engine-guide .flow>div{
+  display:block;
+  width:100%;
+  padding:19px 0;
+  border:0;
+  border-bottom:1px solid #28333b;
+  background:transparent;
+}
+.engine-guide .flow>div:first-child{border-top:1px solid #28333b}
+.engine-guide .flow strong{display:block;margin:3px 0 5px;color:#e2ebf0;font-size:19px;font-weight:650}
+.engine-guide .flow p{margin:0;color:#aebfcb;font-size:16px}
+.engine-guide .option{
+  display:block;
+  width:100%;
+  margin:29px 0 53px;
+  padding:21px 0 0;
+  border-top:1px solid #293841;
+}
+.engine-guide .option h3{margin:0 0 12px}
+.engine-guide .option .figure{margin:14px 0 19px}
+.engine-guide .option p{font-size:17px}
+.engine-guide .note,.engine-guide .info{
+  display:block;
+  width:100%;
+  max-width:780px;
+  margin:23px 0;
+  color:#afc1cc;
+  font-size:16px;
+  line-height:1.67;
+}
+.engine-guide .info{padding:3px 0 3px 17px;border-left:2px solid #647f91;background:none}
+.engine-guide .quick-links{display:block;max-width:780px;margin:26px 0 0}
+.engine-guide .quick-links a{
+  display:block;
+  width:max-content;
+  max-width:100%;
+  padding:9px 0;
+  font-size:15px;
+  font-weight:550;
+}
+.engine-guide .finish{display:block;margin:0;padding:23px 0;border-top:1px solid #2b3941}
+.engine-guide .finish p{font-size:15px;color:#91a7b4}
+@media(max-width:650px){
+  .engine-guide{width:calc(100% - 34px);padding:30px 0 65px;font-size:17px}
+  .engine-guide h1{font-size:clamp(2.25rem,9vw,3.1rem)}
+  .engine-guide h2{font-size:clamp(1.45rem,6vw,1.8rem)}
+  .engine-guide h3{font-size:1.13rem}
+  .engine-guide p{font-size:16.5px;line-height:1.68}
+  .engine-guide .lede{font-size:18px}
+  .engine-guide>.note{margin-bottom:42px}
+  .engine-guide .step{padding:39px 0 47px}
+  .engine-guide .step-header{margin-bottom:20px}
+  .engine-guide .figure{margin:18px 0 24px}
+  .engine-guide .figure figcaption{padding:10px 12px;font-size:13px}
+  .engine-guide .option{margin:22px 0 38px}
+  .engine-guide .option p,.engine-guide .flow p{font-size:16px}
+  .engine-guide .info,.engine-guide .note{font-size:15px}
+}
+@media(prefers-reduced-motion:no-preference){
+  .engine-guide a{transition:color .12s ease,text-decoration-color .12s ease}
 }
 </style></head><body class="terminal-home"><a href="#main" class="skip">Skip to content</a>
 <header class="top"><nav class="nav wrap" aria-label="Main navigation"><a href="../index.html" class="brand">BRICK<strong>ECU</strong></a><button type="button" class="menu-toggle" aria-controls="main-links" aria-expanded="false">Menu</button><div class="navlinks" id="main-links"><a href="/index.html">Home</a><a href="/products/big-brick.html">Big Brick</a><a href="/docs/engine-setup.html">Setup guide</a><a href="/docs/big-brick-pinout.html">Pinout</a><a href="/docs/downloads.html">Downloads</a></div></nav></header>
