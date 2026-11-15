@@ -45,10 +45,10 @@
 <!-- Relay coil as its own two-terminal object -->
 <rect x="748" y="395" width="300" height="81" rx="12" fill="#0c2231" stroke="#ffbd63" stroke-width="2.5"/>
 <text x="783" y="418" class="small" font-size="15">MAIN RELAY COIL</text>
-<text x="774" y="450" class="mono" font-size="20">86 (+)</text>
+<text x="774" y="465" class="mono" font-size="20">86 (+)</text>
 <path d="M859 435 h21 l11 -12 l12 24 l12 -24 l12 24 l11 -12 h20" fill="none" stroke="#ffbd63" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
 <path d="M749 435 H859 M958 435 H1048" fill="none" stroke="#ffbd63" stroke-width="4" stroke-linecap="round"/>
-<text x="960" y="450" class="mono" font-size="20">85 (−)</text>
+<text x="960" y="465" class="mono" font-size="20">85 (−)</text>
 <circle cx="749" cy="434" r="8" class="port" stroke="#ffbd63"/>
 <circle cx="1048" cy="434" r="8" class="port" stroke="#99e6a0"/>
 <!-- coil return to ECU L5 -->
@@ -87,10 +87,10 @@
 <path d="M544 779 H717" class="wire" stroke="#ff687b"/>
 <rect x="717" y="723" width="331" height="116" rx="10" fill="#102332" stroke="#577a90" stroke-width="2.5"/>
 <text x="753" y="749" class="head" font-size="20">MAIN RELAY CONTACT</text>
-<text x="748" y="795" class="mono" font-size="22">30</text>
+<text x="748" y="822" class="mono" font-size="22">30</text>
 <path d="M717 779 H800 M984 779 H1048" fill="none" stroke="#ff687b" stroke-width="6" stroke-linecap="round"/>
 <path d="M800 780 H841 L882 763 M882 780 H984" fill="none" stroke="#ff687b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="982" y="795" class="mono" font-size="22">87</text>
+<text x="982" y="822" class="mono" font-size="22">87</text>
 <path d="M1048 779 H1120 V729 H1173" class="wire" stroke="#ff687b"/>
 <circle cx="1120" cy="779" r="9" fill="#ff687b" stroke="#ffe3e5" stroke-width="2"/>
 <path d="M1120 779 V890 H1173" class="wire" stroke="#ff687b"/>
