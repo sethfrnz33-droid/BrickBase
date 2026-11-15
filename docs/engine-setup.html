@@ -231,6 +231,8 @@ body.terminal-home{background:#080c10;color:#e9edf0}
 .engine-guide .raw-unified-heading small{display:block;margin-top:.45cqw;font:700 1.08cqw/1.1 Arial,Helvetica,sans-serif;color:#a5bfce}
 
 
+/* Disable legacy site-wide .step:before blue numbered tiles; this manual already has chapter/step labels. */
+.engine-guide .step::before{content:none!important;display:none!important;counter-increment:none!important}
 /* Manual layout v3: grouped chapters, compact information and local diagrams */
 .engine-guide{width:min(1300px,calc(100% - 60px));max-width:1300px;padding:38px 0 80px;font-size:16px;line-height:1.55}
 .engine-guide .manual-hero{max-width:940px;margin:0 0 32px}
