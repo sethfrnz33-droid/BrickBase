@@ -1,6 +1,224 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0a100c"><meta name="description" content="Big Brick 121-pin standalone ECU. Dedicated I/O, Wi-Fi tuning and build-to-order configurations starting at C$699."><title>Standalone Engine Management | Brick ECU</title><link rel="stylesheet" href="site.css"><link rel="stylesheet" href="field-console.css"><style>
-.release{max-width:1100px;margin:0 auto;padding:54px 22px 90px;color:#dbe8dd;font-family:system-ui,-apple-system,sans-serif}.release h1{font-size:clamp(2.5rem,7vw,5rem);line-height:1.05;margin:12px 0 22px;letter-spacing:-.055em}.release h2{font-size:clamp(1.5rem,3.5vw,2.2rem);letter-spacing:-.025em;margin:0 0 16px}.release p{color:#b6c8bb;max-width:780px;line-height:1.7}.release .eyebrow{font:700 .76rem ui-monospace,monospace;letter-spacing:.13em;color:#a0d6ab;text-transform:uppercase}.release .lede{font-size:clamp(1.1rem,2vw,1.35rem);max-width:800px}.release .price{font-size:clamp(2.5rem,6vw,4.5rem);color:#e8f8e8;font-weight:750;letter-spacing:-.06em}.release .price small{font-size:1rem;color:#afc8b3;letter-spacing:0}.release .columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.release .panel{background:#0d1d15;border:1px solid #35523d;padding:24px;border-radius:3px}.release .panel h3{margin:0 0 12px;font-size:1rem;color:#e3f2df}.release .panel p{margin:0}.release .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:#35523d;border:1px solid #35523d;margin:42px 0}.release .stat{padding:22px;background:#0a1710}.release .stat strong{display:block;font-size:1.5rem;color:#dcf8d9}.release .stat span{font-size:.78rem;color:#9db59e}.release section{margin:52px 0}.release table{width:100%;border-collapse:collapse}.release th,.release td{padding:12px 8px;border-bottom:1px solid #334b39;text-align:left;vertical-align:top}.release th{color:#cde6cc;font-weight:600}.release td{color:#b8cdbb}.release .actions{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0}.release .linkbtn{display:inline-block;border:1px solid #87b895;padding:11px 17px;text-decoration:none;color:#def6dc;background:#14291b}.release .linkbtn:hover{background:#1b3a25}.release .note{border-left:2px solid #77ae7f;padding:12px 18px;background:#112218;color:#b8d1b8;font-size:.92rem}.release .small{font-size:.85rem;color:#a4b8a7}.release .line{border-top:1px solid #344a39;padding-top:20px}.release a{color:#b4e8b6}@media(max-width:750px){.release{padding:36px 18px 70px}.release .columns{grid-template-columns:1fr}.release .stats{grid-template-columns:repeat(2,minmax(0,1fr))}.release .panel{padding:18px}.release table{font-size:.87rem}}</style></head><body class="terminal-home"><a href="#main" class="skip">Skip to content</a><header class="top"><nav class="nav wrap" aria-label="Main navigation"><a href="index.html" class="brand">BRICK<strong>ECU</strong></a><button type="button" class="menu-toggle" aria-controls="main-links" aria-expanded="false">Menu</button><div class="navlinks" id="main-links"><a href="/index.html">Home</a><a href="/products/big-brick.html">Big Brick</a><a href="/docs/engine-setup.html">Setup guide</a><a href="/docs/big-brick-pinout.html">Pinout</a><a href="/docs/downloads.html">Downloads</a></div></nav></header><main id="main" class="release"><span class="eyebrow">Brick ECU / 121-pin platform</span><h1>Big Brick.<br>All your I/O.<br>No compromises.</h1><p class="lede">A build-to-order standalone engine controller with dedicated inputs and outputs, two CAN buses, dual onboard wideband controllers, and Wi-Fi tuning.</p><div class="price">$699 <small>CAD · starting price</small></div><div class="actions"><a class="linkbtn" href="products/big-brick.html">Configure Big Brick</a><a class="linkbtn" href="docs/big-brick.html">Explore hardware</a></div><div class="stats"><div class="stat"><strong>121</strong><span>Connector positions</span></div><div class="stat"><strong>16</strong><span>Dedicated low-sides</span></div><div class="stat"><strong>12</strong><span>5 V ignition outputs</span></div><div class="stat"><strong>2 + 2</strong><span>CAN buses / widebands</span></div></div><section><span class="eyebrow">No shared-purpose I/O</span><h2>Every dedicated output can work at once.</h2><p>Our I/O is allocated to dedicated functions rather than requiring users to sacrifice one output to activate another. The sole intentional signal sharing is ignition: eight of the twelve 5 V ignition signals also drive optional onboard IGBTs, simultaneously. Installing the igniters does not consume or reassign the twelve smart ignition outputs.</p><p class="note">Explore the <a href="docs/big-brick-pinout.html">interactive 121-pin connector pinout</a>, including dual LSU 4.9 wiring and power/sensor grounding.</p></section><section><span class="eyebrow">Hardware</span><h2>One platform. Full control.</h2><div class="columns">
-<div class="panel"><h3>Dedicated outputs</h3><table><tr><td>Low-side outputs</td><td>16 × up to 2 A per channel</td></tr><tr><td>Smart ignition</td><td>12 × 5 V logic</td></tr><tr><td>Optional coil igniters</td><td>8 × IGBT, driven alongside 8 of the 12 smart ignition signals</td></tr><tr><td>High-side outputs</td><td>4 × up to 2 A per channel</td></tr><tr><td>H-bridges</td><td>2</td></tr></table></div>
-<div class="panel"><h3>Dedicated inputs</h3><table><tr><td>Analog voltage</td><td>11</td></tr><tr><td>Analog temperature</td><td>4</td></tr><tr><td>Digital Hall</td><td>6</td></tr><tr><td>Differential Hall</td><td>2</td></tr><tr><td>Knock sensor</td><td>2</td></tr></table></div>
-<div class="panel"><h3>Engine & sensor interfaces</h3><table><tr><td>Wideband controllers</td><td>2 onboard</td></tr><tr><td>CAN buses</td><td>2</td></tr><tr><td>Harness connector</td><td>121 positions</td></tr></table></div>
-<div class="panel"><h3>Network & tuning</h3><p>Onboard ESP32 communicates with the ECU over CAN and USB for network-based communications. Wi-Fi tuning is supported through Brick ECU's existing software.</p></div></div></section><section id="configuration"><span class="eyebrow">Configuration</span><h2>Choose the hardware you need.</h2><table><thead><tr><th>Configuration</th><th>Additional cost (CAD)</th></tr></thead><tbody><tr><td>Base Big Brick ECU</td><td>$699</td></tr><tr><td>8 onboard IGBT ignition drivers</td><td>+$100</td></tr><tr><td>256 MB onboard SD logging</td><td>+$50</td></tr><tr><td><strong>Fully equipped</strong></td><td><strong>$849</strong></td></tr></tbody></table><p class="small">Prices in Canadian dollars. Shipping and any applicable taxes are confirmed at ordering. A configuration checkout is not yet active.</p></section><section id="build"><span class="eyebrow">Built to order</span><h2>Manufactured for your configuration.</h2><p>Allow up to 3 weeks for manufacturing and delivery, subject to component availability and shipping conditions. Progress updates are provided throughout the manufacturing process.</p><p class="small">The timeline is a target rather than a guaranteed delivery date.</p></section></main><footer class="footer"><div class="wrap footer-inner"><div><a class="brand" href="index.html">BRICK<strong>ECU</strong></a><p class="small">121-pin Big Brick ECU · Built to order</p></div><div><a href="docs/index.html">Documentation</a> · <a href="docs/big-brick-pinout.html">Pinout</a> · <a href="terms.html">Terms</a></div></div></footer><script src="site.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#100d12">
+<meta name="description" content="Big Brick. A 121-pin standalone ECU, built to order in Canada. rusEFI, configurable I/O, two onboard wideband controllers and Wi-Fi tuning. From C$699.">
+<title>Big Brick ECU — Brick ECU</title>
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="field-console.css">
+<style>
+/* Home only. Grimy, restrained, old-school editorial; all other site pages keep their styles. */
+body.home-tape {
+  --ink:#100d12;--paper:#eee8dd;--muted:#9f999f;--line:#4c434a;--red:#c65e59;--purple:#8c708e;
+  background:radial-gradient(ellipse 900px 700px at 91% 3%,#392333 0%,transparent 68%),
+  radial-gradient(ellipse 750px 650px at 8% 92%,#24202a 0%,transparent 66%),#100d12;
+  color:var(--paper);font-family:Arial,Helvetica,sans-serif;
+}
+.home-tape:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.13;
+  background-image:repeating-linear-gradient(0deg,transparent 0 3px,#a39a910d 3px 4px),
+  repeating-linear-gradient(90deg,transparent 0 91px,#a39a910b 91px 92px)}
+.home-tape .top{background:#100d12f5;border-bottom:1px solid #605057;box-shadow:none}
+.home-tape .nav{min-height:66px}
+.home-tape .brand{font:900 1.12rem/1 Arial,Helvetica,sans-serif;letter-spacing:.015em;color:var(--paper);text-shadow:none}
+.home-tape .brand strong{color:var(--red)}
+.home-tape .brand:before{display:none}
+.home-tape .navlinks{gap:2px}
+.home-tape .navlinks a{border:0;border-radius:0;box-shadow:none;background:transparent;color:#c5bdc0;font:700 12px/1.2 Arial,Helvetica,sans-serif;letter-spacing:.025em;padding:12px 13px}
+.home-tape .navlinks a:hover,.home-tape .navlinks a:focus-visible,.home-tape .navlinks a[aria-current=page]{border:0;background:#30232d;color:#fff}
+.home-tape .menu-toggle{border:1px solid #76646e;border-radius:0;background:#201920;color:#e9ddd7}
+.home-tape main,.home-tape footer{position:relative;z-index:1}
+.home-tape .wrap{max-width:1230px}
+.home-tape a{color:inherit}
+.home-tape a:focus-visible{outline:2px solid #e19b88;outline-offset:4px}
+.home-tape .mono{font:700 11px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.115em;text-transform:uppercase}
+.home-tape .home-main{width:min(1230px,calc(100% - 52px));margin:auto}
+.home-tape .home-hero{position:relative;padding:68px 0 25px;border-bottom:1px solid #6a5661}
+.home-tape .hero-strip{display:flex;gap:10px;justify-content:space-between;color:#a89a9c;margin:0 0 15px;flex-wrap:wrap}
+.home-tape .hero-strip span:first-child{color:#cb8b8a}
+.home-tape .hero-title{font-family:Impact,"Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:900;letter-spacing:-.046em;line-height:.78;font-size:clamp(6rem,17vw,16rem);margin:10px 0 22px;text-shadow:none;white-space:nowrap;color:var(--paper)}
+.home-tape .hero-title em{font-style:normal;color:var(--red)}
+.home-tape .home-hero-bottom{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,.85fr);align-items:end;gap:44px}
+.home-tape .hero-copy{padding-bottom:34px}
+.home-tape .hero-copy h2{max-width:570px;font:800 clamp(1.8rem,4.2vw,3.1rem)/1.06 Arial,Helvetica,sans-serif;letter-spacing:-.06em;margin:0 0 16px;color:#ece5df}
+.home-tape .hero-copy p{font-size:16px;line-height:1.67;color:#bbb0b3;max-width:470px;margin:0}
+.home-tape .hero-actions{display:flex;gap:24px;flex-wrap:wrap;align-items:center;margin:27px 0 0}
+.home-tape .primary-link{display:inline-block;padding:12px 15px;background:var(--red);color:#100d12;font-size:13px;font-weight:900;letter-spacing:.012em;text-decoration:none;text-transform:uppercase;border:1px solid var(--red)}
+.home-tape .primary-link:hover{background:#ec8a80;border-color:#ec8a80}
+.home-tape .plain-link{display:inline-block;color:#e9e0df;text-decoration:none;border-bottom:1px solid #8e7380;padding:8px 0;font-size:13px;font-weight:800}
+.home-tape .plain-link:hover{color:#ffb0a4;border-color:#ffb0a4}
+.home-tape .hero-art{position:relative;min-height:290px;border-top:1px solid #574654;border-left:1px solid #574654;background:
+  linear-gradient(145deg,#281d28 0%,#161118 42%,#100d12 100%);overflow:hidden}
+.home-tape .hero-art:before{content:"";position:absolute;inset:12px;border:1px solid #483942;pointer-events:none}
+.home-tape .hero-art img{display:block;width:100%;height:100%;min-height:290px;object-fit:contain;object-position:center;padding:45px 24px 40px;filter:contrast(1.12) drop-shadow(0 20px 17px #0009)}
+.home-tape .art-label{position:absolute;left:20px;top:16px;color:#a89fa1;z-index:1}
+.home-tape .art-bottom{position:absolute;bottom:15px;left:20px;right:20px;display:flex;justify-content:space-between;color:#a89fa1}
+.home-tape .stripe{margin:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-bottom:1px solid #60515d}
+.home-tape .stripe>div{min-width:0;padding:18px 14px 19px 0;border-right:1px solid #473b43;margin-right:17px}
+.home-tape .stripe>div:last-child{border:0;margin-right:0}
+.home-tape .stripe b{font:900 clamp(1.6rem,3vw,2.6rem)/1 Impact,"Arial Narrow",Arial,sans-serif;color:#f1e9e3}
+.home-tape .stripe span{display:block;color:#978b94;font:700 10px/1.4 ui-monospace,Consolas,monospace;text-transform:uppercase;letter-spacing:.05em;margin-top:6px}
+.home-tape .home-story{display:grid;grid-template-columns:1fr 1.15fr;gap:70px;padding:77px 0 78px;border-bottom:1px solid #56434f}
+.home-tape .section-mark{color:#bb756e;display:block;margin-bottom:16px}
+.home-tape .home-story h2{font:900 clamp(2.45rem,5vw,4.6rem)/.96 Impact,"Arial Narrow",Arial,sans-serif;letter-spacing:-.013em;margin:0;color:#eee8e2;max-width:470px}
+.home-tape .home-story h2 span{color:#9d8b99}
+.home-tape .home-story .story-right{align-self:end;max-width:590px}
+.home-tape .home-story p{color:#c4b8bc;font-size:17px;line-height:1.67;margin:0 0 19px}
+.home-tape .home-story .story-quiet{font-size:14px;color:#8c858d}
+.home-tape .home-story .story-right a{color:#efc5b8;text-decoration:none;border-bottom:1px solid #ac6f70;font-weight:800;font-size:13px;padding-bottom:5px}
+.home-tape .home-details{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid #574650}
+.home-tape .detail{padding:40px 38px 40px 0;border-right:1px solid #574650}
+.home-tape .detail:last-child{padding-left:38px;border-right:0}
+.home-tape .detail h2{font:900 clamp(2.4rem,4.5vw,4rem)/1 Impact,"Arial Narrow",Arial,sans-serif;color:#eee7e0;margin:10px 0 19px;letter-spacing:0}
+.home-tape .detail p{color:#b7afb1;font-size:14.5px;line-height:1.65;max-width:450px}
+.home-tape .detail dl{display:grid;grid-template-columns:1fr auto;gap:0;margin:25px 0 0;max-width:470px}
+.home-tape .detail dl dt,.home-tape .detail dl dd{border-top:1px solid #453a43;padding:10px 0;margin:0;font-size:13px}
+.home-tape .detail dl dt{color:#a59aa0}
+.home-tape .detail dl dd{color:#e5dad8;font-weight:800;text-align:right}
+.home-tape .build-band{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;margin:48px 0 65px;padding:27px 32px;background:#251b24;border-left:3px solid var(--red)}
+.home-tape .build-band h2{font:900 clamp(2.4rem,4.5vw,4rem)/1 Impact,"Arial Narrow",Arial,sans-serif;margin:8px 0;color:#efe6e1}
+.home-tape .build-band p{margin:8px 0;color:#bfb3b8;line-height:1.55;font-size:14px}
+.home-tape .band-price{font:900 clamp(3rem,6vw,5rem)/1 Impact,"Arial Narrow",Arial,sans-serif;letter-spacing:-.03em;color:#f1e8e1}
+.home-tape .band-price small{display:block;font:700 11px/1.5 ui-monospace,monospace;color:#cba1a2;letter-spacing:.07em;margin:6px 0 18px}
+.home-tape .band-actions{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+.home-tape .fineprint{color:#827b82;font-size:12px;line-height:1.5;margin-top:10px}
+.home-tape .footer{background:#100d12;border-top:1px solid #53444e;box-shadow:none}
+.home-tape .footer .small{color:#8c8189}
+.home-tape .footer-inner a{color:#bbadb2;font-size:12px;text-decoration:none}
+.home-tape .footer-inner a:hover{color:#f0c5b6}
+@media(max-width:920px){
+  .home-tape .home-hero-bottom{grid-template-columns:1fr 1fr;gap:20px}
+  .home-tape .hero-title{font-size:clamp(5.5rem,16.7vw,11rem)}
+  .home-tape .home-story{gap:36px}
+  .home-tape .stripe>div{margin-right:9px}
+}
+@media(max-width:700px){
+  .home-tape .home-main{width:calc(100% - 32px)}
+  .home-tape .home-hero{padding:42px 0 23px}
+  .home-tape .hero-title{font-size:clamp(4.5rem,17vw,8rem);margin:16px 0 28px}
+  .home-tape .home-hero-bottom{grid-template-columns:1fr;gap:22px}
+  .home-tape .hero-copy{padding-bottom:0}
+  .home-tape .hero-copy h2{font-size:clamp(1.65rem,7vw,2.55rem)}
+  .home-tape .hero-copy p{font-size:15px}
+  .home-tape .hero-art{min-height:235px}
+  .home-tape .hero-art img{min-height:235px;padding:42px 12px 32px}
+  .home-tape .stripe{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .home-tape .stripe>div{padding:13px 6px 13px 0;margin-right:8px}
+  .home-tape .stripe>div:nth-child(3){border:0}
+  .home-tape .stripe>div:nth-child(n+4){border-top:1px solid #453942}
+  .home-tape .stripe b{font-size:1.8rem}
+  .home-tape .home-story{grid-template-columns:1fr;gap:18px;padding:48px 0}
+  .home-tape .home-story h2{font-size:3.25rem}
+  .home-tape .home-details{grid-template-columns:1fr}
+  .home-tape .detail{padding:35px 0;border-right:0;border-bottom:1px solid #574650}
+  .home-tape .detail:last-child{padding:35px 0;border:0}
+  .home-tape .build-band{grid-template-columns:1fr;gap:18px;margin:33px 0 46px;padding:22px 20px}
+  .home-tape .band-price{font-size:4.3rem}
+}
+@media(max-width:400px){
+ .home-tape .hero-title{font-size:16vw}
+ .home-tape .hero-actions{gap:12px}
+ .home-tape .stripe{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .home-tape .stripe>div:nth-child(3){border-right:1px solid #473b43}
+ .home-tape .stripe>div:nth-child(2n){border:0}
+ .home-tape .stripe>div:nth-child(n+3){border-top:1px solid #453942}
+}
+@media(prefers-reduced-motion:reduce){.home-tape *, .home-tape *:before,.home-tape *:after{scroll-behavior:auto!important;animation:none!important}}
+</style>
+</head>
+<body class="terminal-home home-tape">
+<a href="#main" class="skip">Skip to content</a>
+<header class="top">
+ <nav class="nav wrap" aria-label="Main navigation">
+  <a href="index.html" class="brand">BRICK<strong>ECU</strong></a>
+  <button type="button" class="menu-toggle" aria-controls="main-links" aria-expanded="false">Menu</button>
+  <div class="navlinks" id="main-links">
+   <a href="/index.html" aria-current="page">Home</a>
+   <a href="/products/big-brick.html">Big Brick</a>
+   <a href="/docs/engine-setup.html">Install guide</a>
+   <a href="/docs/big-brick-pinout.html">Pinout</a>
+   <a href="/docs/downloads.html">Downloads</a>
+  </div>
+ </nav>
+</header>
+<main class="home-main" id="main">
+ <section class="home-hero" aria-labelledby="hero-title">
+  <div class="hero-strip mono"><span>BRICK ECU / 001</span><span>ENGINE MANAGEMENT / BUILT TO ORDER</span></div>
+  <h1 id="hero-title" class="hero-title">BIG BRICK<em>.</em></h1>
+  <div class="home-hero-bottom">
+   <div class="hero-copy">
+    <h2>For the builds that never stay finished.</h2>
+    <p>A 121-pin standalone ECU running rusEFI. Wire up what you need, assign the channels, and leave room for whatever you decide to add next.</p>
+    <div class="hero-actions">
+     <a class="primary-link" href="products/big-brick.html">See Big Brick</a>
+     <a class="plain-link" href="docs/engine-setup.html">Read the install manual</a>
+    </div>
+   </div>
+   <div class="hero-art">
+    <span class="art-label mono">121-PIN / HARNESS CONNECTOR</span>
+    <img src="assets/big-brick-121-connector.webp" alt="Actual Big Brick 121-pin ECU harness connector, shown from its connector face" width="800" height="187" fetchpriority="high">
+    <div class="art-bottom mono"><span>REAL CONNECTOR PHOTO</span><span>REV / BIG BRICK</span></div>
+   </div>
+  </div>
+ </section>
+ <div class="stripe" aria-label="Big Brick quick specifications">
+  <div><b>121</b><span>Connector pins</span></div>
+  <div><b>16</b><span>2 A low-sides</span></div>
+  <div><b>12</b><span>Ignition signals</span></div>
+  <div><b>2</b><span>CAN buses</span></div>
+  <div><b>2</b><span>Wideband controllers</span></div>
+ </div>
+ <section class="home-story" aria-labelledby="story-title">
+  <div>
+   <span class="section-mark mono">01 / THE POINT</span>
+   <h2 id="story-title">WIRE IT.<br><span>MAKE IT YOURS.</span></h2>
+  </div>
+  <div class="story-right">
+   <p>There's no special MAP pin. Injector 1 doesn't have to be on low-side 1. You've got 11 analog-voltage inputs and 16 general-purpose low-sides. Pick suitable free channels and tell rusEFI what's connected.</p>
+   <p>Some interfaces are dedicated—wideband, knock, CAN and the motor drivers. That's how it should be.</p>
+   <p class="story-quiet">You don't need to build every future idea into the car on day one. Just leave space in the harness.</p>
+   <a href="docs/big-brick-pinout.html">Look at the actual pinout</a>
+  </div>
+ </section>
+ <section class="home-details" aria-label="Big Brick hardware and documentation">
+  <div class="detail">
+   <span class="section-mark mono">02 / UNDER THE HOOD</span>
+   <h2>THE HARDWARE.</h2>
+   <p>Two onboard LSU 4.9 controllers. Two H-bridges. Four high-side outputs. An ESP32 for Wi-Fi tuning. The connectors and pins are there—use the ones you need.</p>
+   <dl>
+    <dt>Analog voltage</dt><dd>11 inputs</dd>
+    <dt>Analog temperature</dt><dd>4 inputs</dd>
+    <dt>Digital Hall / differential</dt><dd>6 / 2</dd>
+    <dt>Optional coil igniters</dt><dd>8 IGBTs</dd>
+    <dt>Onboard SD logging option</dt><dd>256 MB</dd>
+   </dl>
+  </div>
+  <div class="detail">
+   <span class="section-mark mono">03 / IN THE GARAGE</span>
+   <h2>START WITH<br>THE MANUAL.</h2>
+   <p>The guide follows the way an install actually happens. Plan the harness, get the ECU powered, look at live sensor readings, sort out the trigger, and work through commissioning.</p>
+   <p>Real Big Brick pin locations are shown. The external sensor or actuator pinout is something you match to the actual part in your hand.</p>
+   <div class="hero-actions">
+    <a class="plain-link" href="docs/engine-setup.html">Installation manual</a>
+    <a class="plain-link" href="docs/compatibility.html">Engine finder</a>
+   </div>
+  </div>
+ </section>
+ <section class="build-band" aria-labelledby="price-title">
+  <div>
+   <span class="mono" style="color:#d5aba9">04 / BIG BRICK / BUILT TO ORDER</span>
+   <h2 id="price-title">ONE ECU.<br>YOUR BUILD.</h2>
+   <p>Base model C$699. Optional onboard igniters +C$100. Optional SD logging +C$50.</p>
+   <p class="fineprint">Target fulfillment within three weeks, subject to manufacturing and shipping. Checkout isn't active yet.</p>
+  </div>
+  <div>
+   <div class="band-price">C$699 <small>STARTING PRICE · CAD</small></div>
+   <div class="band-actions"><a class="primary-link" href="products/big-brick.html">Hardware &amp; pricing</a><a class="plain-link" href="docs/downloads.html">Software</a></div>
+  </div>
+ </section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><div><a class="brand" href="index.html">BRICK<strong>ECU</strong></a><p class="small">Big Brick · 121 pins · Built to order</p></div><div><a href="docs/index.html">Documentation</a> · <a href="docs/big-brick-pinout.html">Pinout</a> · <a href="terms.html">Terms</a></div></div></footer>
+<script src="site.js"></script>
+</body>
+</html>
