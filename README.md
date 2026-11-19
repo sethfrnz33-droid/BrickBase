@@ -205,7 +205,7 @@ The model distinguishes factory manifold MAP from MAF and from boost-only sensor
 
 ## Website integrity
 
-`.github/workflows/site-integrity.yml` checks all 15 HTML pages for broken local resources, anchors, mobile viewport declarations and Mini Brick checkout links. It also checks JavaScript syntax and verifies that all 237 engine records retain the seven-field research audit. These automated source checks do **not** replace live Cloudflare deployment checks, iPhone browser testing, account-side Payhip listing controls or Cloudflare Workers AI activation.
+`.github/workflows/site-integrity.yml` checks all public HTML pages for broken local resources, anchors, mobile viewport declarations and Mini Brick checkout links. It also checks JavaScript syntax and verifies that all 237 engine records retain the seven-field research audit. These automated source checks do **not** replace live Cloudflare deployment checks, iPhone browser testing, account-side Payhip listing controls or Cloudflare deployment status.
 
 ## Real-world engine evidence
 
@@ -213,8 +213,6 @@ The model distinguishes factory manifold MAP from MAF and from boost-only sensor
 
 The site also links documented [rusEFI community running projects](docs/RUSEFI_RUNNING_EXAMPLES.md) and the [official community running-engine archive](https://wiki.rusefi.com/List-of-Engines-Running-rusEFI/). Community success is evidence of rusEFI firmware operation on the **reported hardware**, not proof that the identical engine-year setup was tested on Brick. **High-impedance (>8 Ω) port injectors work natively with saturated rusEFI injector drivers**, without an external peak-and-hold controller; only original low-impedance injectors require an appropriate current-limiting arrangement. [rusEFI injector reference](https://wiki.rusefi.com/Injectors/).
 
-## Optional website assistant — Ask Brick
+## Website help
 
-The site now includes a lightweight, source-linked AI help widget for **general Brick ECU hardware, documentation navigation, wiring-reference locations, TunerStudio concepts, warranty and ordering**. It does **not** control an ECU, create safe-to-run fuel/ignition calibrations, or invent pinouts. Answers display curated links to Brick documentation. The UI loads from `site.js` and **always shows an Ask Brick button**: when the Cloudflare AI service is connected, it answers using Workers AI; otherwise it transparently provides built-in documentation answers with no inference calls.
-
-The backend uses a Cloudflare Workers AI `AI` binding, rather than a browser-exposed API key. It is **not automatically activated by the existing static GitHub-to-Cloudflare deployment**: first deploy/connect the separate Worker (or use Pages Functions), configure the allowed store origin and endpoint, and apply WAF/rate limits and usage controls. Full steps: **[ai/README.md](ai/README.md)**; code: `ai/worker.js`, `ai/knowledge.js`, `ai/widget.js`. The default model is the **active** `@cf/meta/llama-3.1-8b-instruct-fast`; its predecessor without `-fast` was retired in May 2026.
+Brick ECU now uses direct navigation to its installation guide, 121-pin pinout, technical specifications and software documentation. The experimental Ask Brick AI widget and searchable auto-answer page have been removed from the public website. The optional backend was retired in source and returns HTTP 410 after redeployment; any independently deployed Cloudflare Worker must also be disabled in the Cloudflare dashboard to guarantee shutdown.
