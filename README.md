@@ -1,6 +1,6 @@
 # Brick ECU — Website and technical documentation
 
-Public website for the 121-pin Big Brick ECU only. Base C$699; IGBT option +C$100; onboard SD option +C$50. Previous 94-pin wiring references are retired.
+Public website for the 121-pin Big Brick ECU only. C$799 fully equipped, with eight onboard IGBT ignition drivers and 256 MB SD logging included; no optional hardware configurations. Previous 94-pin wiring references are retired.
 
 ## Site structure
 
@@ -29,7 +29,8 @@ The `/docs/index.html` landing page is organized by user task (engine lookup, 94
 ### Shared files
 
 - `site.css` — base responsive site layout and legacy retro-blue styles.
-- `field-console.css` — quieter blue-green, botanical-scanner interface inspired by the exploration and encyclopedia menus of Pikmin 2, using original CSS only. This stylesheet loads last on every HTML page.
+- `field-console.css` — legacy interface and responsive component styles.
+- `guide-theme.css` — final site-wide charcoal and blue-gray visual theme derived from the installation guide; loaded after legacy styles and embedded page styles.
 - `site.js` — navigation and reveal animations.
 - `pinout.js` — developer-provided Big Brick pin data; filters and copy function.
 - `docs/assets/full-pinout-connector-{a,b,c}.svg` — illustrated full-page connector/pin tables sourced from `pinout.js`.
@@ -42,14 +43,13 @@ The `/docs/index.html` landing page is organized by user task (engine lookup, 94
 
 ### Purchasing
 
-- **Mini Brick**: in development, **not available for sale**; CAD $600 shipped is the proposed price if/when launched.
-- **Big Brick**: CAD $1,200 shipped — https://payhip.com/b/6OIjf
+- **Big Brick**: C$799 CAD, one fully equipped build-to-order configuration with all eight onboard IGBTs and 256 MB SD logging included.
 
-Big Brick at CAD $1,200 includes the mating connector kit. The same kit is proposed for Mini Brick at launch. Only Big Brick is currently available to order through Payhip; checkout is not hosted on this website.
+Big Brick ships with mating harness connectors and terminal pins, not a preassembled engine harness. Shipping and any applicable taxes are confirmed at ordering. Online checkout on the website is not currently active; confirm ordering availability directly.
 
 ### Accuracy rules
 
-- Big Brick has **exactly 16** low-side outputs; six of those same channels also include IGBT dumb-coil drivers.
+- Big Brick has **16 dedicated low-side outputs** and **eight onboard IGBT dumb-coil drivers** that operate in parallel with eight of the 12 smart-ignition signals without repurposing low-side outputs.
 - All **12 Big Brick smart ignition outputs are 5 V logic**, separate from **four switched VBAT high-side outputs**.
 - Big Brick has the integrated LSU 4.9 controller, knock sensing and non-removable 256 MB logging card.
 - Big Brick potential external GDI hardware integration is **not tested or validated**.

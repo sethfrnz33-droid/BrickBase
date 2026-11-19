@@ -41,11 +41,11 @@ function localAnswer(question){
    return {answer:"Big Brick provides Wi-Fi tuning via an onboard ESP32 connected by CAN and USB, and includes two onboard wideband controllers. For safe calibration, use the relevant manuals and qualified tuning help rather than guessed fuel or ignition values.",sources:[{title:"Tuning and Wi-Fi",url:"/docs/software.html"},{title:"Downloads",url:"/docs/downloads.html"}]};
  }
  if(/warranty|return|refund|shipping|ship|purchase|buy|cost|price|delivery|order|contact|support/.test(q)){
-   return {answer:"Big Brick starts at CAD $699, with optional eight IGBT coil drivers (+$100) and onboard 256 MB logging (+$50). Build to order with an up-to-three-week target, subject to availability and transit. Checkout is not yet active.",sources:[{title:"Ordering, warranty and safety",url:"/terms.html"}]};
+   return {answer:"Big Brick is CAD $799 fully equipped, including eight IGBT coil drivers and onboard 256 MB SD logging. There are no optional configurations. Build to order with an up-to-three-week target, subject to availability and transit. Checkout is not yet active.",sources:[{title:"Ordering, warranty and safety",url:"/terms.html"}]};
  }
 
  if(/big|proteus|v8|eight.cylinder|twelve.cylinder/.test(q)){
-   return {answer:"The current 121-pin Big Brick has 16 dedicated 2 A low-side outputs, 12 smart ignition outputs, 4 dedicated 2 A high-sides, 2 H-bridges, 2 CAN buses and 2 wideband controllers. Eight ignition signals simultaneously drive optional IGBTs without repurposing pins.",sources:[{title:"Big Brick hardware",url:"/products/big-brick.html"},{title:"Big Brick pinout",url:"/docs/big-brick-pinout.html"}]};
+   return {answer:"The current 121-pin Big Brick has 16 dedicated 2 A low-side outputs, 12 smart ignition outputs, 4 dedicated 2 A high-sides, 2 H-bridges, 2 CAN buses and 2 wideband controllers. Eight ignition signals simultaneously drive the included IGBTs without repurposing pins.",sources:[{title:"Big Brick hardware",url:"/products/big-brick.html"},{title:"Big Brick pinout",url:"/docs/big-brick-pinout.html"}]};
  }
  if(/vq35|gen.iv|\bls\d|engine|trigger|crank|cam|compatib|supported/.test(q)){
    return {answer:"The developer reports running VQ35DE and a Gen IV LS engine successfully on Big Brick. The exact LS engine code wasn't recorded, and a family-level example isn't proof of every variant. Use the Engine Finder for engine-specific trigger and sensor references.",sources:[{title:"Engine Finder",url:"/docs/compatibility.html"}]};
