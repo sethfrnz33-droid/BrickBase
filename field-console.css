@@ -847,7 +847,7 @@ input::placeholder,textarea::placeholder {color:#8b9e8d;}
 .ef-results-pane,.ef-details-pane,.site-resources-grid,.site-resources-grid > *,
 .docs-hub-group{min-width:0;}
 .docs-page .doc-main a,.docs-page .doc-main .kv td,.ef-detail-note,
-.ef-research-note,.ef-spec dd,.site-resources-grid a,.brick-help-message{overflow-wrap:anywhere;}
+.ef-research-note,.ef-spec dd,.site-resources-grid a{overflow-wrap:anywhere;}
 .docs-page .table-scroll,.docs-page .mini-table-wrap,.docs-page .audit-table-wrap,
 .docs-page .pin-table-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
 .docs-page img,.docs-page svg,.site-resources img{max-width:100%;height:auto;}
