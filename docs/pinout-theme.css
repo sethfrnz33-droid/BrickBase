@@ -1,0 +1,75 @@
+/* Big Brick connector map. Same charcoal / blue-gray palette as the installation manual.
+   Pin function colors remain distinct so the interactive legend is still useful. */
+.pinout{max-width:1320px;margin:auto;padding:34px 20px 80px;color:#e9edf0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+.pinout h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.13;letter-spacing:-.04em;margin:5px 0 10px;color:#f1f4f6}
+.pinout h2{margin:26px 0 12px;font-size:1.2rem;color:#edf4f8}
+.pinout p,.pinout .intro{color:#bbc8d0;line-height:1.65}
+.pinout .intro{max-width:850px}
+.pinout .eyebrow{color:#9fc5da;font:700 .78rem ui-monospace,Consolas,monospace;letter-spacing:.1em}
+.pinout a,.pinout .maptools a{color:#a6cee5;text-underline-offset:4px}
+.pinout a:hover{color:#e4f3fc}
+.pinout .notice{border:1px solid #465967;border-left:3px solid #7bacc6;background:#111c23;padding:13px 16px;margin:18px 0;color:#d0dce4;font-size:.88rem;line-height:1.55;border-radius:4px}
+.pinout .notice strong{color:#ebf2f6}
+.pinout .map-scroll{overflow-x:auto;max-width:100%;border:1px solid #344d5c;background:#070d13;border-radius:4px;margin:12px 0;padding:8px;scrollbar-color:#54768a #0b141b}
+.pinout .connector{display:block;width:100%;min-width:1050px;height:auto;touch-action:pan-x}
+.pinout .connector .shell{fill:#17242e;stroke:#6c8b9c;stroke-width:3}
+.pinout .connector .hole{stroke-width:1.8;fill:rgba(6,13,20,.66);cursor:pointer;outline:none}
+.pinout .connector .hole:focus,.pinout .connector .hole.selected{stroke:#d7eeff;stroke-width:4;fill:#264b64}
+.pinout .connector .hole:hover{fill:#2c4a60}
+.pinout .connector g:focus-visible .hole{stroke:#d7eeff;stroke-width:3.5}
+.pinout .connector g[data-pin="1"] .num,.pinout .connector g[data-pin="2"] .num,.pinout .connector g[data-pin="3"] .num,.pinout .connector g[data-pin="4"] .num,.pinout .connector g[data-pin="5"] .num,.pinout .connector g[data-pin="114"] .num,.pinout .connector g[data-pin="115"] .num,.pinout .connector g[data-pin="116"] .num,.pinout .connector g[data-pin="117"] .num,.pinout .connector g[data-pin="118"] .num,.pinout .connector g[data-pin="119"] .num,.pinout .connector g[data-pin="120"] .num,.pinout .connector g[data-pin="121"] .num{font-size:13px}
+.pinout .connector .num{pointer-events:none;font:800 10.5px ui-monospace,Consolas,monospace;fill:#fff;stroke:#091521;stroke-width:2.8px;paint-order:stroke fill;text-anchor:middle;dominant-baseline:middle}
+.pinout .connector .label{display:none;pointer-events:none;font:8.5px ui-monospace,monospace;fill:#d3e4ef;text-anchor:middle;dominant-baseline:middle}
+.pinout .legend{display:flex;flex-wrap:wrap;gap:7px 15px;margin:14px 0}
+.pinout .legend span{display:flex;align-items:center;gap:7px;color:#b7cbd9;font:12px ui-monospace,Consolas,monospace}
+.pinout .legend i{width:12px;height:12px;border-radius:50%;display:block}
+.pinout .selection{border:1px solid #476579;background:#152735;padding:14px 16px;margin:16px 0 25px;color:#e7f2f8;font:600 15px ui-monospace,Consolas,monospace;border-radius:4px}
+.pinout .filters{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:14px}
+.pinout .filters input,.pinout .filters select{background:#0e202c;color:#e6eff5;border:1px solid #4e6b7d;padding:12px;border-radius:4px;font:400 15px system-ui;min-width:210px}
+.pinout .filters input{flex:1}
+.pinout .filters button{background:#172c3a;border:1px solid #52748a;color:#e0edf5;padding:12px 16px;border-radius:4px;font:600 14px system-ui;cursor:pointer}
+.pinout .filters button:hover{background:#203e51;border-color:#9cc8e0}
+.pinout .filters input:focus,.pinout .filters select:focus,.pinout .filters button:focus{outline:2px solid #a6cee5;outline-offset:2px}
+.pinout .maptools{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin:6px 0}
+.pinout .maptools p{margin:0;font-size:12px}
+.pinout .muted{color:#9eb3c0;font-size:12px}
+.pinout .table-scroll{max-height:560px;overflow:auto;border:1px solid #344d5c;border-radius:4px;scrollbar-color:#54768a #0b141b}
+.pinout table{border-collapse:collapse;width:100%;min-width:550px}
+.pinout th,.pinout td{padding:11px 13px;border-bottom:1px solid #2d424d;text-align:left}
+.pinout th{position:sticky;top:0;z-index:1;background:#142635;font:700 12px ui-monospace,Consolas,monospace;color:#d8eaf2}
+.pinout td{font:14px system-ui;color:#cfdae2}
+.pinout tr[data-pin]{cursor:pointer}
+.pinout tr[data-pin]:hover,.pinout tr.active{background:#223c4d}
+.pin-tooltip{position:fixed;z-index:10000;pointer-events:none;display:none;max-width:min(260px,85vw);padding:10px 13px;border:1px solid #7397ad;border-radius:4px;background:#101f2b;color:#eef5f9;box-shadow:0 10px 32px #000b;font:13px/1.45 system-ui,-apple-system,sans-serif}
+.pin-tooltip.visible{display:block}
+.pin-tooltip strong{display:block;font:700 15px ui-monospace,Consolas,monospace;color:#fff}
+.pin-tooltip span{display:block;color:#b5cbd8;margin-top:3px}
+.pin-tooltip em{font-style:normal;color:#e4c9a0}
+.pinout .wire-guide{margin:34px 0 20px;border-top:1px solid #344d5c;padding-top:19px}
+.pinout .wire-guide h2{font-size:1.35rem;margin:8px 0}
+.pinout .wire-guide h3{font-size:1rem;margin:18px 0 8px;color:#e0eef6}
+.pinout .wire-guide p{max-width:1000px}
+.pinout .guide-layout{display:block;margin:18px 0}
+.pinout .lsu-diagram{margin:16px 0 25px;max-width:100%}
+.pinout .lsu-diagram img{display:block;width:100%;height:auto;border:1px solid #344d5c;border-radius:4px;background:#070d13}
+.pinout .lsu-diagram object{display:block;width:100%;aspect-ratio:1500/790;border:1px solid #344d5c;border-radius:4px;background:#070d13}
+.pinout .lsu-diagram figcaption{font-size:12px;line-height:1.65;color:#b8cad7;margin-top:10px}
+.pinout .guide-photo{border:1px solid #344d5c;border-radius:4px;background:#0b141b;padding:12px}
+.pinout .guide-photo img{display:block;width:100%;height:auto;max-width:400px;margin:auto;border-radius:3px}
+.pinout .guide-photo figcaption{font-size:12px;color:#b8cad7;line-height:1.6;margin:10px 0 0}
+.pinout .guide-data{min-width:0}
+.pinout .guide-table{width:100%;border-collapse:collapse;min-width:530px}
+.pinout .guide-table th,.pinout .guide-table td{text-align:left;border-bottom:1px solid #314b5a;padding:10px 12px;white-space:normal}
+.pinout .guide-table th{background:#142635;color:#dcebf4;font:700 11px ui-monospace,Consolas,monospace}
+.pinout .guide-table td{color:#d0dfe8;font-size:13px}
+.pinout .guide-table td:first-child{font-weight:700}
+.pinout .guide-notes{margin:16px 0;padding:13px 15px;border:1px solid #344d5c;background:#0d1d29;font-size:13px;color:#c5d5df}
+.pinout .guide-notes strong{color:#eef5fa}
+@media(max-width:600px){
+ .pinout{padding:24px 12px 55px}
+ .pinout .map-scroll{padding:5px;margin-inline:-5px}
+ .pinout .filters input{width:100%;min-width:100%}
+ .pinout .filters select{min-width:0;flex:1}
+ .pinout h1{margin-bottom:8px}
+ .pinout .notice{margin:14px 0}
+}
