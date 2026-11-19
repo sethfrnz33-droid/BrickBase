@@ -27,7 +27,7 @@ rules.push(
 const weights={trigger:25,injectors:15,ignitionIO:14,coilDriver:14,camVvt:14,airLoad:8,fueling:10};
 const names={trigger:"Crank trigger + decoder",injectors:"Injector channels vs outputs",ignitionIO:"Coil count vs ignition I/O",coilDriver:"Coil type + power stage",camVvt:"Cam sync + VVT wheel",airLoad:"Stock MAP / MAF + load",fueling:"Port injection vs GDI"};
 const note={
- big:"Big Brick (user-stated): up to 8-cylinder sequential fuel/spark; up to 12-cylinder batch fuel and sequential spark; 12 5 V smart ignition signals, and six IGBT dumb-coil channels SHARED with its 16 low-side outputs (not 16+6).",
+ big:"Big Brick (user-stated): 12 dedicated 5 V smart ignition signals, eight included IGBT stages driven alongside eight of those signals, and 16 independent dedicated low-side outputs. Injector scheduling and cylinder-specific configuration still require firmware verification.",
  mini:"Mini Brick (user-stated): 4 ignition signals, 4 dedicated injector channels plus 3 high-current low sides that can serve injectors subject to firmware/output allocation; 6 cylinders planned for wasted spark, not six independent coil channels. Native high-current ignition drive is NOT confirmed."
 };
 function ruleMatches(r,e){return r[0]===e.family&&r[1]===e.make&&(!r[2]||r[2]===e.model);}
@@ -90,7 +90,7 @@ function calc(e,m,ecu){
  else if(n>12){log("injectors",0,"Insufficient modeled capacity",n+" cylinders exceed catalog's maximum supported engine scope.","External system or redesign required.",[]);}
  else if(big){
    const sequential=n<=8&&ports<=8,required=sequential?"Sequential candidate":"Batch-only candidate";
-   log("injectors",sequential?80:49,"Count-based, unverified",ports+" physical port injectors "+(m.injectorCount===null?"modeled (ONE per cylinder, NOT OEM count verified)":"from a source-referenced engine configuration")+"; 16 total low-side outputs with ignition/VVT/auxiliary uses competing. "+required+".", "Confirm real injector count, impedance/current, drivers, battery offset and shared low-side budget.",[m.refs.injectorCount].filter(Boolean));
+   log("injectors",sequential?80:49,"Count-based, unverified",ports+" physical port injectors "+(m.injectorCount===null?"modeled (ONE per cylinder, NOT OEM count verified)":"from a source-referenced engine configuration")+"; 16 dedicated low-side outputs separate from the included ignition IGBTs; compatible auxiliary and VVT functions still need free channels. "+required+".", "Confirm real injector count, impedance/current, drivers, battery offset and available low-side allocation.",[m.refs.injectorCount].filter(Boolean));
  }else if(ports<=4&&n<=4){
    log("injectors",m.injectorCount===null?82:87,"Dedicated channels, "+(m.injectorCount===null?"modeled count":"sourced count"),ports+" port injectors "+(m.injectorCount===null?"modeled":"documented")+"; Mini has four dedicated injector outputs (plus three separately allocated high-current low-side channels).","Verify installed injector impedance and setup; reserve outputs for VVT and auxiliaries.",[m.refs.injectorCount].filter(Boolean));
  }else if(ports<=7&&n<=6){
@@ -146,10 +146,10 @@ function calc(e,m,ecu){
  }
  if(m.rotary){log("coilDriver",0,"Rotary timing not validated","Leading/trailing rotor ignition and coil drive unvalidated.","Do not use ordinary 4-stroke dwell assumptions.",[]);}
  else{
-  const type=m.coil,desc=coilDescription[type],base=type==="smart"?95:type==="external-multi"?83:type==="external-single"?76:type==="dumb"?(big?(n<=6?83:24):8):type==="varies"?35:32;
+  const type=m.coil,desc=coilDescription[type],base=type==="smart"?95:type==="external-multi"?83:type==="external-single"?76:type==="dumb"?(big?(n<=8?83:24):8):type==="varies"?35:32;
   let extra="";
   if(type==="dumb"){
-    extra=big?"Big has six user-specified IGBT ignition-capable channels, SHARED with its sixteen low-side outputs. "+(n>6?"Factory COP for >6 cylinders exceeds these six IGBT power stages.":"Individual power-stage loading and output sharing still need validation.")
+    extra=big?"Big has eight included IGBT ignition stages, driven alongside eight of the twelve 5 V ignition outputs without consuming the sixteen low-side channels. "+(n>6?"Factory passive-coil COP above eight channels exceeds the eight included IGBT power stages.":"Individual power-stage loading and ignition signal allocation still need validation.")
        :"Mini's four ignition signals have NOT been confirmed as high-current IGBT stages: factory dumb coils need verified external igniters.";
   } else if(type==="external-single"){
     extra="One ECU ignition signal can be enough through the original igniter. Baseline timing may be harder on adjustable-distributor engines: set locked timing with a timing light, check distributor pickup phase and rotor alignment.";
@@ -195,7 +195,7 @@ function calc(e,m,ecu){
  if(big&&n>12)block.push("Big Brick engine cylinder capacity exceeds the documented 12-cylinder batch ceiling.");
  if(!big&&m.coil==="dumb"){score=Math.min(score,14);block.push("Mini Brick does not have a verified native dumb-coil power stage; external igniters required.");}
  if(!big&&n===6&&m.layout==="cop")score=Math.min(score,35);
- if(big&&m.coil==="dumb"&&n>6){score=Math.min(score,34);block.push("More than six dumb COP coils exceed Big Brick's six native IGBT ignition channels.");}
+ if(big&&m.coil==="dumb"&&m.layout==="cop"&&n>8){score=Math.min(score,34);block.push("More than eight passive COP coils exceed Big Brick's eight included IGBT power stages.");}
  if(m.extraVR)score=Math.min(score,60);
  if(m.injectorZ==="low"&&m.factoryResistorPack!==true){score=Math.min(score,53);block.push("Low-impedance injectors require verified current-limited drivers; direct output suitability is unconfirmed.");}
  if(/timing wander/i.test(e.notes||""))score=Math.min(score,63);
