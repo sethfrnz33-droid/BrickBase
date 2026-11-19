@@ -187,3 +187,5 @@ body.home-tape{--ink:#080c10;--paper:#e9edf0;--muted:#aebfcb;--line:#2d424d;--re
  .brick-help-avatar{height:29px;width:29px;flex-basis:29px}
  .brick-help-panel{right:10px;bottom:62px;height:min(565px,calc(100dvh - 80px))}
 }
+
+.brick-help-no-results[hidden]{display:none!important}
