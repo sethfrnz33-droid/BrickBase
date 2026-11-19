@@ -1,4 +1,5 @@
 import {selectTopics} from "./knowledge.js";
+import {selectAnswers,directAnswer} from "./answers.js";
 
 /* Shared Cloudflare Workers/Pages handler for Brick ECU site assistant.
  * Nothing is sent to the ECU, and no visitor inputs are stored in this app.
@@ -44,14 +45,18 @@ export async function handleRequest(request,env){
  const question=typeof body?.question==="string"?body.question.trim():"";
  if(question.length<3||question.length>750)return asJson({error:"Please enter a question of 3–750 characters."},400,common);
  const topics=selectTopics(question,4);
- const sources=topics.map(({title,url})=>({title,url}));
+ const related=selectAnswers(question,5);
+ const direct=directAnswer(question);
+ const sources=[...related.flatMap(item=>item.sources),...topics.map(({title,url})=>({title,url}))].filter((s,i,a)=>a.findIndex(x=>x.url===s.url)===i).slice(0,4);
+ // Ground high-confidence questions in checked source text even when Workers AI is enabled.
+ if(direct&&direct.confidence>=1.35)return asJson({answer:direct.answer,sources:direct.sources,mode:"curated"},200,common);
  if(!env?.AI?.run)return asJson({error:"The AI service is not connected yet. Please use the linked Brick ECU documentation.",sources,unavailable:true},503,common);
- const library=topics.map(topic=>`[Brick ECU document: ${topic.title}; URL: ${topic.url}]\n${topic.facts}`).join("\n\n");
+ const library=[...topics.map(topic=>`[Brick ECU document: ${topic.title}; URL: ${topic.url}]\n${topic.facts}`),...related.map(item=>`[Verified Ask Brick answer: ${item.id}; source: ${item.sources[0]?.url}]\nQuestion terms: ${item.terms.join(", ")}\nAnswer: ${item.answer}`)].join("\n\n");
  const instructions=`You are Ask Brick, the Brick ECU documentation assistant.
 Use a concise, welcoming technical-support voice. Answer questions about Brick ECU hardware,
 what configuration terms mean, manuals, tuning concepts, checkout, and general compatibility.
-The supplied DOCUMENTS are facts from Brick ECU and rusEFI reference sources; prefer these over general assumptions.
-Give a helpful direct answer in 2-5 short sentences. If you lack exact engine-code/year/pinout information,
+The supplied DOCUMENTS and VERIFIED ANSWERS come from Brick ECU documentation. Prefer these over guesses. If they do not support a precise answer, say so and link the relevant reference.
+Give a helpful direct answer in 2-4 short sentences. State whether a feature is experimental, preliminary or not validated when appropriate. The price is CAD $799 with eight included IGBTs and 256 MB SD logging, no hardware options. Nintendo 3DS and DSi apps need modded homebrew-enabled consoles; only 3DS supports stereoscopic 3D maps. Wi-Fi tuning is local to the ECU network, not internet remote. The 100 Hz developer live-data update test does not prove logging or file transfer speed. If you lack exact engine-code/year/pinout information,
 say so briefly and suggest the relevant official document. Never invent pin numbers, electrical ratings,
 trigger decoder settings, fuel/ignition/dwell maps, boost limits or calibration values.
 Standard high-impedance (>8 ohm) port injectors ARE natively supported; never imply they require peak-and-hold drivers.
