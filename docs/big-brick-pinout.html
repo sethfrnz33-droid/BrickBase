@@ -11,9 +11,9 @@
 <div class="map-scroll"><svg id="connector" class="connector" viewBox="0 0 1315 309" role="group" aria-label="Actual Big Brick 121-pin connector face with interactive cavity overlay">
 <image href="../assets/big-brick-121-connector.webp" width="1315" height="309" preserveAspectRatio="none"/>
 <g id="cavities"></g></svg></div><div class="maptools"><p>Tap a numbered cavity · Scroll horizontally on mobile</p><a href="#lookup">Jump to pin lookup</a></div><div class="legend" id="legend"></div><div id="pinTooltip" class="pin-tooltip" role="tooltip" aria-hidden="true"></div>
-<div class="selection" id="selection" aria-live="polite">Select a cavity to view its assignment. A short usage note will appear at the bottom of the screen.</div><h2 id="lookup">Pin lookup</h2>
+<div class="selection" id="selection" aria-live="polite">Choose a pin to see its connection, intended use and limitations in the small note at the bottom.</div><h2 id="lookup">Pin lookup</h2>
 <div class="filters"><input id="search" type="search" placeholder="Pin, signal or alias (e.g. Nernst, IPN, SGND)" aria-label="Search connector pins"><select id="groupFilter" aria-label="Filter by pin function"><option value="">All groups</option></select><button id="clearFilters" type="button">Clear</button><span class="muted" id="visible"></span></div>
-<div class="table-scroll"><table><thead><tr><th>Pin</th><th>Signal</th><th>Function</th></tr></thead><tbody id="pinRows"></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>Pin</th><th>Signal</th><th>Usage / limitation</th></tr></thead><tbody id="pinRows"></tbody></table></div>
 <section class="wire-guide" id="lsu-wiring">
 <h2>Bosch LSU 4.9 · sensor wiring</h2>
 <p><strong>Exact Bosch LSU 4.9 connector wiring reference:</strong> Unlike the generic device wiring examples, the numbered six-terminal Bosch LSU 4.9 sensor connector in this drawing is intended to be wired exactly as shown. Match every sensor terminal number to its designated Big Brick wideband-controller pin in the table below; these are dedicated connections, not interchangeable general-purpose ECU pins. Verify the molded connector terminal numbers and the drawing’s mating-face versus wire-entry orientation before attaching wires.</p>
@@ -42,7 +42,7 @@
 </tbody></table></div>
 <p class="muted">Pin 109 (L5) is the main-relay coil low-side in the guide example, not a dedicated relay-only pin. The relay coil's positive feed comes from IGN/RUN; the key's START position is separate. <a href="engine-setup.html#power">See the main-relay diagram</a>. All assignments are preliminary; verify the production schematic, fuse protection, conductor sizing and the actual key-switch behavior.</p>
 </section>
-<p class="muted">This connector map is preliminary. The earlier AV11 cavity label must be reconciled with the current 10-analog-voltage-input hardware specification; do not treat an eleventh analog input as confirmed. Pins 114–121 (C1–C8) are the eight included IGBT coil-igniter low-side outputs. Their signals are driven simultaneously with eight corresponding 5 V smart-ignition channels; those smart outputs remain available and are not repurposed.</p>
+<p class="muted">AV11 (pin 14) is the eleventh analog-voltage input. Cavities 52, 55, 56, 71, 74 and 75 are intentionally not connected (NC), not spare input/output channels. Pins 114–121 are the eight included IGBT ignition drivers; they share timing with eight of the 12 smart-ignition outputs without using or reassigning those logic outputs. Connector orientation and the final production drawing must still be checked before wiring.</p>
 </main>
 <div class="pin-use-toast" id="pinUseToast" role="status" aria-live="polite" aria-atomic="true" hidden>
  <div class="pin-use-text" id="pinUseText"></div>
@@ -50,48 +50,103 @@
 </div>
 <footer class="footer"><div class="wrap footer-inner"><div><a href="../index.html" class="brand">BRICK<strong>ECU</strong></a><p class="muted">Big Brick ECU · Built to order</p></div><div><a href="index.html">Documentation</a> · <a href="../terms.html">Terms</a></div></div></footer><script src="../site.js?v=20261119-no-assistant"></script>
 <script>
-const data=[{"n":1,"label":"GND (POWER)","type":"ground"},{"n":2,"label":"GND (POWER)","type":"ground"},{"n":3,"label":"GND (POWER)","type":"ground"},{"n":4,"label":"KEY","type":"power"},{"n":5,"label":"VIN","type":"power"},{"n":6,"label":"VR1+","type":"digital"},{"n":7,"label":"VR1−","type":"digital"},{"n":8,"label":"VR2+","type":"digital"},{"n":9,"label":"VR2−","type":"digital"},{"n":10,"label":"IN-AT4","type":"analog"},{"n":11,"label":"IN-AT3","type":"analog"},{"n":12,"label":"IN-AT2","type":"analog"},{"n":13,"label":"IN-AT1","type":"analog"},{"n":14,"label":"IN-AV11","type":"analog"},{"n":15,"label":"IN-AV10","type":"analog"},{"n":16,"label":"IN-AV9","type":"analog"},{"n":17,"label":"IN-AV8","type":"analog"},{"n":18,"label":"IN-AV7","type":"analog"},{"n":19,"label":"IN-AV6","type":"analog"},{"n":20,"label":"IN-AV5","type":"analog"},{"n":21,"label":"IN-AV4","type":"analog"},{"n":22,"label":"IN-AV3","type":"analog"},{"n":23,"label":"IN-AV2","type":"analog"},{"n":24,"label":"IN-AV1","type":"analog"},{"n":25,"label":"IN-D6","type":"digital"},{"n":26,"label":"IN-D5","type":"digital"},{"n":27,"label":"IN-D4","type":"digital"},{"n":28,"label":"IN-D3","type":"digital"},{"n":29,"label":"IN-D2","type":"digital"},{"n":30,"label":"IN-D1","type":"digital"},{"n":31,"label":"SGND","type":"ground"},{"n":32,"label":"SGND","type":"ground"},{"n":33,"label":"SGND","type":"ground"},{"n":34,"label":"SGND","type":"ground"},{"n":35,"label":"SGND","type":"ground"},{"n":36,"label":"SGND","type":"ground"},{"n":37,"label":"SGND","type":"ground"},{"n":38,"label":"SGND","type":"ground"},{"n":39,"label":"SGND","type":"ground"},{"n":40,"label":"SGND","type":"ground"},{"n":41,"label":"SGND","type":"ground"},{"n":42,"label":"KNOCK2","type":"knock"},{"n":43,"label":"KNOCK1","type":"knock"},{"n":44,"label":"DBW2−","type":"bridge"},{"n":45,"label":"DBW2+","type":"bridge"},{"n":46,"label":"5VP2","type":"supply"},{"n":47,"label":"5VP2","type":"supply"},{"n":48,"label":"5VP2","type":"supply"},{"n":49,"label":"5VP1","type":"supply"},{"n":50,"label":"5VP1","type":"supply"},{"n":51,"label":"5VP1","type":"supply"},{"n":52,"label":"UNVERIFIED","type":"other"},{"n":53,"label":"CAN2H","type":"can"},{"n":54,"label":"CAN1H","type":"can"},{"n":55,"label":"UNVERIFIED","type":"other"},{"n":56,"label":"UNVERIFIED","type":"other"},{"n":57,"label":"LSU UN2","type":"wideband"},{"n":58,"label":"HEATER+ 2","type":"wideband"},{"n":59,"label":"LSU VM2","type":"wideband"},{"n":60,"label":"LSU UN1","type":"wideband"},{"n":61,"label":"HEATER+ 1","type":"wideband"},{"n":62,"label":"LSU VM1","type":"wideband"},{"n":63,"label":"DBW1+","type":"bridge"},{"n":64,"label":"DBW1−","type":"bridge"},{"n":65,"label":"5VP2","type":"supply"},{"n":66,"label":"5VP2","type":"supply"},{"n":67,"label":"5VP2","type":"supply"},{"n":68,"label":"5VP1","type":"supply"},{"n":69,"label":"5VP1","type":"supply"},{"n":70,"label":"5VP1","type":"supply"},{"n":71,"label":"UNVERIFIED","type":"other"},{"n":72,"label":"CAN2L","type":"can"},{"n":73,"label":"CAN1L","type":"can"},{"n":74,"label":"UNVERIFIED","type":"other"},{"n":75,"label":"UNVERIFIED","type":"other"},{"n":76,"label":"LSU RTRIM2","type":"wideband"},{"n":77,"label":"HEATER- 2","type":"wideband"},{"n":78,"label":"LSU IP2","type":"wideband"},{"n":79,"label":"LSU RTRIM1","type":"wideband"},{"n":80,"label":"HEATER- 1","type":"wideband"},{"n":81,"label":"LSU IP1","type":"wideband"},{"n":82,"label":"COIL5","type":"ignition"},{"n":83,"label":"COIL6","type":"ignition"},{"n":84,"label":"COIL7","type":"ignition"},{"n":85,"label":"COIL8","type":"ignition"},{"n":86,"label":"COIL9","type":"ignition"},{"n":87,"label":"COIL10","type":"ignition"},{"n":88,"label":"COIL11","type":"ignition"},{"n":89,"label":"COIL12","type":"ignition"},{"n":90,"label":"H1","type":"high"},{"n":91,"label":"H2","type":"high"},{"n":92,"label":"H3","type":"high"},{"n":93,"label":"H4","type":"high"},{"n":94,"label":"COIL1","type":"ignition"},{"n":95,"label":"COIL2","type":"ignition"},{"n":96,"label":"COIL3","type":"ignition"},{"n":97,"label":"COIL4","type":"ignition"},{"n":98,"label":"L16","type":"low"},{"n":99,"label":"L15","type":"low"},{"n":100,"label":"L14","type":"low"},{"n":101,"label":"L13","type":"low"},{"n":102,"label":"L12","type":"low"},{"n":103,"label":"L11","type":"low"},{"n":104,"label":"L10","type":"low"},{"n":105,"label":"L9","type":"low"},{"n":106,"label":"L8","type":"low"},{"n":107,"label":"L7","type":"low"},{"n":108,"label":"L6","type":"low"},{"n":109,"label":"L5","type":"low"},{"n":110,"label":"L4","type":"low"},{"n":111,"label":"L3","type":"low"},{"n":112,"label":"L2","type":"low"},{"n":113,"label":"L1","type":"low"},{"n":114,"label":"C6","type":"igniter"},{"n":115,"label":"C7","type":"igniter"},{"n":116,"label":"C8","type":"igniter"},{"n":117,"label":"C4","type":"igniter"},{"n":118,"label":"C5","type":"igniter"},{"n":119,"label":"C1","type":"igniter"},{"n":120,"label":"C2","type":"igniter"},{"n":121,"label":"C3","type":"igniter"}];
+const data=[{"n":1,"label":"GND (POWER)","type":"ground"},{"n":2,"label":"GND (POWER)","type":"ground"},{"n":3,"label":"GND (POWER)","type":"ground"},{"n":4,"label":"KEY","type":"power"},{"n":5,"label":"VIN","type":"power"},{"n":6,"label":"VR1+","type":"digital"},{"n":7,"label":"VR1−","type":"digital"},{"n":8,"label":"VR2+","type":"digital"},{"n":9,"label":"VR2−","type":"digital"},{"n":10,"label":"IN-AT4","type":"analog"},{"n":11,"label":"IN-AT3","type":"analog"},{"n":12,"label":"IN-AT2","type":"analog"},{"n":13,"label":"IN-AT1","type":"analog"},{"n":14,"label":"IN-AV11","type":"analog"},{"n":15,"label":"IN-AV10","type":"analog"},{"n":16,"label":"IN-AV9","type":"analog"},{"n":17,"label":"IN-AV8","type":"analog"},{"n":18,"label":"IN-AV7","type":"analog"},{"n":19,"label":"IN-AV6","type":"analog"},{"n":20,"label":"IN-AV5","type":"analog"},{"n":21,"label":"IN-AV4","type":"analog"},{"n":22,"label":"IN-AV3","type":"analog"},{"n":23,"label":"IN-AV2","type":"analog"},{"n":24,"label":"IN-AV1","type":"analog"},{"n":25,"label":"IN-D6","type":"digital"},{"n":26,"label":"IN-D5","type":"digital"},{"n":27,"label":"IN-D4","type":"digital"},{"n":28,"label":"IN-D3","type":"digital"},{"n":29,"label":"IN-D2","type":"digital"},{"n":30,"label":"IN-D1","type":"digital"},{"n":31,"label":"SGND","type":"ground"},{"n":32,"label":"SGND","type":"ground"},{"n":33,"label":"SGND","type":"ground"},{"n":34,"label":"SGND","type":"ground"},{"n":35,"label":"SGND","type":"ground"},{"n":36,"label":"SGND","type":"ground"},{"n":37,"label":"SGND","type":"ground"},{"n":38,"label":"SGND","type":"ground"},{"n":39,"label":"SGND","type":"ground"},{"n":40,"label":"SGND","type":"ground"},{"n":41,"label":"SGND","type":"ground"},{"n":42,"label":"KNOCK2","type":"knock"},{"n":43,"label":"KNOCK1","type":"knock"},{"n":44,"label":"DBW2−","type":"bridge"},{"n":45,"label":"DBW2+","type":"bridge"},{"n":46,"label":"5VP2","type":"supply"},{"n":47,"label":"5VP2","type":"supply"},{"n":48,"label":"5VP2","type":"supply"},{"n":49,"label":"5VP1","type":"supply"},{"n":50,"label":"5VP1","type":"supply"},{"n":51,"label":"5VP1","type":"supply"},{"n":52,"label":"NC","type":"nc"},{"n":53,"label":"CAN2H","type":"can"},{"n":54,"label":"CAN1H","type":"can"},{"n":55,"label":"NC","type":"nc"},{"n":56,"label":"NC","type":"nc"},{"n":57,"label":"LSU UN2","type":"wideband"},{"n":58,"label":"HEATER+ 2","type":"wideband"},{"n":59,"label":"LSU VM2","type":"wideband"},{"n":60,"label":"LSU UN1","type":"wideband"},{"n":61,"label":"HEATER+ 1","type":"wideband"},{"n":62,"label":"LSU VM1","type":"wideband"},{"n":63,"label":"DBW1+","type":"bridge"},{"n":64,"label":"DBW1−","type":"bridge"},{"n":65,"label":"5VP2","type":"supply"},{"n":66,"label":"5VP2","type":"supply"},{"n":67,"label":"5VP2","type":"supply"},{"n":68,"label":"5VP1","type":"supply"},{"n":69,"label":"5VP1","type":"supply"},{"n":70,"label":"5VP1","type":"supply"},{"n":71,"label":"NC","type":"nc"},{"n":72,"label":"CAN2L","type":"can"},{"n":73,"label":"CAN1L","type":"can"},{"n":74,"label":"NC","type":"nc"},{"n":75,"label":"NC","type":"nc"},{"n":76,"label":"LSU RTRIM2","type":"wideband"},{"n":77,"label":"HEATER- 2","type":"wideband"},{"n":78,"label":"LSU IP2","type":"wideband"},{"n":79,"label":"LSU RTRIM1","type":"wideband"},{"n":80,"label":"HEATER- 1","type":"wideband"},{"n":81,"label":"LSU IP1","type":"wideband"},{"n":82,"label":"COIL5","type":"ignition"},{"n":83,"label":"COIL6","type":"ignition"},{"n":84,"label":"COIL7","type":"ignition"},{"n":85,"label":"COIL8","type":"ignition"},{"n":86,"label":"COIL9","type":"ignition"},{"n":87,"label":"COIL10","type":"ignition"},{"n":88,"label":"COIL11","type":"ignition"},{"n":89,"label":"COIL12","type":"ignition"},{"n":90,"label":"H1","type":"high"},{"n":91,"label":"H2","type":"high"},{"n":92,"label":"H3","type":"high"},{"n":93,"label":"H4","type":"high"},{"n":94,"label":"COIL1","type":"ignition"},{"n":95,"label":"COIL2","type":"ignition"},{"n":96,"label":"COIL3","type":"ignition"},{"n":97,"label":"COIL4","type":"ignition"},{"n":98,"label":"L16","type":"low"},{"n":99,"label":"L15","type":"low"},{"n":100,"label":"L14","type":"low"},{"n":101,"label":"L13","type":"low"},{"n":102,"label":"L12","type":"low"},{"n":103,"label":"L11","type":"low"},{"n":104,"label":"L10","type":"low"},{"n":105,"label":"L9","type":"low"},{"n":106,"label":"L8","type":"low"},{"n":107,"label":"L7","type":"low"},{"n":108,"label":"L6","type":"low"},{"n":109,"label":"L5","type":"low"},{"n":110,"label":"L4","type":"low"},{"n":111,"label":"L3","type":"low"},{"n":112,"label":"L2","type":"low"},{"n":113,"label":"L1","type":"low"},{"n":114,"label":"C6","type":"igniter"},{"n":115,"label":"C7","type":"igniter"},{"n":116,"label":"C8","type":"igniter"},{"n":117,"label":"C4","type":"igniter"},{"n":118,"label":"C5","type":"igniter"},{"n":119,"label":"C1","type":"igniter"},{"n":120,"label":"C2","type":"igniter"},{"n":121,"label":"C3","type":"igniter"}];
 const colors={"ground":"#96a0ad","power":"#f29b81","supply":"#79cdaa","analog":"#bdadfa","digital":"#88b6f9","can":"#ffe19b","wideband":"#e5a3c4","ignition":"#ff958e","igniter":"#e6a36c","low":"#dfbf72","high":"#8bdee1","bridge":"#8fc2ff","knock":"#d4a9ec","other":"#82998a"};
 const lsuAliases={57:"Nernst voltage · UN / RE / Vs · WB2",58:"Heater positive · H+ / Uh+ · WB2",59:"Virtual ground · VM / IPN · WB2",60:"Nernst voltage · UN / RE / Vs · WB1",61:"Heater positive · H+ / Uh+ · WB1",62:"Virtual ground · VM / IPN · WB1",76:"Trim resistor · RT / IA / Rcal · WB2",77:"Heater negative · H− / Uh− · WB2",78:"Pump current · IP / APE · WB2",79:"Trim resistor · RT / IA / Rcal · WB1",80:"Heater negative · H− / Uh− · WB1",81:"Pump current · IP / APE · WB1"};
-const pinNotes={
- 1:"ECU power ground · engine block; not sensor return",
- 2:"ECU power ground · engine block; not sensor return",
- 3:"ECU power ground · engine block; not sensor return",
- 4:"KEY wake · directly from key-switch position 1; maintain wake through RUN/START",
- 5:"VIN main supply · from main-relay output when relay is ON; 10 A ECU allowance plus connected H-bridge loads",
- 14:"AV11 label unresolved · do not use until assignment is confirmed",
- 109:"L5 · configurable 2 A low-side; used for the main-relay coil in the setup example"
+
+const groups={ground:"Ground",power:"Power",supply:"5 V sensor supply",analog:"Analog / temperature",digital:"Digital / VR",can:"CAN",wideband:"LSU 4.9 wideband",ignition:"5 V ignition logic",igniter:"IGBT coil driver",low:"2 A low-side",high:"2 A high-side",bridge:"H-bridge motor",knock:"Knock sensor",nc:"Not connected (NC)"};
+const paired={6:7,7:6,8:9,9:8,44:45,45:44,63:64,64:63,53:72,72:53,54:73,73:54};
+const guideExamples={
+ AV1:"MAP sensor",AV2:"fuel-pressure sensor",AV3:"oil-pressure sensor",
+ AV7:"accelerator pedal track 1",AV8:"accelerator pedal track 2",
+ AV9:"throttle-position track 1",AV10:"throttle-position track 2",
+ AT1:"coolant-temperature thermistor",AT2:"intake-air-temperature thermistor",
+ D1:"flex-fuel sensor frequency signal"
 };
-for(let n=31;n<=41;n++)pinNotes[n]="Sensor ground · SGND (not chassis ground)";
-const groups={ground:"Ground",power:"Power",supply:"5V sensor",analog:"Analog input",digital:"Digital / VR",can:"CAN",wideband:"Wideband",ignition:"Smart ignition (5V)",igniter:"Included IGBT coil low-side",low:"Low-side",high:"High-side",bridge:"H-bridge",knock:"Knock",other:"Unverified"};
-const descriptionFor=p=>lsuAliases[p.n]||pinNotes[p.n]||groups[p.type];
-function usageFor(p){
- if(p.n>=1&&p.n<=3)return "ECU power return to the engine block. Do not use as sensor ground.";
- if(p.n>=31&&p.n<=41)return "Sensor return (SGND) only. Not a power return, chassis-ground substitute or load-current path.";
- if(p.n===4)return "Wake input from the key switch position-1 output (ACC/wake) in the Brick ECU example. Connect directly to the switch's wake signal, not the main-relay VIN feed. Keep wake available in RUN and START; some ACC terminals switch off while cranking.";
- if(p.n===5)return "Main ECU supply: powered from the main relay's protected output only when the relay closes. Design allowance is 10 A for the ECU plus total current of connected H-bridge devices. Verify final fuse, wiring and load ratings; KEY is a separate wake input.";
- if(p.n===14)return "Legacy AV11 label is unresolved. Big Brick specifies only ten analog-voltage inputs (AV1–AV10). Do not allocate this cavity until the final design confirms its function.";
- if(p.label==="UNVERIFIED")return "No released assignment. Do not connect a device to this cavity without a confirmed production pinout.";
- if(p.n>=6&&p.n<=9)return "Differential trigger-sensor pair. Keep the matching + and − connections together; VR− is not an ECU ground or spare digital input. Sensor type and decoder must match firmware.";
- if(p.n===109)return "Dedicated 2 A low-side channel L5. Used to switch the main-relay coil's ground side in the guide example; IGN/RUN powers the other side of that coil. It is not permanently reserved for the relay.";
- if(lsuAliases[p.n])return lsuAliases[p.n]+". Dedicated LSU 4.9 wideband circuit; not interchangeable with a general sensor input. Heater return is not chassis or sensor ground.";
- switch(p.type){
-  case "supply":return "Regulated 5 V sensor supply. Intended for compatible sensor loads, not a battery supply or a motor output. Confirm total load limit for this supply group.";
-  case "analog":return p.label+" measures a compatible analog sensor signal (MAP, TPS, pressure, etc.) assigned in firmware. It does not power a load; do not assume it accepts 12 V without a published input rating.";
-  case "digital":return "Digital/Hall frequency or switch input with a hardware 5 V pull-up. Not a 12 V input, sensor supply or output driver.";
-  case "can":return "CAN bus communication conductor. Use its corresponding CAN-H/CAN-L pair and appropriate bus termination. Not a single-wire sensor connection or power output.";
-  case "wideband":return "Dedicated wideband-sensor connection. Consult the LSU 4.9 numbered connector table; not a spare analog input or chassis ground.";
-  case "ignition":return "5 V smart-coil/igniter logic command, not a passive-coil power output. Eight of the twelve logic channels also drive included IGBTs with the same timing.";
-  case "igniter":return "Included IGBT ignition power stage for a compatible passive coil. It shares ignition timing with a 5 V smart output; not an extra independent ignition channel or general 2 A low-side.";
-  case "low":return "2 A low-side switch: controls a compatible load's return to ground. It does not supply +12 V, and each channel must be allocated to one function.";
-  case "high":return "2 A high-side switch: provides switched supply to a compatible load. It is not a ground-switching output or unrestricted battery feed.";
-  case "bridge":return "One terminal of a reversible H-bridge motor pair; use the corresponding +/− terminal for a compatible motor. Not a sensor input or fixed-voltage supply. Its motor load counts toward VIN supply sizing.";
-  case "knock":return "Dedicated knock-sensor input. Not a general analog input or power connection; verify sensor type and shielding.";
-  case "power":return "Dedicated ECU power-related pin. Use only its documented power or wake function.";
-  case "ground":return "ECU ground return. Keep sensor and high-current power ground functions separate.";
-  default:return "Function unverified. Leave unconnected until the final schematic confirms its use.";
- }
+const sensorTerminal={57:6,58:4,59:2,60:6,61:4,62:2,76:5,77:3,78:1,79:5,80:3,81:1};
+const sensorRole={1:"pump-current sense",2:"virtual ground / pump reference",3:"heater negative",4:"heater positive",5:"calibration trim-resistor circuit",6:"Nernst measurement"};
+function shortFor(p){
+ const label=p.label,n=p.n;
+ if(label==="NC")return "NC — intentionally not electrically connected; leave unused";
+ if(n<=3)return "ECU power ground → engine block, not sensor return";
+ if(n===4)return "KEY — key-switch position-1 wake signal, not main power";
+ if(n===5)return "VIN — main-relay-switched ECU supply; protected feed";
+ if(n>=31&&n<=41)return "SGND — low-current sensor return, not power ground";
+ if(/^VR[12][+−]$/.test(label))return label+" — differential trigger input paired with pin "+paired[n];
+ if(/^IN-AT[1-4]$/.test(label))return label.slice(3)+" — thermistor input with ECU bias resistor";
+ if(/^IN-AV(?:[1-9]|10|11)$/.test(label))return label.slice(3)+" — configurable analog sensor voltage input";
+ if(/^IN-D[1-6]$/.test(label))return label.slice(3)+" — digital / Hall / frequency input with 5 V pull-up";
+ if(/^5VP[12]$/.test(label))return label+" — regulated 5 V sensor supply (shared rail)";
+ if(/^CAN[12][HL]$/.test(label))return label+" — CAN differential data line, paired with pin "+paired[n];
+ if(sensorTerminal[n])return "Wideband "+label.slice(-1)+" — LSU 4.9 sensor terminal "+sensorTerminal[n]+" ("+sensorRole[sensorTerminal[n]]+")";
+ if(/^KNOCK[12]$/.test(label))return label+" — dedicated knock-sensor measurement input";
+ if(/^DBW[12][+−]$/.test(label))return label+" — reversible H-bridge motor terminal, paired with pin "+paired[n];
+ if(/^COIL(?:[1-9]|1[0-2])$/.test(label))return label+" — 5 V ignition logic signal; not a passive-coil driver";
+ if(/^C[1-8]$/.test(label))return label+" — included IGBT coil primary driver, not general low-side";
+ if(/^L(?:[1-9]|1[0-6])$/.test(label))return label+" — configurable 2 A ground-switching output";
+ if(/^H[1-4]$/.test(label))return label+" — configurable 2 A supply-switching output";
+ return label+" — check the latest connector drawing";
 }
+function usageFor(p){
+ const label=p.label,n=p.n;
+ if(label==="NC")
+  return "This connector cavity is deliberately left without an ECU electrical connection. It has no input, output, supply or ground function. Do not use it as a spare pin.";
+ if(n<=3)
+  return "Power-ground return to the engine block for ECU supply currents. Use an appropriately rated ground path; it is not a low-current sensor-ground terminal (those are SGND pins 31–41).";
+ if(n===4)
+  return "KEY wakes the ECU from the key-switch position-1 signal. This is a wake input, not the ECU's main supply or a load output. The chosen switch contact must remain active in RUN and START; some accessory contacts drop out while cranking.";
+ if(n===5)
+  return "VIN is supplied from the main relay's protected switched output, so it receives power only with the relay closed. Your specified feed allowance is 10 A for the ECU plus the combined current of connected H-bridge devices; verify actual load, fuse and harness ratings. Do not substitute KEY for VIN.";
+ if(n>=31&&n<=41)
+  return "SGND is the low-current return for compatible sensors, including thermistors, pressure/position sensors and signal references. It is not chassis/power ground, a relay return or a path for injector, motor or coil current.";
+ const vr=label.match(/^VR([12])([+−])$/);
+ if(vr){
+  const polarity=vr[2]==="+"?"positive":"negative";
+  return "VR"+vr[1]+" "+polarity+" lead of differential trigger input "+vr[1]+". Use with its matching lead on pin "+paired[n]+" for a compatible two-wire variable-reluctance crank/cam pickup, as configured in firmware. The negative terminal is not ground; do not treat either terminal as a general 5 V digital input.";
+ }
+ const at=label.match(/^IN-AT([1-4])$/);
+ if(at){
+  const ch="AT"+at[1],example=guideExamples[ch];
+  return ch+" is a thermistor-resistance measurement input with an ECU-side bias resistor. "+(example?"The setup guide uses it for a "+example+"; that role can be reassigned. ":"Use a compatible temperature sensor and assign its role in firmware. ")+"Use the sensor's resistance curve and the correct ECU bias value. It is not a 12 V input or load output.";
+ }
+ const av=label.match(/^IN-AV(11|10|[1-9])$/);
+ if(av){
+  const ch="AV"+av[1],example=guideExamples[ch];
+  return ch+" is one of eleven confirmed analog-voltage sensor inputs. "+(example?"The setup guide uses it for a "+example+" as an example, not a required assignment. ":"It can be assigned a compatible MAP, TPS, pedal, pressure or other analog-voltage sensor function. ")+"Match the device's output range and calibration; this input does not supply power and is not assumed 12 V tolerant.";
+ }
+ const d=label.match(/^IN-D([1-6])$/);
+ if(d){
+  const ch="D"+d[1],example=guideExamples[ch];
+  return ch+" is a configurable digital input with the hardware's 5 V pull-up, suitable for a compatible Hall sensor, ground-switching switch or pulse/frequency signal. "+(example?"The guide uses this channel for a "+example+" as one example. ":"Choose the actual input function in firmware. ")+"Not a 12 V input, 5 V sensor-supply output or ground connection.";
+ }
+ const rail=label.match(/^5VP([12])$/);
+ if(rail){
+  const pins=rail[1]==="1"?"49–51 and 68–70":"46–48 and 65–67";
+  return "5VP"+rail[1]+" is a regulated 5 V supply for compatible sensors. The same supply name appears on pins "+pins+"; these are connection points for the named sensor rail, not independent power outputs. Do not power injectors, coils, motors or 12 V equipment from this pin. Observe the final rail-current limit.";
+ }
+ const can=label.match(/^CAN([12])([HL])$/);
+ if(can){
+  return "CAN"+can[1]+"-"+(can[2]==="H"?"H":"L")+" is one conductor of CAN bus "+can[1]+", paired with "+(can[2]==="H"?"CAN"+can[1]+"L":"CAN"+can[1]+"H")+" at pin "+paired[n]+". CAN requires both conductors and correct termination across the pair, not a single data wire. "+(can[1]==="2"?"CAN2 also carries the ECU's documented internal ESP32/wideband communications; avoid altering that network blindly.":"This is the external CAN1 interface in the setup guide's dashboard example.")+" Not a power or sensor input.";
+ }
+ if(sensorTerminal[n]){
+  const channel=label.match(/[12]$/)?.[0],term=sensorTerminal[n],role=sensorRole[term];
+  return "Dedicated wideband-controller "+channel+" connection for Bosch LSU 4.9 sensor terminal "+term+": "+role+". Match the numbered six-terminal LSU connector exactly to the WB"+channel+" table below. Do not swap sensor functions, tie the virtual-ground/heater return to chassis or bypass the connector's calibration resistor.";
+ }
+ const knock=label.match(/^KNOCK([12])$/);
+ if(knock)return "KNOCK"+knock[1]+" is the dedicated signal input for knock sensor channel "+knock[1]+". Use a compatible sensor and approved shield/return scheme; firmware must be configured for the actual engine. Not a general AV input, power feed or switching output.";
+ const bridge=label.match(/^DBW([12])([+−])$/);
+ if(bridge)return "DBW"+bridge[1]+(bridge[2])+" is one motor terminal of H-bridge "+bridge[1]+", used together with "+label.slice(0,-1)+(bridge[2]==="+"?"−":"+")+" on pin "+paired[n]+". The drive reverses polarity for a compatible throttle/actuator motor; neither terminal is a permanent +12 V output or ground. Include this motor's load in VIN feed sizing; verify firmware and actuator limits.";
+ const coil=label.match(/^COIL(1[0-2]|[1-9])$/);
+ if(coil)return "COIL"+coil[1]+" is an independent 5 V ignition timing/control signal for a compatible smart coil or external igniter input. It is not a high-current coil-primary driver. Eight of the twelve logic channels additionally drive included onboard IGBTs in parallel; the exact signal-to-IGBT pairing comes from the production design, not the pin number alone.";
+ const igniter=label.match(/^C([1-8])$/);
+ if(igniter)return "C"+igniter[1]+" is one of the eight included IGBT coil-primary low-side power drivers for a compatible passive ignition coil. It shares the timing of a corresponding 5 V COIL output; it is not a ninth/extra independent ignition event or a general-purpose 2 A L-channel. Confirm driver-to-logic pairing and coil electrical limits.";
+ const low=label.match(/^L(1[0-6]|[1-9])$/);
+ if(low)return "L"+low[1]+" is an individually assignable low-side output rated up to 2 A (manufacturer specification): it switches the ground side of a compatible relay, port injector or solenoid. The load gets its positive supply elsewhere. "+(n===109?"In the installation guide, L5/pin 109 controls the main-relay coil return; it is an example allocation, not a second dedicated relay pin. ":"Assign its supported role in the ECU software, and don't give one channel two jobs. ")+"It does not source power.";
+ const high=label.match(/^H([1-4])$/);
+ if(high)return "H"+high[1]+" is a high-side output rated up to 2 A (manufacturer specification). It switches the supply side of a compatible electrical load instead of switching its ground. Observe load, wiring and protection requirements; it is not a logic sensor input, a permanent supply rail or a low-side driver.";
+ return "No connection purpose is documented for this signal. Consult the finalized production connector drawing before making any connection.";
+}
+const descriptionFor=shortFor;
 const pinUseToast=document.getElementById("pinUseToast"),pinUseText=document.getElementById("pinUseText");
 document.getElementById("pinUseDismiss").addEventListener("click",()=>{pinUseToast.hidden=true});
 const byNumber=new Map(data.map(x=>[x.n,x]));const svg=document.getElementById("cavities");const ns="http://www.w3.org/2000/svg";let current=null;
@@ -150,7 +205,7 @@ function showTip(n,ev,node){
   const detail=document.createElement("span");detail.textContent=descriptionFor(p);
   tooltip.append(heading,detail);
   if(p.type==="igniter"){const option=document.createElement("em");option.textContent="Included IGBT ignition driver. Coil primary low-side output; not a general-purpose 2 A low-side.";tooltip.append(option)}
-  if(p.label==="UNVERIFIED"){const caution=document.createElement("em");caution.textContent="Assignment not yet confirmed";tooltip.append(caution)}
+  if(p.label==="NC"){const note=document.createElement("em");note.textContent="Deliberately unconnected — no function";tooltip.append(note)}
   tooltip.classList.add("visible");tooltip.setAttribute("aria-hidden","false");
   if(ev&&ev.clientX!==undefined){moveTip(ev)}
   else if(node){const b=node.getBoundingClientRect();moveTip({clientX:b.left+b.width/2,clientY:b.bottom})}
@@ -174,7 +229,7 @@ function redraw(){
   const q=search.value.toLowerCase().trim(),f=filter.value;
   rows.replaceChildren();
   let count=0;
-  const matches=p=>!((f&&p.type!==f)||(q&&!(String(p.n).includes(q)||p.label.toLowerCase().includes(q)||groups[p.type].toLowerCase().includes(q)||descriptionFor(p).toLowerCase().includes(q))));
+  const matches=p=>!((f&&p.type!==f)||(q&&!(String(p.n).includes(q)||p.label.toLowerCase().includes(q)||groups[p.type].toLowerCase().includes(q)||descriptionFor(p).toLowerCase().includes(q)||usageFor(p).toLowerCase().includes(q))));
   const displayed=data.filter(matches);
   // Keep the selected pin visible as the first entry even when a filter is active.
   if(current!==null){
