@@ -29,7 +29,7 @@ for(const [file,html] of contents){
     const fragment=hashIdx>=0?value.slice(hashIdx+1):'';
     let target=file;
     if(pathname){
-      try { target=path.resolve(path.dirname(file),decodeURIComponent(pathname)); }
+      try { target=pathname.startsWith('/') ? path.resolve(root,'.'+decodeURIComponent(pathname)) : path.resolve(path.dirname(file),decodeURIComponent(pathname)); }
       catch { fail(file,'invalid linked URL: '+value);continue; }
       if(!target.startsWith(root+path.sep) && target!==root){fail(file,'path leaves repo: '+value);continue;}
       if(!fs.existsSync(target)){fail(file,'missing file: '+value);continue;}
