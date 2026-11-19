@@ -29,27 +29,28 @@ function linkList(sources){
 }
 function localAnswer(question){
  const q=String(question||"").toLowerCase();
+ if(/3ds|dsi|brick.?tuner|brickos|homebrew|modded|jailbreak|nintendo/.test(q)){
+  return {answer:"Brick Tuner Suite is experimental BrickOS homebrew for Nintendo 3DS and DSi. Both need a homebrew-enabled (modded/jailbroken) console; stock consoles cannot run it. The apps connect to Brick ECU over local Wi-Fi for live gauges and tuning functions, with some editing workflows still unfinished. Only the 3DS has stereoscopic 3D map viewing. These are not official Nintendo apps.",sources:[{title:"Handheld tuning",url:"/docs/software.html"},{title:"Big Brick",url:"/products/big-brick.html"}]};
+ }
  if(/injector|impedance|peak.and.hold|saturated/.test(q)){
-   return {answer:"Standard high-impedance (>8 Ω) port injectors are natively supported on Brick ECU. Low-impedance injectors need suitable current limiting. For the injector count and output assignments, check the ECU specification and the Engine Finder.",sources:[{title:"Engine Finder",url:"/docs/compatibility.html"},{title:"Big Brick technical specs",url:"/docs/big-brick.html"}]};
+  return {answer:"Standard high-impedance (>8 Ω) port injectors are supported. Low-impedance injectors need appropriate current limiting. Check the output ratings and exact injector requirements before wiring.",sources:[{title:"Big Brick specifications",url:"/docs/big-brick.html"},{title:"Engine reference",url:"/docs/compatibility.html"}]};
  }
  if(/pinout|connector|harness|cavity|wiring|wire|can bus|ground|vr sensor|hall sensor/.test(q)){
-   return {answer:"The Big Brick 94-pin lookup identifies the documented connector assignments. Verify connector orientation, exact ECU hardware revision, OEM sensor wiring and electrical loads before installation. I can't confirm a wiring connection from a chat question alone.",sources:[{title:"Big Brick pinout",url:"/docs/big-brick-pinout.html"},{title:"Installation planning",url:"/docs/planning.html"}]};
+  return {answer:"Big Brick now uses a 121-pin connector. The older 94-pin diagram is not applicable. A preliminary 121-pin map is available, but cavity assignments and orientation still need verification against the final production schematic before wiring.",sources:[{title:"121-pin pinout",url:"/docs/big-brick-pinout.html"},{title:"Setup guide",url:"/docs/engine-setup.html"}]};
  }
- if(/tuner|tuning|afr|fuel map|ve table|spark|ignition map|dwell|wideband|auto.?tune|fuel trim|idle|dbw/.test(q)){
-   return {answer:"Big Brick works with TunerStudio; the registered edition provides additional tuning tools. Big Brick has an onboard LSU 4.9 wideband controller. For safe calibration, use the relevant manuals and qualified tuning help rather than guessed fuel or ignition values.",sources:[{title:"Tuning and Wi-Fi",url:"/docs/software.html"},{title:"Downloads",url:"/docs/downloads.html"}]};
+ if(/tuner|tuning|afr|fuel map|ve table|spark|ignition map|dwell|wideband|auto.?tune|fuel trim|idle|dbw|phone|browser|wifi|wi-fi/.test(q)){
+  return {answer:"Big Brick supports local Wi-Fi tuning with a phone browser and TunerStudio. Its onboard ESP32 communicates over CAN and USB. The Nintendo 3DS and DSi homebrew apps are experimental and require modded consoles. Use hardware-matched documentation before making calibration or firmware changes.",sources:[{title:"Tuning interfaces",url:"/docs/software.html"},{title:"Downloads",url:"/docs/downloads.html"}]};
  }
  if(/warranty|return|refund|shipping|ship|purchase|buy|cost|price|delivery|order|contact|support/.test(q)){
-   return {answer:"Big Brick is available to order for CAD $1,200, including shipping and the mating connector kit; allow up to four weeks before dispatch plus transit. The Big Brick purchase carries the published limited warranty; see the ordering and safety terms.",sources:[{title:"Ordering, warranty and safety",url:"/terms.html"}]};
+  return {answer:"Big Brick costs C$799 in one fully equipped configuration, including all eight onboard IGBTs and 256 MB SD logging. No hardware add-ons. Build and delivery are targeted within three weeks, subject to availability and shipping. Online checkout is not active yet.",sources:[{title:"Product and pricing",url:"/products/big-brick.html"},{title:"Warranty and ordering",url:"/terms.html"}]};
  }
-
  if(/big|proteus|v8|eight.cylinder|twelve.cylinder/.test(q)){
-   return {answer:"Big Brick provides up to eight-cylinder sequential fuel and spark, 16 low-side outputs (including six IGBT-capable ignition channels), 12 separate 5 V smart-coil outputs, integrated LSU 4.9 wideband, knock sensing and Wi-Fi. Check output allocation against your engine's actual hardware.",sources:[{title:"Big Brick hardware",url:"/products/big-brick.html"},{title:"Big Brick pinout",url:"/docs/big-brick-pinout.html"}]};
+  return {answer:"Big Brick has 16 dedicated 2 A low-side outputs, 12 smart ignition outputs, eight included parallel-drive IGBT stages, four 2 A high-side outputs, two H-bridges, two CAN buses and two wideband controllers. The IGBTs do not add independent ignition timing channels.",sources:[{title:"Big Brick hardware",url:"/products/big-brick.html"},{title:"Technical specifications",url:"/docs/big-brick.html"}]};
  }
- if(/vq35|gen.iv|\bls\d|engine|trigger|crank|cam|compatib|supported/.test(q)){
-   return {answer:"The developer reports running VQ35DE and a Gen IV LS engine successfully on Big Brick. The exact LS engine code wasn't recorded, and a family-level example isn't proof of every variant. Use the Engine Finder for engine-specific trigger and sensor references.",sources:[{title:"Engine Finder",url:"/docs/compatibility.html"}]};
+ if(/vq35|gen.iv|\\bls\\d|engine|trigger|crank|cam|compatib|supported/.test(q)){
+  return {answer:"The developer reports running VQ35DE and a Gen IV LS engine on Big Brick. The exact LS variant was not recorded. Engine Finder entries are research references, not verified plug-and-play compatibility or wiring lists.",sources:[{title:"Engine Finder",url:"/docs/compatibility.html"}]};
  }
-
- return {answer:"I can help find Brick ECU hardware specifications, engine references, tuning documentation, warranty details and wiring diagrams. The AI service is currently offline, so this answer uses the built-in reference guide rather than generated AI. Try asking about an ECU model, injector type or technical manual.",sources:[{title:"Documentation",url:"/docs/index.html"},{title:"Engine Finder",url:"/docs/compatibility.html"}]};
+ return {answer:"I can point you to Big Brick specs, wiring references, engine research, software and ordering details. The AI service is offline, so this is the site's built-in reference guide.",sources:[{title:"Setup guide",url:"/docs/engine-setup.html"},{title:"Big Brick",url:"/products/big-brick.html"}]};
 }
 
 function initialize(){
@@ -76,7 +77,7 @@ function initialize(){
  messages.setAttribute("role","log");
  messages.setAttribute("aria-live","polite");
  messages.setAttribute("aria-relevant","additions");
- messages.append(el("p","brick-help-intro","Ask about either ECU, basic TunerStudio concepts, or where to find original wiring and engine references."));
+ messages.append(el("p","brick-help-intro","Ask about Big Brick, tuning, wiring or engine references."));
  const examples=el("div","brick-help-questions");
  const prompts=["What can Big Brick control?","Do high-impedance injectors work?","Where are the connector pinouts?"];
  const form=el("form","brick-help-form");
