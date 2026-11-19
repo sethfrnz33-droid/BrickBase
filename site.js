@@ -127,6 +127,22 @@ function initialize(){
   if(prompt){input.value=prompt;input.focus();}
  }
  document.querySelectorAll('[data-ask-brick]').forEach(btn=>btn.addEventListener("click",()=>openFromContext(btn.getAttribute("data-ask-brick")||"")));
+ // Only suggest help after a concrete no-results event; no automatic chat popups.
+ const emptyCounter=document.getElementById("ef-count")||document.getElementById("audit-result");
+ if(emptyCounter && typeof MutationObserver!=="undefined"){
+  const prompt=el("div","brick-help-inline brick-help-no-results");
+  const ask=el("button","brick-help-inline-button","No matches? Ask Brick");
+  ask.type="button";
+  ask.addEventListener("click",()=>openFromContext("I can't find my engine in the research list. What should I check?"));
+  prompt.append(ask);
+  emptyCounter.insertAdjacentElement("afterend",prompt);
+  const refresh=()=>{
+   const label=(emptyCounter.textContent||"").trim();
+   prompt.hidden=!/^0(?:\s+matching|\s*\/\s*\d+)/i.test(label);
+  };
+  new MutationObserver(refresh).observe(emptyCounter,{childList:true,subtree:true,characterData:true});
+  refresh();
+ }
  const main=document.querySelector("main");
  if(main && !document.querySelector(".brick-help-inline")){
   const inline=el("div","brick-help-inline");
