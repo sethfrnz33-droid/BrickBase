@@ -47,14 +47,13 @@
      .sort((a,b)=>sort(a.make+" "+a.family+" "+a.model,b.make+" "+b.family+" "+b.model));
    rows.replaceChildren();
    q("audit-result").textContent=filtered.length+" / "+data.length+" engines shown";
-   if(!filtered.length){const tr=document.createElement("tr");const td=cell(tr,"No matching engine records.");td.colSpan=8;rows.append(tr);return;}
+   if(!filtered.length){const tr=document.createElement("tr");const td=cell(tr,"No matching engine records.");td.colSpan=7;rows.append(tr);return;}
    const fragment=document.createDocumentFragment();
    for(const e of filtered){
      const tr=document.createElement("tr");
      const name=cell(tr);name.append(link("compatibility.html#engine="+encodeURIComponent(e.id),e.model));const where=document.createElement("small");where.textContent=e.make+" / "+e.family;name.append(where);
      cell(tr,researchComplete(e)?"Technical research complete":"Research gaps remain").className="audit-category";
      const bigCell=cell(tr,(e.confidenceV2?.big?.score??"—")+"/100");bigCell.className="audit-category";if(e.runningEvidence?.brickBig||e.runningEvidence?.brickFamily){const extra=document.createElement("small");extra.textContent=e.runningEvidence?.brickBig?"RUNNING on Big Brick":"Gen IV LS family tested";bigCell.append(extra);}
-     cell(tr,(e.confidenceV2?.mini?.score??"—")+"/100").className="audit-category";
      cell(tr,e.technicalResearch?(e.technicalResearch.known+"/"+e.technicalResearch.total+" research fields"):"No audit").className="audit-category";
      cell(tr,e.technicalResearch?.stageLabel||descriptions[e.research?.status]||"Unknown").className="audit-category";
      const missing=cell(tr,e.technicalResearch?.missing?.join("; ")||"OEM trigger and sensor control research needed.");
