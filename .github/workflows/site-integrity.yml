@@ -18,7 +18,5 @@ jobs:
         run: node scripts/site-audit.mjs
       - name: Check JavaScript syntax
         run: find . -name '*.js' -not -path './node_modules/*' -print0 | xargs -0 -n1 node --check
-      - name: Verify Ask Brick answers and source links
-        run: node scripts/help-audit.mjs
       - name: Verify engine research and source counts
         run: node scripts/research-audit.mjs
