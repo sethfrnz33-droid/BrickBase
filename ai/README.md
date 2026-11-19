@@ -2,11 +2,11 @@
 
 **Status:** Frontend and backend source committed; **not automatically live** on the existing Cloudflare Workers static deployment. The chat launcher is always visible. If the Worker reports `configured: true`, live AI answers are enabled; otherwise the widget uses clearly labelled built-in documentation answers, without any AI inference.
 
-This provides short answers to basic Brick ECU product, wiring-reference and tuning-concept questions. The replies use a curated product/documentation knowledge base, and the UI shows **actual local documentation links** alongside each answer. It cannot read an ECU, calculate a verified base tune, produce a confirmed donor-vehicle pinout, connect to TunerStudio, or approve a particular installation.
+This provides short answers to 134 curated Brick ECU product, hardware, wiring, troubleshooting, ordering and tuning questions, and passes relevant documentation into the optional AI Worker. The replies use a curated product/documentation knowledge base, and the UI shows **actual local documentation links** alongside each answer. It cannot read an ECU, calculate a verified base tune, produce a confirmed donor-vehicle pinout, connect to TunerStudio, or approve a particular installation.
 
 ## Files
 
-- `/ai/knowledge.js` — source-linked summaries of Brick ECU product specs, native high-impedance injector support, wiring-reference locations, TunerStudio, orders and safety.
+- `/ai/answers.js` — 134 source-linked, reusable answers shared by browser and AI Worker; no API service required for the browser fallback.\n- `/docs/ask-brick.html` — searchable public help directory with category filters.\n- `/assets/ask-brick-avatar.webp` — small portrait mascot used on the quiet Ask Brick launcher.\n- `/scripts/help-audit.mjs` — CI tests for answers, sources and representative questions.\n- `/ai/knowledge.js` — source-linked summaries of Brick ECU product specs, native high-impedance injector support, wiring-reference locations, TunerStudio, orders and safety.
 - `/ai/worker.js` — request validation, short AI prompt, Cloudflare Workers AI inference, server-returned source links, CORS.
 - `/ai/config.js` — endpoint for the optional standalone ES-module widget. The live storefront currently embeds its chat widget in root `site.js`, with its own `ENDPOINT` constant.
 - `/ai/widget.js` — small accessibility-conscious conversation interface, loaded from the shared `site.js` on every website page.
@@ -65,7 +65,7 @@ No application-side transcripts are intentionally logged or saved by this code. 
 
 ## Smoke test
 
-Check `GET /api/brick-help` (or the separate Worker URL) for `configured: true`. Example test questions: “Does Mini Brick drive high-impedance injectors?”, “Where is the Big Brick pinout?”, “What does a crank trigger decoder do?”, “How does TunerStudio Lite differ from registered?”, and “Which engines have been reported running on Big Brick?”.
+Check `GET /api/brick-help` (or the separate Worker URL) for `configured: true`. Example test questions: “Does my DSi need homebrew?”, “Where is the Big Brick pinout?”, “What does a crank trigger decoder do?”, “How does TunerStudio Lite differ from registered?”, and “Which engines have been reported running on Big Brick?”.
 
 Confirm the answer **does not** fabricate a pin, guaranteed engine support or a complete tune, and that document links open on the store domain. If `AI` is unbound, the health check returns `configured: false` and the public widget uses built-in documentation answers without AI inference.
 
@@ -75,5 +75,13 @@ Official Cloudflare documentation:
 - <https://developers.cloudflare.com/pages/functions/bindings/>
 - <https://developers.cloudflare.com/workers/configuration/routing/routes/>
 
-## Mini Brick availability policy
-Mini Brick is in development, is not for sale and has no announced launch date. Keep the hardcoded fallback in root `site.js`, the optional `ai/widget.js`, the server knowledge in `ai/knowledge.js` and the Worker system guidance consistent. Never offer a Mini Brick purchase or shipment date until the developer confirms its launch.
+## Public product scope and answer maintenance
+Only the single fully equipped **Big Brick at C$799** is advertised. If someone asks about another model, the helper can state that only Big Brick is currently listed; it must not invent options, dates or purchase links.
+
+- Add new verified facts to `ai/answers.js` with a source link to a published Brick ECU page.
+- Common exact questions are answered from that library without an inference call. Less clear questions go to the optional Cloudflare AI service with related verified answers and source summaries.
+- If the AI Worker is offline, the same source-linked library still answers questions in the storefront widget and searchable help directory.
+- The small portrait appears only on the launcher; static inline help links and a context prompt after empty engine searches make support easier to find without unsolicited chat popups.
+- Run `node scripts/help-audit.mjs`, `node scripts/site-audit.mjs`, and JavaScript syntax checks before deploying. Confirm the live Cloudflare site separately from a successful GitHub commit.
+
+**Backend activation is separate:** a passing GitHub Actions check does not establish that the Cloudflare AI Worker is bound, reachable, or ready for public queries.
