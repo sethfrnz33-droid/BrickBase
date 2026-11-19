@@ -2,57 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080c10">
 <title>Big Brick 121-pin ECU pinout | Brick ECU</title><meta name="description" content="Interactive Big Brick 121-pin connector pin map with searchable, color coded input and output assignments.">
 <link rel="stylesheet" href="../site.css"><link rel="stylesheet" href="../field-console.css">
-<style>
-.pinout{max-width:1320px;margin:auto;padding:34px 20px 80px;color:#dceadd}
-.pinout h1{font-size:clamp(2rem,5vw,3.5rem);margin:5px 0 10px}
-.pinout p{color:#a8c2ad;line-height:1.6}.intro{max-width:850px}
-.notice{border-left:2px solid #bba272;background:#1b2119;padding:12px 16px;margin:18px 0;color:#d7d1bc;font-size:.88rem;line-height:1.55}
-.eyebrow{color:#a4dfac;font:700 .78rem ui-monospace,monospace;letter-spacing:.1em}
-.map-scroll{overflow-x:auto;max-width:100%;border:1px solid #3b5643;background:#030705;border-radius:6px;margin:12px 0;padding:8px;scrollbar-color:#537b5e #13231a}
-.connector{display:block;width:100%;min-width:1050px;height:auto;touch-action:pan-x}
-.connector .shell{fill:#15231a;stroke:#73917b;stroke-width:3}
-.connector .hole{stroke-width:1.8;fill:rgba(5,15,9,.7);cursor:pointer;outline:none}
-.connector .hole:focus,.connector .hole.selected{stroke:#fff8bc;stroke-width:4;fill:#3b503d}
-.connector .hole:hover{fill:#3d5843}.connector g:focus-visible .hole{stroke:#fff8bc;stroke-width:3.5}.connector g[data-pin="1"] .num,.connector g[data-pin="2"] .num,.connector g[data-pin="3"] .num,.connector g[data-pin="4"] .num,.connector g[data-pin="5"] .num,.connector g[data-pin="114"] .num,.connector g[data-pin="115"] .num,.connector g[data-pin="116"] .num,.connector g[data-pin="117"] .num,.connector g[data-pin="118"] .num,.connector g[data-pin="119"] .num,.connector g[data-pin="120"] .num,.connector g[data-pin="121"] .num{font-size:13px}
-.connector .num{pointer-events:none;font:800 10.5px ui-monospace,monospace;fill:#fff;stroke:#08130b;stroke-width:2.8px;paint-order:stroke fill;text-anchor:middle;dominant-baseline:middle}
-.connector .label{display:none;pointer-events:none;font:8.5px ui-monospace,monospace;fill:#d3e3d3;text-anchor:middle;dominant-baseline:middle}
-.legend{display:flex;flex-wrap:wrap;gap:7px 15px;margin:14px 0}
-.legend span{display:flex;align-items:center;gap:7px;color:#b1c6b4;font:12px ui-monospace,monospace}
-.legend i{width:12px;height:12px;border-radius:50%;display:block}
-.selection{border:1px solid #45664b;background:#182b1d;padding:14px 16px;margin:16px 0 25px;color:#e6f5e8;font:600 15px ui-monospace,monospace}
-.filters{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:14px}
-.filters input,.filters select{background:#13261a;color:#e1eee0;border:1px solid #5b7762;padding:12px;border-radius:4px;font-size:15px;min-width:210px}
-.filters input{flex:1}.filters button{background:#193322;border:1px solid #54745b;color:#d8e9dc;padding:12px 16px;border-radius:4px}.filters input:focus,.filters select:focus,.filters button:focus{outline:2px solid #a3d6ac;outline-offset:2px}.maptools{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin:6px 0}.maptools p{margin:0;font-size:12px}.pinout h2{margin:26px 0 12px;font-size:1.15rem}.table-scroll{max-height:560px;overflow:auto}.pinout th{position:sticky;top:0;z-index:1}
-.table-scroll{overflow:auto;border:1px solid #37503c}
-.pinout table{border-collapse:collapse;width:100%;min-width:550px}
-.pinout th,.pinout td{padding:11px 13px;border-bottom:1px solid #314b38;text-align:left}
-.pinout th{background:#173020;font:700 12px ui-monospace,monospace;color:#dceada}
-.pinout td{font:14px system-ui;color:#c4d8c6}
-.pin-tooltip{position:fixed;z-index:10000;pointer-events:none;display:none;max-width:min(260px,85vw);padding:10px 13px;border:1px solid #8fbd97;border-radius:5px;background:#101f17;color:#eef8ee;box-shadow:0 10px 32px #000b;font:13px/1.45 system-ui,-apple-system,sans-serif}
-.pin-tooltip.visible{display:block}.pin-tooltip strong{display:block;font:700 15px ui-monospace,monospace;color:#fff}.pin-tooltip span{display:block;color:#a9c6b1;margin-top:3px}.pin-tooltip em{font-style:normal;color:#e3c591}
-.pinout tr[data-pin]{cursor:pointer}.pinout tr[data-pin]:hover,.pinout tr.active{background:#26412a}
-.pinout a{color:#b6e8bd}.muted{color:#a2b5a4;font-size:12px}
-@media(max-width:600px){.pinout{padding:24px 12px 55px}.map-scroll{padding:5px;margin-inline:-5px}.filters input{width:100%;min-width:100%}.filters select{min-width:0;flex:1}.pinout h1{margin-bottom:8px}.notice{margin:14px 0}}
-
-/* Wiring guides: compact, readable engineering references */
-.wire-guide{margin:34px 0 20px;border-top:1px solid #3c5643;padding-top:19px}
-.wire-guide h2{font-size:1.35rem;margin:8px 0}
-.wire-guide h3{font-size:1rem;margin:18px 0 8px;color:#e0efdf}
-.wire-guide p{max-width:1000px}
-.guide-layout{display:block;margin:18px 0}.lsu-diagram{margin:16px 0 25px;max-width:100%;}.lsu-diagram object{display:block;width:100%;aspect-ratio:1500 / 790;border:1px solid #34583f;border-radius:5px;background:#07130d}.lsu-diagram figcaption{font-size:12px;line-height:1.65;color:#b6cdb8;margin-top:10px}
-.guide-photo{border:1px solid #45624b;border-radius:4px;background:#101d14;padding:12px}
-.guide-photo img{display:block;width:100%;height:auto;max-width:400px;margin:auto;border-radius:3px}
-.guide-photo figcaption{font-size:12px;color:#b7c9b8;line-height:1.6;margin:10px 0 0}
-.guide-data{min-width:0}
-.guide-table{width:100%;border-collapse:collapse;min-width:530px}
-.guide-table th,.guide-table td{text-align:left;border-bottom:1px solid #36503e;padding:10px 12px;white-space:normal}
-.guide-table th{background:#1a3222;color:#dcebdc;font:700 11px ui-monospace,monospace}
-.guide-table td{color:#d0dfd1;font-size:13px}
-.guide-table td:first-child{font-weight:700}
-.guide-notes{margin:16px 0;padding:13px 15px;border:1px solid #3a5741;background:#14261a;font-size:13px;color:#c5dfca}
-.guide-notes strong{color:#eef8ef}
-@media(max-width:840px){.guide-table{min-width:500px}}
-</style><link rel="stylesheet" href="../guide-theme.css?v=20261119"></head>
+<link rel="stylesheet" href="../guide-theme.css?v=20261119"><link rel="stylesheet" href="pinout-theme.css?v=20261119b"></head>
 <body class="terminal-home"><a class="skip" href="#main">Skip to content</a>
 <header class="top"><nav class="nav wrap"><a href="../index.html" class="brand">BRICK<strong>ECU</strong></a><button class="menu-toggle" type="button" aria-controls="main-links" aria-expanded="false">Menu</button><div id="main-links" class="navlinks"><a href="/index.html">Home</a><a href="/products/big-brick.html">Big Brick</a><a href="/docs/engine-setup.html">Setup guide</a><a href="/docs/big-brick-pinout.html">Pinout</a><a href="/docs/downloads.html">Downloads</a></div></nav></header>
 <main class="pinout" id="main"><div class="eyebrow">BIG BRICK · 121-PIN · 1746979-1</div><h1>Connector pinout</h1>
