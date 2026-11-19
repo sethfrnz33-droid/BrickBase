@@ -9,6 +9,8 @@
  */
 const ENDPOINT="https://brick-ecu-help.sethfrnz33.workers.dev/";
 let aiReady=false, statusLabel=null;
+let answerBank=null;
+const bankReady=import('/ai/answers.js').then(m=>{answerBank=m;return m;}).catch(()=>null);
 const validSource=url=>typeof url==="string"&&/^\/(?!\/)(?:docs|products)\/[a-z0-9/._-]+(?:#[a-z0-9_-]+)?$/i.test(url)||url==="/terms.html";
 function el(tag,cls,text){
  const node=document.createElement(tag);
@@ -57,7 +59,14 @@ function localAnswer(question){
 
 function initialize(){
  if(document.getElementById("brick-help-toggle"))return;
- const launcher=el("button","brick-help-toggle","Ask Brick");
+ const launcher=el("button","brick-help-toggle");
+ const avatar=el("img","brick-help-avatar");
+ avatar.src="/assets/ask-brick-avatar.webp";
+ avatar.alt="";
+ avatar.width=30;avatar.height=30;
+ avatar.loading="lazy";
+ avatar.decoding="async";
+ launcher.append(avatar,el("span","brick-help-label","Ask Brick"));
  launcher.id="brick-help-toggle";
  launcher.type="button";
  launcher.setAttribute("aria-controls","brick-help-panel");
@@ -79,9 +88,18 @@ function initialize(){
  messages.setAttribute("role","log");
  messages.setAttribute("aria-live","polite");
  messages.setAttribute("aria-relevant","additions");
- messages.append(el("p","brick-help-intro","Ask about Big Brick, tuning, wiring or engine references."));
+ messages.append(el("p","brick-help-intro","Need a hand? Ask about the ECU, setup, software or ordering. Answers link to the docs."));
  const examples=el("div","brick-help-questions");
- const prompts=["What can Big Brick control?","Do high-impedance injectors work?","Where are the connector pinouts?"];
+ const here=location.pathname;
+ const prompts=/engine-setup|pinout|planning|wiring-examples/.test(here)
+  ? ["Where do I start wiring?","Is the pinout final?","What's the difference between grounds?"]
+  : /compatibility|research-status/.test(here)
+  ? ["What do fit scores mean?","Is this engine tested?","How do I check a trigger?"]
+  : /software|downloads/.test(here)
+  ? ["Can I tune from a 3DS?","Does the DSi need homebrew?","How do I find the right INI?"]
+  : /terms|big-brick\.html/.test(here)
+  ? ["What's included for C$799?","Is shipping included?","How does the warranty work?"]
+  : ["What's included for C$799?","Can I tune from a 3DS?","Where's the setup guide?"];
  const form=el("form","brick-help-form");
  const input=el("input","brick-help-input");
  input.type="text";input.name="question";
@@ -98,6 +116,22 @@ function initialize(){
  const history=[];
  const open=()=>{panel.hidden=false;launcher.setAttribute("aria-expanded","true");input.focus()};
  const shut=()=>{panel.hidden=true;launcher.setAttribute("aria-expanded","false");launcher.focus()};
+ function openFromContext(prompt){
+  open();
+  if(prompt){input.value=prompt;input.focus();}
+ }
+ document.querySelectorAll('[data-ask-brick]').forEach(btn=>btn.addEventListener("click",()=>openFromContext(btn.getAttribute("data-ask-brick")||"")));
+ const main=document.querySelector("main");
+ if(main && !document.querySelector(".brick-help-inline")){
+  const inline=el("div","brick-help-inline");
+  const link=el("button","brick-help-inline-button","Questions? Ask Brick");
+  link.type="button";
+  link.setAttribute("aria-label","Open Brick ECU documentation help");
+  link.addEventListener("click",()=>openFromContext(""));
+  inline.append(link);
+  const anchor=main.querySelector(".page-head,.release .lede,.policy-head,.audit-head,.guide-hero,.home-details");
+  if(anchor)anchor.insertAdjacentElement("afterend",inline);
+ }
  launcher.addEventListener("click",()=>{if(panel.hidden)open();else shut()});
  close.addEventListener("click",shut);
  panel.addEventListener("keydown",event=>{if(event.key==="Escape"){event.preventDefault();shut()}});
@@ -120,8 +154,9 @@ function initialize(){
    input.value="";
    const pending=addMessage("Looking through Brick ECU references…","assistant");
    if(!aiReady){
+     await bankReady;
      pending.remove();
-     const local=localAnswer(question);
+     const local=answerBank?.directAnswer(question)||localAnswer(question);
      addMessage(local.answer,"assistant",local.sources);
      busy=false;send.disabled=false;input.disabled=false;input.focus();
      return;
@@ -136,7 +171,8 @@ function initialize(){
      if(!response.ok||!data.answer){
        aiReady=false;
        if(statusLabel)statusLabel.textContent="Documentation help · AI offline";
-       const local=localAnswer(question);
+       await bankReady;
+       const local=answerBank?.directAnswer(question)||localAnswer(question);
        addMessage(local.answer,"assistant",local.sources);
        return;
      }
@@ -147,7 +183,8 @@ function initialize(){
      pending.remove();
      aiReady=false;
      if(statusLabel)statusLabel.textContent="Documentation help · AI offline";
-     const local=localAnswer(question);
+     await bankReady;
+     const local=answerBank?.directAnswer(question)||localAnswer(question);
      addMessage(local.answer,"assistant",local.sources);
    }finally{busy=false;send.disabled=false;input.disabled=false;input.focus()}
  }
