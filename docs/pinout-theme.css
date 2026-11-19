@@ -98,3 +98,18 @@ body:has(.pin-use-toast:not([hidden])) .pinout{padding-bottom:135px}
   font-size:.75rem;gap:7px;max-height:30vh}
  body:has(.pin-use-toast:not([hidden])) .pinout{padding-bottom:155px}
 }
+
+
+/* Quiet, prominent bridge from pinout to the illustrated workshop manual. */
+.pinout .pinout-guide-promo{display:flex;align-items:center;justify-content:space-between;gap:16px;
+ border:1px solid #466276;border-left:3px solid #88b5cd;background:#111f2a;
+ border-radius:4px;padding:15px 18px;margin:20px 0 17px}
+.pinout .pinout-guide-promo strong{display:block;color:#f0f5f9;font-size:1rem;margin-bottom:3px}
+.pinout .pinout-guide-promo p{font-size:.88rem;line-height:1.55;margin:0;color:#bdcfdb;max-width:800px}
+.pinout .pinout-guide-action{display:inline-flex;align-items:center;justify-content:center;flex:none;
+ min-height:42px;border:1px solid #93bbd0;border-radius:3px;padding:9px 14px;
+ background:#203b4e;color:#eff7fb;text-decoration:none;font-weight:650;font-size:.82rem;white-space:nowrap}
+.pinout .pinout-guide-action:hover,.pinout .pinout-guide-action:focus-visible{background:#2b5067;color:#fff}
+.pinout .pinout-guide-foot{font-size:.84rem;margin:12px 0 22px;color:#adc3d0}
+@media(max-width:700px){.pinout .pinout-guide-promo{display:block;padding:13px}
+.pinout .pinout-guide-action{margin-top:12px;width:100%}}
