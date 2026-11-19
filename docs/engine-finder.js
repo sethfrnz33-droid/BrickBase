@@ -75,7 +75,7 @@
     const quick=elm("dl","ef-fit-facts");
     quick.append(
       field("Injectors",d.stockGDI?"Factory direct injection — specialist hardware needed":d.injectorZ==="low"?"Factory low-impedance — check resistor/current limiting":"Standard high-impedance port injectors — natively supported"),
-      field("Ignition",({smart:"Smart coils",dumb:"Passive coils — Big has six IGBT outputs","external-multi":"External ignition module","external-single":"Single coil / distributor with igniter",varies:"Varies by model year",unknown:"Factory coil details not yet listed"})[d.coilType]||"Check factory coil type"),
+      field("Ignition",({smart:"Smart coils",dumb:"Passive coils — Big has eight included IGBT stages","external-multi":"External ignition module","external-single":"Single coil / distributor with igniter",varies:"Varies by model year",unknown:"Factory coil details not yet listed"})[d.coilType]||"Check factory coil type"),
       field("Load signal",({map:"Factory MAP",both:"Factory MAP and MAF",maf:"Factory MAF (MAP can be added)","limited-map":"Factory boost MAP; verify range",mixed:"Varies by model year",unknown:"Factory MAP/MAF not yet listed"})[d.factoryLoadSensor]||""),
       field("VVT",d.vvtClass==="unknown"?"Details not yet listed":d.vvtClass)
     );
@@ -226,7 +226,7 @@
     integration.append(elm("h4",null,"Engine management and wiring research"));
     const int=e.integration||{},d=elm("dl","ef-specs"),hw=e.confidenceV2?.model||{};
     const inj=hw.stockGDI?"Factory direct injection uses specialist high-pressure control. Big Brick external GDI integration is experimental and unvalidated.":hw.injectorZ==="low"?"Original low-impedance injectors require appropriate current limiting"+(hw.factoryResistorPack===true?" (factory resistor pack is documented).":"; confirm the original resistor arrangement."):"Standard high-impedance (>8 Ω) port injectors work directly with Brick saturated injector outputs. No peak-and-hold controller is required.";
-    const coil=hw.coilType==="smart"?"Factory smart coils have built-in power stages.":hw.coilType==="dumb"?"Factory passive coils need high-current ignition stages (six native IGBT-capable outputs on Big Brick).":hw.coilType==="external-multi"?"Factory coils use an external ignition module.":hw.coilType==="external-single"?"Distributor/single coil uses an external or integral igniter.":int.ignition;
+    const coil=hw.coilType==="smart"?"Factory smart coils have built-in power stages.":hw.coilType==="dumb"?"Factory passive coils need high-current ignition stages. Big Brick has eight included IGBT stages driven alongside eight of its twelve logic ignition signals.":hw.coilType==="external-multi"?"Factory coils use an external ignition module.":hw.coilType==="external-single"?"Distributor/single coil uses an external or integral igniter.":int.ignition;
     d.append(field("Crank / cam sensors",int.sensors),field("Ignition",coil),field("Injectors",inj),field("VVT / throttle / auxiliaries",int.actuators));
     integration.append(d);
     
