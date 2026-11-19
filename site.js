@@ -49,7 +49,7 @@ function localAnswer(question){
  if(/big|proteus|v8|eight.cylinder|twelve.cylinder/.test(q)){
   return {answer:"Big Brick has 16 dedicated 2 A low-side outputs, 12 smart ignition outputs, eight included parallel-drive IGBT stages, four 2 A high-side outputs, two H-bridges, two CAN buses and two wideband controllers. The IGBTs do not add independent ignition timing channels.",sources:[{title:"Big Brick hardware",url:"/products/big-brick.html"},{title:"Technical specifications",url:"/docs/big-brick.html"}]};
  }
- if(/vq35|gen.iv|\\bls\\d|engine|trigger|crank|cam|compatib|supported/.test(q)){
+ if(/vq35|gen.iv|ls[0-9]|engine|trigger|crank|cam|compatib|supported/.test(q)){
   return {answer:"The developer reports running VQ35DE and a Gen IV LS engine on Big Brick. The exact LS variant was not recorded. Engine Finder entries are research references, not verified plug-and-play compatibility or wiring lists.",sources:[{title:"Engine Finder",url:"/docs/compatibility.html"}]};
  }
  return {answer:"I can point you to Big Brick specs, wiring references, engine research, software and ordering details. The AI service is offline, so this is the site's built-in reference guide.",sources:[{title:"Setup guide",url:"/docs/engine-setup.html"},{title:"Big Brick",url:"/products/big-brick.html"}]};
