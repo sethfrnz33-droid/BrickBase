@@ -58,6 +58,12 @@ function localAnswer(question){
 }
 
 function initialize(){
+ const nav=document.querySelector(".navlinks");
+ if(nav&&!nav.querySelector('[href$="ask-brick.html"]')){
+  const help=el("a",null,"Help");
+  help.href="/docs/ask-brick.html";
+  nav.append(help);
+ }
  if(document.getElementById("brick-help-toggle"))return;
  const launcher=el("button","brick-help-toggle");
  const avatar=el("img","brick-help-avatar");
