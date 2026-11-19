@@ -73,3 +73,28 @@
  .pinout h1{margin-bottom:8px}
  .pinout .notice{margin:14px 0}
 }
+
+/* Brief, per-pin use/limit note; appears only after choosing a pin. */
+.pin-use-toast{
+ position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:1100;
+ width:min(920px,calc(100vw - 24px));max-height:min(24vh,190px);
+ display:flex;align-items:center;gap:14px;
+ padding:10px 12px 10px 15px;overflow:auto;
+ border:1px solid #486779;border-radius:5px;
+ background:#11202b;color:#c7d8e2;box-shadow:0 6px 24px #0008;
+ font:400 .79rem/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+.pin-use-toast[hidden]{display:none!important}
+.pin-use-text{flex:1;min-width:0;overflow-wrap:anywhere}
+.pin-use-dismiss{align-self:center;flex:0 0 26px;width:26px;height:26px;
+ padding:0;border:1px solid #4d6777;border-radius:3px;
+ background:#172b39;color:#d4e4ec;font:500 20px/1 system-ui;
+ cursor:pointer}
+.pin-use-dismiss:hover{background:#263f4f}
+.pin-use-dismiss:focus-visible{outline:2px solid #a6cee5;outline-offset:2px}
+body:has(.pin-use-toast:not([hidden])) .pinout{padding-bottom:135px}
+@media(max-width:600px){
+ .pin-use-toast{bottom:7px;width:calc(100vw - 14px);padding:9px 8px 9px 11px;
+  font-size:.75rem;gap:7px;max-height:30vh}
+ body:has(.pin-use-toast:not([hidden])) .pinout{padding-bottom:155px}
+}
