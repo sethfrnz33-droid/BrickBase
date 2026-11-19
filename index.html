@@ -148,8 +148,8 @@ body.home-tape {
   <h1 id="hero-title" class="hero-title">BIG BRICK<em>.</em></h1>
   <div class="home-hero-bottom">
    <div class="hero-copy">
-    <h2>For the builds that never stay finished.</h2>
-    <p>A 121-pin standalone ECU running rusEFI. Wire up what you need, assign the channels, and leave room for whatever you decide to add next.</p>
+    <h2>For the car that was finished last weekend.</h2>
+    <p>A 121-pin rusEFI-based ECU with configurable I/O. Choose suitable channels, wire them properly, and leave room for the next idea.</p>
     <div class="hero-actions">
      <a class="primary-link" href="products/big-brick.html">See Big Brick</a>
      <a class="plain-link" href="docs/engine-setup.html">Read the install manual</a>
@@ -172,12 +172,12 @@ body.home-tape {
  <section class="home-story" aria-labelledby="story-title">
   <div>
    <span class="section-mark mono">01 / THE POINT</span>
-   <h2 id="story-title">WIRE IT.<br><span>MAKE IT YOURS.</span></h2>
+   <h2 id="story-title">PICK THE CHANNELS.<br><span>BUILD THE HARNESS.</span></h2>
   </div>
   <div class="story-right">
-   <p>There's no special MAP pin. Injector 1 doesn't have to be on low-side 1. You've got 10 analog-voltage inputs and 16 general-purpose low-sides. Pick suitable free channels and tell rusEFI what's connected.</p>
-   <p>Some interfaces are dedicated—wideband, knock, CAN and the motor drivers. That's how it should be.</p>
-   <p class="story-quiet">You don't need to build every future idea into the car on day one. Just leave space in the harness.</p>
+   <p>MAP doesn't need a special pin, and injector 1 doesn't have to use low-side 1. Choose suitable free channels and assign their functions in rusEFI.</p>
+   <p>Wideband, knock, CAN and motor drivers have dedicated connections. Not every pin does every job.</p>
+   <p class="story-quiet">Leave a few suitable channels free. Future you will probably find a use for them.</p>
    <a href="docs/big-brick-pinout.html">Look at the actual pinout</a>
   </div>
  </section>
@@ -197,8 +197,8 @@ body.home-tape {
   <div class="detail">
    <span class="section-mark mono">03 / IN THE GARAGE</span>
    <h2>START WITH<br>THE MANUAL.</h2>
-   <p>The guide follows the way an install actually happens. Plan the harness, get the ECU powered, look at live sensor readings, sort out the trigger, and work through commissioning.</p>
-   <p>Real Big Brick pin locations are shown. The external sensor or actuator pinout is something you match to the actual part in your hand.</p>
+   <p>Plan the harness, check ECU power, verify sensors and triggers, then work through first-start checks.</p>
+   <p>The 121-pin map is preliminary. Check it against the final schematic, and use the exact pinout for each external part.</p>
    <div class="hero-actions">
     <a class="plain-link" href="docs/engine-setup.html">Installation manual</a>
     <a class="plain-link" href="docs/compatibility.html">Engine finder</a>
@@ -206,14 +206,14 @@ body.home-tape {
   </div>
  </section>
 <section class="tuning-intro" aria-labelledby="tuning-title"><span class="section-mark mono">04 / TUNING INTERFACES</span>
-<div class="tuning-head"><h2 id="tuning-title">FULL ECU TUNING. ON A NINTENDO 3DS.</h2><p>Turn a Nintendo 3DS or DSi into a native Brick ECU tuning interface—or an unexpected, fully functional live gauge display. Connect directly to your ECU over its local Wi-Fi network.</p></div>
-<div class="tuning-grid"><article class="tuning-card"><span class="mono">NINTENDO 3DS / DSi</span><h3>Brick Tuner Suite</h3><p>Not a remote control or a novelty dashboard: native handheld applications built to edit actual ECU maps, curves, scalars and settings while displaying live gauges. On Nintendo 3DS, the visual 3D map editor adds stereoscopic depth—tuning surfaces that actually pop out at you. The DSi offers the handheld tuning and gauge experience without stereoscopic 3D.</p><p class="status">ACTIVE DEVELOPMENT · EXPERIMENTAL BUILDS</p><a href="docs/software.html">Handheld tuning details</a></article>
-<article class="tuning-card"><span class="mono">PHONE / WEB BROWSER</span><h3>Tuning without an app install</h3><p>Connect your phone directly to the ECU's local Wi-Fi network to view live channels and edit calibrations in a browser—no additional app required.</p><p class="status">BRICK ECU WI-FI INTERFACE</p><a href="docs/software.html">Wireless tuning details</a></article></div></section>
+<div class="tuning-head"><h2 id="tuning-title">ECU TUNING ON A 3DS. YES, REALLY.</h2><p>Brick Tuner Suite brings calibration editing and live gauges to Nintendo 3DS and DSi over local ECU Wi-Fi. Both need a homebrew-enabled (modded) console; stock systems won't run the app.</p></div>
+<div class="tuning-grid"><article class="tuning-card"><span class="mono">NINTENDO 3DS / DSi</span><h3>Brick Tuner Suite</h3><p>Maps, curves, settings and live gauges on a Nintendo handheld. The 3DS also has a stereoscopic 3D map view that pops out of the screen; the DSi uses 2D. Both apps are experimental BrickOS homebrew, not official Nintendo software.</p><p class="status">ACTIVE DEVELOPMENT · EXPERIMENTAL BUILDS</p><a href="docs/software.html">Handheld tuning details</a></article>
+<article class="tuning-card"><span class="mono">PHONE / WEB BROWSER</span><h3>Phone tuning. No app install.</h3><p>Connect your phone directly to the ECU's local Wi-Fi network to view live channels and edit calibrations in a browser—no additional app required.</p><p class="status">BRICK ECU WI-FI INTERFACE</p><a href="docs/software.html">Wireless tuning details</a></article></div></section>
  <section class="build-band" aria-labelledby="price-title">
   <div>
    <span class="mono" style="color:#9bbcd0">05 / BIG BRICK / BUILT TO ORDER</span>
    <h2 id="price-title">ONE ECU.<br>YOUR BUILD.</h2>
-   <p>One fully equipped Big Brick at C$799, including all eight onboard IGBT coil drivers and 256 MB SD logging. No add-ons or configuration choices.</p>
+   <p>Big Brick costs C$799. All eight IGBT ignition drivers and 256 MB onboard logging are included. One configuration, no add-ons.</p>
    <p class="fineprint">Target fulfillment within three weeks, subject to manufacturing and shipping. Checkout isn't active yet.</p>
   </div>
   <div>
