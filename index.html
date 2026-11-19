@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#100d12">
-<meta name="description" content="Big Brick. A 121-pin standalone ECU, built to order in Canada. rusEFI, configurable I/O, two onboard wideband controllers and Wi-Fi tuning. From C$699.">
+<meta name="theme-color" content="#080c10">
+<meta name="description" content="Big Brick. A 121-pin standalone ECU, built to order in Canada. rusEFI, configurable I/O, two onboard wideband controllers and Wi-Fi tuning. Fully equipped at C$799.">
 <title>Big Brick ECU — Brick ECU</title>
 <link rel="stylesheet" href="site.css">
 <link rel="stylesheet" href="field-console.css">
@@ -126,7 +126,7 @@ body.home-tape {
 }
 @media(prefers-reduced-motion:reduce){.home-tape *, .home-tape *:before,.home-tape *:after{scroll-behavior:auto!important;animation:none!important}}
 </style>
-</head>
+<link rel="stylesheet" href="guide-theme.css?v=20261119"></head>
 <body class="terminal-home home-tape">
 <a href="#main" class="skip">Skip to content</a>
 <header class="top">
@@ -138,7 +138,7 @@ body.home-tape {
    <a href="/products/big-brick.html">Big Brick</a>
    <a href="/docs/engine-setup.html">Install guide</a>
    <a href="/docs/big-brick-pinout.html">Pinout</a>
-   <a href="/docs/downloads.html">Downloads</a>
+   <a href="/docs/software.html">Software</a><a href="/docs/downloads.html">Downloads</a>
   </div>
  </nav>
 </header>
@@ -175,7 +175,7 @@ body.home-tape {
    <h2 id="story-title">WIRE IT.<br><span>MAKE IT YOURS.</span></h2>
   </div>
   <div class="story-right">
-   <p>There's no special MAP pin. Injector 1 doesn't have to be on low-side 1. You've got 11 analog-voltage inputs and 16 general-purpose low-sides. Pick suitable free channels and tell rusEFI what's connected.</p>
+   <p>There's no special MAP pin. Injector 1 doesn't have to be on low-side 1. You've got 10 analog-voltage inputs and 16 general-purpose low-sides. Pick suitable free channels and tell rusEFI what's connected.</p>
    <p>Some interfaces are dedicated—wideband, knock, CAN and the motor drivers. That's how it should be.</p>
    <p class="story-quiet">You don't need to build every future idea into the car on day one. Just leave space in the harness.</p>
    <a href="docs/big-brick-pinout.html">Look at the actual pinout</a>
@@ -187,11 +187,11 @@ body.home-tape {
    <h2>THE HARDWARE.</h2>
    <p>Two onboard LSU 4.9 controllers. Two H-bridges. Four high-side outputs. An ESP32 for Wi-Fi tuning. The connectors and pins are there—use the ones you need.</p>
    <dl>
-    <dt>Analog voltage</dt><dd>11 inputs</dd>
+    <dt>Analog voltage</dt><dd>10 inputs</dd>
     <dt>Analog temperature</dt><dd>4 inputs</dd>
     <dt>Digital Hall / differential</dt><dd>6 / 2</dd>
-    <dt>Optional coil igniters</dt><dd>8 IGBTs</dd>
-    <dt>Onboard SD logging option</dt><dd>256 MB</dd>
+    <dt>Included IGBT coil drivers</dt><dd>8 IGBTs</dd>
+    <dt>Included SD logging</dt><dd>256 MB</dd>
    </dl>
   </div>
   <div class="detail">
@@ -205,15 +205,19 @@ body.home-tape {
    </div>
   </div>
  </section>
+<section class="tuning-intro" aria-labelledby="tuning-title"><span class="section-mark mono">04 / TUNING INTERFACES</span>
+<div class="tuning-head"><h2 id="tuning-title">TUNE FROM ANYWHERE.</h2><p>Big Brick's onboard ESP32 brings ECU communications to the devices you already have.</p></div>
+<div class="tuning-grid"><article class="tuning-card"><span class="mono">NINTENDO 3DS / DSi</span><h3>Brick Tuner Suite</h3><p>Native Nintendo 3DS and DSi applications connect to Brick ECU over Wi-Fi, designed for a full tuning experience with maps, curves, editable settings and live data—not just gauges.</p><p class="status">ACTIVE DEVELOPMENT · EXPERIMENTAL BUILDS</p><a href="docs/software.html">Handheld tuning details</a></article>
+<article class="tuning-card"><span class="mono">PHONE / WEB BROWSER</span><h3>Tuning without an app install</h3><p>Connect a phone to the ECU's Wi-Fi interface and use browser-based tuning for live channels, calibration editing and wireless access.</p><p class="status">BRICK ECU WI-FI INTERFACE</p><a href="docs/software.html">Wireless tuning details</a></article></div></section>
  <section class="build-band" aria-labelledby="price-title">
   <div>
-   <span class="mono" style="color:#d5aba9">04 / BIG BRICK / BUILT TO ORDER</span>
+   <span class="mono" style="color:#9bbcd0">05 / BIG BRICK / BUILT TO ORDER</span>
    <h2 id="price-title">ONE ECU.<br>YOUR BUILD.</h2>
-   <p>Base model C$699. Optional onboard igniters +C$100. Optional SD logging +C$50.</p>
+   <p>One fully equipped Big Brick at C$799, including all eight onboard IGBT coil drivers and 256 MB SD logging. No add-ons or configuration choices.</p>
    <p class="fineprint">Target fulfillment within three weeks, subject to manufacturing and shipping. Checkout isn't active yet.</p>
   </div>
   <div>
-   <div class="band-price">C$699 <small>STARTING PRICE · CAD</small></div>
+   <div class="band-price">C$799 <small>FULLY EQUIPPED · CAD</small></div>
    <div class="band-actions"><a class="primary-link" href="products/big-brick.html">Hardware &amp; pricing</a><a class="plain-link" href="docs/downloads.html">Software</a></div>
   </div>
  </section>
