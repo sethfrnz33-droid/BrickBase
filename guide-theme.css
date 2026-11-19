@@ -1,0 +1,138 @@
+/* Brick ECU unified workshop-guide theme
+   Source of truth: /docs/engine-setup.html. Loaded after legacy page styles. */
+:root{
+ --bg:#080c10;--navy:#0b141b;--panel:#0c161e;--panel2:#14212c;
+ --blue:#8bbad1;--ice:#d9eaf2;--line:#344d5c;--white:#e9edf0;
+ --muted:#a9beca;--mint:#9fc7d6;--gold:#c1b39a;
+ --guide-bg:#080c10;--guide-surface:#0b141b;--guide-surface-raised:#101f2b;
+ --guide-border:#2d424d;--guide-text:#e9edf0;--guide-muted:#aebfcb;--guide-link:#a6cee5;
+ color-scheme:dark;
+}
+html{scroll-padding-top:85px}
+body,body.terminal-home,body.docs-page,body.home-tape{background:#080c10;color:var(--guide-text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.65}
+body::before,body.home-tape::before{display:none}
+h1,h2,h3{color:#f1f4f6;text-shadow:none}
+p,.lead,.section-intro{color:#bbc8d0}
+a{color:var(--guide-link);text-underline-offset:4px}
+a:hover{color:#e5f3fc}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid #a6cee5;outline-offset:3px}
+.top,.home-tape .top{background:#0b1219;border-bottom:1px solid #2d424d;box-shadow:none;backdrop-filter:none}
+.nav,.home-tape .nav{min-height:70px}
+.brand,.home-tape .brand{font:750 1.2rem/1.25 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.04em;color:#ecf1f4;text-shadow:none}
+.brand strong,.home-tape .brand strong{color:#a6cee5}
+.brand::before,.home-tape .brand::before{content:none;display:none}
+.navlinks a,.home-tape .navlinks a{border:1px solid transparent;border-radius:3px;box-shadow:none;background:transparent;color:#c0d0da;font:650 .8rem/1.3 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:0;padding:10px 12px}
+.navlinks a:hover,.navlinks a:focus-visible,.navlinks a[aria-current=page],.home-tape .navlinks a:hover,.home-tape .navlinks a:focus-visible,.home-tape .navlinks a[aria-current=page]{background:#14212c;border-color:#39566a;color:#f2f6f9}
+.navlinks a.buy,.navlinks a.buy:hover{background:#172b37;color:#dcebf2;border-color:#50778b}
+.menu-toggle,.home-tape .menu-toggle{background:#101f2b;color:#e1ecf2;border:1px solid #456376;border-radius:3px}
+.kicker,.section-label,.eyebrow,.mono,.docs-sidebar-label{color:#9fb9c9;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.kicker::before{background:#8bbad1;box-shadow:none;border:0;border-radius:2px}
+.section-label{background:#101f2b;border:1px solid #344d5c;border-radius:3px;box-shadow:none}
+.btn,.btn.ghost,.btn.primary{border:1px solid #50758a;border-radius:3px;background:#142635;color:#e7f1f7;box-shadow:none;font:700 .83rem/1.4 ui-monospace,Consolas,monospace;min-height:44px}
+.btn.primary{background:#a6cee5;color:#08121a;border-color:#a6cee5}
+.btn:hover,.btn:focus-visible,.btn.ghost:hover,.btn.ghost:focus-visible{background:#1b3445;border-color:#91c1db;transform:none;filter:none}
+.btn.primary:hover,.btn.primary:focus-visible{background:#c5e4f4;color:#07131b}
+.frame,.docs-page .doc-main>.frame,.feature,.ef-workspace,.ef-results-pane,.ef-details-pane,.ef-research,.ef-layered,.ef-result,.ef-detail-card{border-color:#2d424d;background:#0b141b;box-shadow:none;border-radius:4px}
+.frame-head,.docs-page .doc-main>.frame>.frame-head{background:#101f2b;border-color:#2d424d;box-shadow:none}
+.frame-head strong,.docs-page .doc-main>.frame>.frame-head strong{color:#d8e8f1}
+.frame-head span{color:#9eb4c2}
+.pill,.tag,.badge{border-color:#39566a;background:#14212c;color:#c6dce9;border-radius:3px}
+.price{color:#d8e9f3}
+.notice,.policy-preview,.policy-risk{background:#111c23;border:1px solid #465967;border-left:3px solid #7bacc6;color:#c4d5df;border-radius:4px}
+.footer,.home-tape .footer{background:#080e14;border-top:1px solid #2d424d;box-shadow:none;color:#a9beca}
+.footer a,.footer-inner a,.home-tape .footer-inner a{color:#bdd2df}
+.footer-inner a:hover,.home-tape .footer-inner a:hover{color:#e9f4fb}
+input,select,textarea{background:#0b141b;color:#e8f0f5;border:1px solid #405868;border-radius:3px}
+input::placeholder,textarea::placeholder{color:#94aaba}
+.docs-local-nav{background:#0b141b;border-color:#344d5c}
+.docs-local-nav a{color:#b8ccd9}
+.docs-local-nav a:hover,.docs-local-nav a:focus-visible,.docs-local-nav a[aria-current=page]{background:#152938;color:#edf6fb;border-color:#527e98}
+.docs-page .doc-main .callout-link,.docs-section-nav a,.docs-task-link,.docs-download-spotlight,.docs-link-list a,.site-resources-grid a{background:#0e1a23;border:1px solid #334b5a;border-radius:4px;box-shadow:none}
+.docs-page .doc-main .kv th{color:#b9ccd9}
+.docs-page .doc-main .kv tr{border-color:#2d424d}
+.ef-picker,.ef-layered,.ef-layer-coverage,.ef-layer-evidence,.ef-score-reasons,.ef-subsection{background-color:#101e28;border-color:#344d5c;border-radius:4px;box-shadow:none}
+.ef-result:hover{background:#152936}
+.ef-research-status{background:#142b38;color:#c0dce9;border-color:#41657b}
+.ef-layer-refs a{color:#a6cee5}
+.site-resources-grid a:hover,.docs-task-link:hover{background:#172c3a;border-color:#628ba1}
+.site-resource-type,.docs-task-label{color:#9db9c8}
+.site-resource-action{color:#b8dbee}
+/* Product, technical, and policy pages: one coherent guide-inspired treatment. */
+.release,.terminal-home .release,.pinout,.policy-wrap{color:#e9edf0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+.release p,.pinout p,.policy-wrap p{color:#bbc8d0}
+.release .eyebrow,.pinout .eyebrow{color:#9fc5da}
+.release .lede{color:#d1e1ea}
+.release .price{color:#edf6fb}
+.release .price small,.release .small{color:#aebfcb}
+.release .panel,.terminal-home .release .panel{background:#0b141b;border:1px solid #2d424d;border-radius:4px}
+.release .panel h3{color:#e6f0f5}
+.release .stats{background:#2d424d;border-color:#2d424d}
+.release .stat{background:#0b141b}
+.release .stat strong{color:#dfeef5}
+.release .stat span{color:#aebfcb}
+.release th,.release td{border-color:#2d424d}
+.release th,.release td,.release .panel td{color:#bfced8}
+.release th{color:#d8e8f1}
+.release a,.pinout a{color:#a6cee5}
+.release .linkbtn{border:1px solid #50758a;background:#142635;color:#e7f1f7;border-radius:3px}
+.release .linkbtn:hover{background:#1e3545}
+.release .note,.release p.note{background:#111c23;color:#c3d3de;border-left:2px solid #7bacc6}
+.pinout .notice{background:#111c23;border-color:#425868;color:#d0dce4}
+.pinout .map-scroll{border-color:#344d5c;background:#070d13}
+.pinout .connector .shell{fill:#17242e;stroke:#6c8b9c}
+.pinout .guide-table th{background:#142635;color:#d8eaf2}
+.pinout .guide-table td{color:#cfdae2;border-color:#314b5a}
+.pinout .guide-notes{background:#0d1d29;border-color:#344d5c;color:#c1d1db}
+.pinout .guide-photo{background:#0b141b;border-color:#344d5c}
+.pinout .wire-guide{border-color:#344d5c}
+.pinout .lsu-diagram object{background:#070d13;border-color:#344d5c}
+.policy-quick,.policy-end{border-color:#344d5c}
+/* Home: retain the existing sections while using the manual's typography and colors. */
+body.home-tape{--ink:#080c10;--paper:#e9edf0;--muted:#aebfcb;--line:#2d424d;--red:#a6cee5;--purple:#759ab0;background:#080c10;color:#e9edf0}
+.home-tape .home-hero,.home-tape .home-story,.home-tape .home-details,.home-tape .stripe{border-color:#2d424d}
+.home-tape .hero-strip,.home-tape .stripe span,.home-tape .story-quiet,.home-tape .detail dl dt,.home-tape .fineprint{color:#8fa6b5}
+.home-tape .hero-strip span:first-child,.home-tape .section-mark{color:#8bbad1}
+.home-tape .hero-title{font:750 clamp(3.65rem,10vw,8.8rem)/.98 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.065em;color:#f1f4f6;white-space:normal}
+.home-tape .hero-title em{color:#a6cee5}
+.home-tape .hero-copy h2{font:720 clamp(1.85rem,4vw,3rem)/1.15 system-ui,-apple-system,"Segoe UI",sans-serif;color:#f1f4f6}
+.home-tape .hero-copy p,.home-tape .home-story p,.home-tape .detail p{color:#bbc8d0}
+.home-tape .primary-link{background:#a6cee5;border:1px solid #a6cee5;border-radius:3px;color:#07141c;font:750 .83rem/1.5 ui-monospace,Consolas,monospace;letter-spacing:0}
+.home-tape .primary-link:hover{background:#c9e7f6;border-color:#c9e7f6;color:#07141c}
+.home-tape .plain-link{color:#bdd9e9;border-color:#56768a}
+.home-tape .plain-link:hover,.home-tape .home-story .story-right a:hover{color:#f0f8fc;border-color:#9ecce4}
+.home-tape .hero-art{background:linear-gradient(145deg,#122331 0%,#0b141b 60%,#080c10);border:1px solid #344d5c}
+.home-tape .hero-art:before{border-color:#2d424d}
+.home-tape .art-label,.home-tape .art-bottom{color:#9db4c4}
+.home-tape .stripe>div,.home-tape .detail,.home-tape .detail dl dt,.home-tape .detail dl dd{border-color:#2d424d}
+.home-tape .stripe b{font:730 clamp(1.6rem,3vw,2.7rem)/1.15 system-ui,-apple-system,"Segoe UI",sans-serif;color:#eaf2f7}
+.home-tape .home-story h2,.home-tape .detail h2,.home-tape .build-band h2{font:750 clamp(2.1rem,4.5vw,3.9rem)/1.09 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.045em;color:#f1f4f6}
+.home-tape .home-story h2 span{color:#92b7cc}
+.home-tape .home-story .story-right a{color:#b5d6e9;border-color:#5d8297}
+.home-tape .detail dl dd{color:#e4eff5}
+.home-tape .build-band{background:#0c161e;border:1px solid #344d5c;border-left:3px solid #8bbad1;border-radius:4px}
+.home-tape .build-band p{color:#b9cbd6}
+.home-tape .band-price{font:750 clamp(3rem,6vw,5rem)/1 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.06em;color:#f0f6fa}
+.home-tape .band-price small{color:#9bbbd0}
+.home-tape .tuning-intro{padding:60px 0 22px;border-bottom:1px solid #2d424d}
+.home-tape .tuning-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin:0 0 22px}
+.home-tape .tuning-intro h2{font-size:clamp(2rem,4.5vw,3.25rem);line-height:1.13;letter-spacing:-.04em;margin:0;color:#edf4f8}
+.home-tape .tuning-head p{max-width:520px;font-size:15px;color:#bbc8d0;margin:0}
+.home-tape .tuning-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.home-tape .tuning-card{border:1px solid #344d5c;background:#0b141b;border-radius:4px;padding:25px}
+.home-tape .tuning-card .mono{color:#9bbcd0}
+.home-tape .tuning-card h3{font-size:1.22rem;letter-spacing:-.025em;margin:13px 0 12px;color:#e8f1f6}
+.home-tape .tuning-card p{font-size:15px;line-height:1.7;color:#b6c8d4;margin:0 0 13px}
+.home-tape .tuning-card a{font-size:14px;color:#b5d6e9;text-decoration:underline}
+.home-tape .tuning-card .status{font:650 11px ui-monospace,Consolas,monospace;letter-spacing:.04em;color:#9cb2c0}
+@media(max-width:700px){
+ .home-tape .tuning-intro{padding:43px 0 12px}
+ .home-tape .tuning-head{display:block}
+ .home-tape .tuning-head p{margin-top:12px}
+ .home-tape .tuning-grid{grid-template-columns:1fr}
+ .home-tape .tuning-card{padding:20px}
+ .home-tape .hero-title{font-size:clamp(3.4rem,14vw,5.5rem)}
+ .home-tape .stripe>div:nth-child(n+3){border-color:#2d424d}
+ .home-tape .detail{border-color:#2d424d}
+}
+@media(max-width:400px){.home-tape .hero-title{font-size:14vw}}
+@media(prefers-reduced-motion:reduce){.home-tape .tuning-card{transition:none}}
