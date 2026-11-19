@@ -20,5 +20,7 @@ jobs:
         run: find . -name '*.js' -not -path './node_modules/*' -print0 | xargs -0 -n1 node --check
       - name: Verify Big Brick 121-pin descriptions and NC cavities
         run: node scripts/pinout-audit.mjs
+      - name: Verify illustrated wiring guide and terminal-name legend
+        run: node scripts/wiring-guide-audit.mjs
       - name: Verify engine research and source counts
         run: node scripts/research-audit.mjs
