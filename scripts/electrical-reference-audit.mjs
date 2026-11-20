@@ -25,7 +25,7 @@ check(hardware.includes('150 mA')&&pins.includes('150 mA')&&notes.includes('150 
 check(notes.includes('19 V continuous withstand')&&notes.includes('17 V'),'Unreconciled 17/19 V statements omitted');
 check(hardware.includes('both 17 V and 19 V'),'Ambiguous withstand values must not be published as an agreed safe rating');
 check(guide.includes('ground-pulled')&&pins.includes('ground-pulling'),'Digital inputs need ground-only signal caveat');
-check(/not(?:\\*\\*)? a USB-C (?:receptacle|jack)/i.test(notes),'JST USB connection identity not distinguished');
+check(/not a USB-C (receptacle|jack)/i.test(notes.replace(/\*/g,'')),'JST USB connection identity not distinguished');
 check(!/200 mA.*(?:per sensor|sensor rail|TLS115B0)|TLS115B0.*200 mA/i.test(hardware),'Incompatible 200 mA claim on public hardware page');
 if(errors.length){console.error('Electrical reference audit failed:\n- '+errors.join('\n- '));process.exit(1);}
 console.log('Electrical reference audit passed: input networks, component identities, 150 mA tracker limit, unsettled AV rating.');
