@@ -78,9 +78,9 @@ function shortFor(p){
  if(n===5)return "VIN — main-relay-switched ECU supply; protected feed";
  if(n>=31&&n<=41)return "SGND — low-current sensor return, not power ground";
  if(/^VR[12][+−]$/.test(label))return label+" — differential trigger input paired with pin "+paired[n];
- if(/^IN-AT[1-4]$/.test(label))return label.slice(3)+" — thermistor input with ECU bias resistor";
+ if(/^IN-AT[1-4]$/.test(label))return label.slice(3)+" — thermistor; 4.7 kΩ to 5 V, 100 nF to ground";
  if(/^IN-AV(?:[1-9]|10|11)$/.test(label))return label.slice(3)+" — configurable analog sensor voltage input";
- if(/^IN-D[1-6]$/.test(label))return label.slice(3)+" — digital / Hall / frequency input with 5 V pull-up";
+ if(/^IN-D[1-6]$/.test(label))return label.slice(3)+" — ground-pulled digital; 2.2 kΩ to 5 V, 1 nF to ground";
  if(/^5VP[12]$/.test(label))return label+" — regulated 5 V sensor supply (shared rail)";
  if(/^CAN[12][HL]$/.test(label))return label+" — CAN differential data line, paired with pin "+paired[n];
  if(sensorTerminal[n])return "Wideband "+label.slice(-1)+" — LSU 4.9 sensor terminal "+sensorTerminal[n]+" ("+sensorRole[sensorTerminal[n]]+")";
@@ -107,27 +107,27 @@ function usageFor(p){
  const vr=label.match(/^VR([12])([+−])$/);
  if(vr){
   const polarity=vr[2]==="+"?"positive":"negative";
-  return "VR"+vr[1]+" "+polarity+" lead of differential trigger input "+vr[1]+". Use with its matching lead on pin "+paired[n]+" for a compatible two-wire variable-reluctance crank/cam pickup, as configured in firmware. The negative terminal is not ground; do not treat either terminal as a general 5 V digital input.";
+  return "VR"+vr[1]+" "+polarity+" lead of differential trigger input "+vr[1]+". Uses a MAX9924UAUB VR interface with its matching lead on pin "+paired[n]+" for a compatible two-wire variable-reluctance crank/cam pickup, as configured in firmware. The negative terminal is not ground; do not treat either terminal as a general 5 V digital input.";
  }
  const at=label.match(/^IN-AT([1-4])$/);
  if(at){
   const ch="AT"+at[1],example=guideExamples[ch];
-  return ch+" is a thermistor-resistance measurement input with an ECU-side bias resistor. "+(example?"The setup guide uses it for a "+example+"; that role can be reassigned. ":"Use a compatible temperature sensor and assign its role in firmware. ")+"Use the sensor's resistance curve and the correct ECU bias value. It is not a 12 V input or load output.";
+  return ch+" is a thermistor-resistance measurement input with an ECU-side bias resistor. "+(example?"The setup guide uses it for a "+example+"; that role can be reassigned. ":"Use a compatible temperature sensor and assign its role in firmware. ")+"The Big Brick AT input has a 4.7 kΩ pull-up to 5 V and a 100 nF capacitor to ground. Use the sensor resistance curve and this exact bias for calibration; not a battery-voltage switch input or load output.";
  }
  const av=label.match(/^IN-AV(11|10|[1-9])$/);
  if(av){
   const ch="AV"+av[1],example=guideExamples[ch];
-  return ch+" is one of eleven confirmed analog-voltage sensor inputs. "+(example?"The setup guide uses it for a "+example+" as an example, not a required assignment. ":"It can be assigned a compatible MAP, TPS, pedal, pressure or other analog-voltage sensor function. ")+"Match the device's output range and calibration; this input does not supply power and is not assumed 12 V tolerant.";
+  return ch+" is one of eleven confirmed analog-voltage sensor inputs. "+(example?"The setup guide uses it for a "+example+" as an example, not a required assignment. ":"It can be assigned a compatible MAP, TPS, pedal, pressure or other analog-voltage sensor function. ")+"Match the device's output range and calibration. The designer has reported both 17 V and 19 V continuous withstand values, which remain unreconciled; neither is an intended sensor operating range or permission to apply battery voltage. This input does not supply power.";
  }
  const d=label.match(/^IN-D([1-6])$/);
  if(d){
   const ch="D"+d[1],example=guideExamples[ch];
-  return ch+" is a configurable digital input with the hardware's 5 V pull-up, suitable for a compatible Hall sensor, ground-switching switch or pulse/frequency signal. "+(example?"The guide uses this channel for a "+example+" as one example. ":"Choose the actual input function in firmware. ")+"Not a 12 V input, 5 V sensor-supply output or ground connection.";
+  return ch+" is a 5 V pull-up digital input with a 2.2 kΩ pull-up and 1 nF capacitor to ground, for compatible ground-pulling Hall, switch or frequency signals. "+(example?"The guide uses this channel for a "+example+" as one example. ":"Choose the actual input function in firmware. ")+"Do not drive this pin actively high with battery voltage; it is not a 5 V supply output or ground connection.";
  }
  const rail=label.match(/^5VP([12])$/);
  if(rail){
   const pins=rail[1]==="1"?"49–51 and 68–70":"46–48 and 65–67";
-  return "5VP"+rail[1]+" is a regulated 5 V supply for compatible sensors. The same supply name appears on pins "+pins+"; these are connection points for the named sensor rail, not independent power outputs. Do not power injectors, coils, motors or 12 V equipment from this pin. Observe the final rail-current limit.";
+  return "5VP"+rail[1]+" is a regulated 5 V sensor rail using an Infineon TLS115B0EJ tracking regulator (150 mA IC rated output, subject to thermal and board-level limits). The same supply name appears on pins "+pins+"; these are connection points for the named sensor rail, not independent power outputs. Do not power injectors, coils, motors or 12 V equipment from this pin. Observe the final rail-current limit.";
  }
  const can=label.match(/^CAN([12])([HL])$/);
  if(can){
@@ -140,11 +140,11 @@ function usageFor(p){
  const knock=label.match(/^KNOCK([12])$/);
  if(knock)return "KNOCK"+knock[1]+" is the dedicated signal input for knock sensor channel "+knock[1]+". Use a compatible sensor and approved shield/return scheme; firmware must be configured for the actual engine. Not a general AV input, power feed or switching output.";
  const bridge=label.match(/^DBW([12])([+−])$/);
- if(bridge)return "DBW"+bridge[1]+(bridge[2])+" is one motor terminal of H-bridge "+bridge[1]+", used together with "+label.slice(0,-1)+(bridge[2]==="+"?"−":"+")+" on pin "+paired[n]+". The drive reverses polarity for a compatible throttle/actuator motor; neither terminal is a permanent +12 V output or ground. Include this motor's load in VIN feed sizing; verify firmware and actuator limits.";
+ if(bridge)return "DBW"+bridge[1]+(bridge[2])+" is one motor terminal of H-bridge "+bridge[1]+", used together with "+label.slice(0,-1)+(bridge[2]==="+"?"−":"+")+" on pin "+paired[n]+". The IFX9201SG driver reverses polarity for a compatible throttle/actuator motor; neither terminal is a permanent +12 V output or ground. Include this motor's load in VIN feed sizing; verify firmware and actuator limits.";
  const coil=label.match(/^COIL(1[0-2]|[1-9])$/);
  if(coil)return "COIL"+coil[1]+" is an independent 5 V ignition timing/control signal for a compatible smart coil or external igniter input. It is not a high-current coil-primary driver. Eight of the twelve logic channels additionally drive included onboard IGBTs in parallel; the exact signal-to-IGBT pairing comes from the production design, not the pin number alone.";
  const igniter=label.match(/^C([1-8])$/);
- if(igniter)return "C"+igniter[1]+" is one of the eight included IGBT coil-primary low-side power drivers for a compatible passive ignition coil. It shares the timing of a corresponding 5 V COIL output; it is not a ninth/extra independent ignition event or a general-purpose 2 A L-channel. Confirm driver-to-logic pairing and coil electrical limits.";
+ if(igniter)return "C"+igniter[1]+" is one of the eight included onsemi ISL9V3040D3ST-F085C IGBT coil-primary low-side power drivers for a compatible passive ignition coil. It shares the timing of a corresponding 5 V COIL output; it is not a ninth/extra independent ignition event or a general-purpose 2 A L-channel. Confirm driver-to-logic pairing and coil electrical limits.";
  const low=label.match(/^L(1[0-6]|[1-9])$/);
  if(low)return "L"+low[1]+" is an individually assignable low-side output rated up to 2 A (manufacturer specification): it switches the ground side of a compatible relay, port injector or solenoid. The load gets its positive supply elsewhere. "+(n===109?"In the installation guide, L5/pin 109 controls the main-relay coil return; it is an example allocation, not a second dedicated relay pin. ":"Assign its supported role in the ECU software, and don't give one channel two jobs. ")+"It does not source power.";
  const high=label.match(/^H([1-4])$/);
