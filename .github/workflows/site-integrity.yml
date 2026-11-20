@@ -22,5 +22,7 @@ jobs:
         run: node scripts/pinout-audit.mjs
       - name: Verify illustrated wiring guide and terminal-name legend
         run: node scripts/wiring-guide-audit.mjs
+      - name: Verify original ten-stage BrickOS-aligned website guide
+        run: node scripts/ten-stage-audit.mjs
       - name: Verify engine research and source counts
         run: node scripts/research-audit.mjs
